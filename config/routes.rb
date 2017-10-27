@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  root 'static_pages#login'
+  get 'static_pages/login'
   get 'static_pages/notifications'
   get 'static_pages/users'
   get 'static_pages/groups'
