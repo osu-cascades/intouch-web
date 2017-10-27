@@ -1,4 +1,5 @@
 class StaticPagesController < ApplicationController
+  
   def login
   end
 
@@ -10,4 +11,5 @@ class StaticPagesController < ApplicationController
 
   def groups
   end
+
 end
