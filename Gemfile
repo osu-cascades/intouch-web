@@ -8,6 +8,8 @@ end
 ruby '~> 2.4.0'
 
 #gem 'high_voltage', '~>3.0.0'
+gem 'bootstrap-sass', '3.3.7'
+gem 'rails-controller-testing'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
