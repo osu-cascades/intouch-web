@@ -1,5 +1,16 @@
-#the controller interacts with a model, which is a Ruby object that, 
-#represents an element of the site (such as a user),
-#and is in charge of communicating with the database.
 class User < ApplicationRecord
+	# overrides rails attributes, remove
+	# attr_accessor :firstName, :lastName, :userType, :username, :
+
+	before_save { username.downcase! } 
+	#self.username = self.username.downcase 
+
+	validates :firstName, presence: true, length: { maximum: 50 }
+	validates :lastName, presence: true, length: { maximum: 50 }
+	validates :userType, presence: true, length: { maximum: 50 }
+	validates :username, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
+	validates :password, presence: true, length: { minimum: 14, maximum: 50 }
+
+	has_secure_password
+
 end
