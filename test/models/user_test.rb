@@ -9,6 +9,8 @@ class UserTest < ActiveSupport::TestCase
   	assert @user.valid?
   end
 
+  # presense
+
   test "firstName should be present" do
   	@user.firstName = "   "
   	assert_not @user.valid?
@@ -31,6 +33,33 @@ class UserTest < ActiveSupport::TestCase
 
   test "username should be present" do
     @user.username = "   "
+    assert_not @user.valid?
+  end
+
+  # length validation
+
+  test "firstName should not be too long" do
+    @user.firstName = "a" * 51
+    assert_not @user.valid?
+  end
+
+  test "lastName should not be too long" do
+    @user.lastName = "a" * 51
+    assert_not @user.valid?
+  end
+
+  # test "userType should not be too long" do
+  #   @user.name = "a" * 51
+  #   assert_not @user.valid?
+  # end
+
+  test "username should not be too long" do
+    @user.username = "a" * 51
+    assert_not @user.valid?
+  end
+
+  test "password should not be too long" do
+    @user.password = "a" * 51
     assert_not @user.valid?
   end
 
