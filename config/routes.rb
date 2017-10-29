@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   #get 'static_pages/groups'
   get '/groups' , to: 'static_pages#groups'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
+  resources :users
   
 
 end
