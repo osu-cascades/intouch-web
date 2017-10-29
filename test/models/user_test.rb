@@ -48,11 +48,6 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
-  # test "userType should not be too long" do
-  #   @user.name = "a" * 51
-  #   assert_not @user.valid?
-  # end
-
   test "username should not be too long" do
     @user.username = "a" * 51
     assert_not @user.valid?
@@ -68,8 +63,6 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
-  # uniqueness
-
   test "username should be unique" do
   	duplicate_user = @user.dup
     duplicate_user.username = @user.username
@@ -84,5 +77,10 @@ class UserTest < ActiveSupport::TestCase
     assert_equal mixed_case_username.downcase, @user.reload.username
   end
 
+  test "userType should be \'admin\', \'staff\', or \'client\'" do
+    userTypes = ['admin', 'staff', 'client']
+    @user.userType = 'cookie monster'
+    assert_not(userTypes.include? @user.userType)
+  end
 
 end
