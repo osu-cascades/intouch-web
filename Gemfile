@@ -8,13 +8,11 @@ end
 ruby '2.4.1'
 
 #gem 'high_voltage', '~>3.0.0'
-<<<<<<< HEAD
 gem 'bootstrap-sass', '3.3.7'
+
 gem 'rails-controller-testing'
 
-=======
 gem 'dotenv-rails', groups: [:development, :test]
->>>>>>> user_model
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
 
