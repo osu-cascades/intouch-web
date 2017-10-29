@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   def setup
-  	@user = User.new(firstName: "Tim", lastName: "Arnold", userType: "admin", password: "tarnold", username: "tarnold")
+  	@user = User.new(firstName: "Tim", lastName: "Arnold", userType: "admin", password: "timothyarnold1", username: "tarnold")
   end
 
   test "should be valid" do 
@@ -63,21 +63,26 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  test "password should not be less than 14 characters" do
+    @user.password = "a" * 13
+    assert_not @user.valid?
+  end
+
   # uniqueness
 
   test "username should be unique" do
   	duplicate_user = @user.dup
-    duplicate_user.username = @user.password
+    duplicate_user.username = @user.username
   	@user.save
   	assert_not duplicate_user.valid?
   end
 
-  test "username should be save as lower-case" do
+  test "username should be saved as lower case" do
     mixed_case_username = "UseRNaMe"
     @user.username = mixed_case_username
     @user.save
     assert_equal mixed_case_username.downcase, @user.reload.username
   end
-  
+
 
 end
