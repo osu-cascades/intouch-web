@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get '/users' , to: 'static_pages#users'
   #get 'static_pages/groups'
   get '/groups' , to: 'static_pages#groups'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/users/new', to: 'users#new'
   resources :users
   
 
