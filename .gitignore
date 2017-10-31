@@ -20,4 +20,5 @@
 
 .DS_Store
 
-env_var.env
+.env
+
