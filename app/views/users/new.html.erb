@@ -1,0 +1,35 @@
+<% provide(:title, 'Create User') %>
+<h1>Create User</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
+      <%= f.label :first_lame, "First Name" %>
+      <%= f.text_field :first_name %>
+
+      <%= f.label :last_name, "Last Name" %>
+      <%= f.text_field :last_name %>
+
+      <%= f.label :username, "Username" %>
+      <%= f.text_field :username %>
+
+      <div>
+      	<%= f.label :typeLabel, "Type of User" %>
+    		<%= radio_button_tag(:type, "staff") %>
+    		<%= label_tag(:type_staff, "Staff") %>
+    		
+    		<%= radio_button_tag(:type, "client") %>
+    		<%= label_tag(:type_staff, "Client") %>
+    	</div>
+
+
+      <%= f.label :password, "Password" %>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, "Re-type Password" %>
+      <%= f.password_field :password_confirmation %>
+
+      <%= f.submit "Create User", class: "btn btn-primary", :disabled => true %>
+    <% end %>
+  </div>
+</div>
