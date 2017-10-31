@@ -3,7 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
 
   def setup
-  	@user = User.new(firstName: "Tim", lastName: "Arnold", userType: "admin", password: "timothyarnold1", username: "tarnold")
+  	@user = User.new(first_name: "Tim", last_name: "Arnold", user_type: "admin", password: "timothyarnold1", username: "tarnold")
   end
 
   test "should be valid" do 
@@ -12,18 +12,18 @@ class UserTest < ActiveSupport::TestCase
 
   # presense
 
-  test "firstName should be present" do
-  	@user.firstName = "   "
+  test "first name should be present" do
+  	@user.first_name = "   "
   	assert_not @user.valid?
   end
 
   test "lastName should be present" do
-  	@user.lastName = "   "
+  	@user.last_name = "   "
   	assert_not @user.valid?
   end
 
   test "usertype should be present" do
-    @user.userType = "  "
+    @user.user_type = "  "
     assert_not @user.valid?
   end
 
@@ -40,12 +40,12 @@ class UserTest < ActiveSupport::TestCase
   # length validation
 
   test "firstName should not be too long" do
-    @user.firstName = "a" * 51
+    @user.first_name = "a" * 51
     assert_not @user.valid?
   end
 
   test "lastName should not be too long" do
-    @user.lastName = "a" * 51
+    @user.last_name = "a" * 51
     assert_not @user.valid?
   end
 
@@ -79,9 +79,9 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "userType should be \'admin\', \'staff\', or \'client\'" do
-    userTypes = ['admin', 'staff', 'client']
-    @user.userType = 'cookie monster'
-    assert_not(userTypes.include? @user.userType)
+    user_types = ['admin', 'staff', 'client']
+    @user.user_type = 'cookie monster'
+    assert_not(user_types.include? @user.user_type)
   end
 
 end
