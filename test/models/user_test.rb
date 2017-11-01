@@ -59,8 +59,8 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
-  test "password should not be less than 14 characters" do
-    @user.password = "a" * 13
+  test "password should not be less than 6 characters" do
+    @user.password = "a" * 5
     assert_not @user.valid?
   end
 
