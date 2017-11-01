@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'notifications/new'
+
   root 'static_pages#login'
   # old way 'static_pages/login'
   #get  '/login' , to 'static_pages#login'
