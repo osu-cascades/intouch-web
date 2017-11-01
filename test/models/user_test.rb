@@ -78,7 +78,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal mixed_case_username.downcase, @user.reload.username
   end
 
-  test "userType should be \'admin\', \'staff\', or \'client\'" do
+  test "userType should be admin staff or client" do
     user_types = ['admin', 'staff', 'client']
     @user.user_type = 'cookie monster'
     assert_not(user_types.include? @user.user_type)
