@@ -13,4 +13,9 @@ class User < ApplicationRecord
 
 	has_secure_password
 
+	def User.digest(string)
+		cost = ActiveModel::SecurePassword.min_cost? BCrypt::Engine::MIN_COST : BCryt::Engine.cost
+		BCrypt::password.create(string, cost: cost)
+	end
+
 end
