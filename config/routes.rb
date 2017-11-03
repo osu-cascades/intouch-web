@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
+
   get 'sessions/new'
-=======
+
   get 'notifications/new'
->>>>>>> development
+
 
   root 'static_pages#login'
   # old way 'static_pages/login'
@@ -16,14 +16,14 @@ Rails.application.routes.draw do
   get '/groups' , to: 'static_pages#groups'
   get '/users/new', to: 'users#new'
   post '/users/new', to: 'users#create'
-<<<<<<< HEAD
+
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   
-=======
+
   post '/notifications/new',  to: 'notifications#create'
->>>>>>> development
+
   resources :users
   resources :notifications
 
