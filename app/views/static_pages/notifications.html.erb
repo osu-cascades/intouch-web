@@ -21,11 +21,14 @@
 
       <tbody>
         <% @notification.each do |notification| %>
+      
           <tr>
             <td><%= notification.title %></td>
             <td><%= notification.first_name %></td>
             <td><%= notification.date.strftime("%a %B %d, %r")%> </td>
             <td><%= notification.content %></td>
+            <td><%= link_to 'Show', notification, class: 'btn btn-mini'  %></td>
+            <td><%= link_to 'Destroy', notification, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>
