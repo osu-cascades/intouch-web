@@ -24,7 +24,7 @@
           <tr>
             <td><%= notification.title %></td>
             <td><%= notification.first_name %></td>
-            <td><%= notification.date %></td>
+            <td><%= notification.date.strftime("%a %B %d, %r")%> </td>
             <td><%= notification.content %></td>
           </tr>
         <% end %>
