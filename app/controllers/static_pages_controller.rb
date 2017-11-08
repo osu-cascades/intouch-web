@@ -7,6 +7,7 @@ class StaticPagesController < ApplicationController
   end
 
   def notifications
+    @notification = Notification.all
   end
 
   def users

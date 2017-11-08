@@ -19,6 +19,9 @@ class NotificationsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   private
 
     def notification_params
