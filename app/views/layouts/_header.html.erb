@@ -10,7 +10,7 @@
           <li><%= link_to "Groups",   groups_path %></li>
           <li><%= link_to "Notifications",   notifications_path %></li>
         <% if logged_in? %>
-          li>
+          <li>
           <li><%= link_to "Log out", logout_path, method: :delete %>
         <% else %>
           <li><%= link_to "Log in", login_path %></li>
