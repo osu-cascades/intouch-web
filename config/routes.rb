@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/users' , to: 'static_pages#users'
   get '/groups' , to: 'static_pages#groups'
   get '/users/new', to: 'users#new'
+  get '/users/show', to: 'users#show'
   post '/users/new', to: 'users#create'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
