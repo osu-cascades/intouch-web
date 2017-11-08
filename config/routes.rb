@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  
+  get 'sessions/new'
   get 'notifications/new'
-
   root 'static_pages#login'
   # old way 'static_pages/login'
   #get  '/login' , to 'static_pages#login'
@@ -11,8 +12,13 @@ Rails.application.routes.draw do
   get '/users' , to: 'static_pages#users'
   get '/groups' , to: 'static_pages#groups'
   get '/users/new', to: 'users#new'
+  get '/users/show', to: 'users#show'
   post '/users/new', to: 'users#create'
+  get    '/login',   to: 'sessions#new'
+  post   '/login',   to: 'sessions#create'
+  delete '/logout',  to: 'sessions#destroy'
   post '/notifications/new',  to: 'notifications#create'
+
   resources :users
   resources :notifications
 
