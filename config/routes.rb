@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   #get 'static_pages/groups'
   get '/groups' , to: 'static_pages#groups'
   get '/users/new', to: 'users#new'
+  get '/users/show', to: 'users#show'
   post '/users/new', to: 'users#create'
   resources :users
 

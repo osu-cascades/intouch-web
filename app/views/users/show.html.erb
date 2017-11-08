@@ -1,1 +1,23 @@
-<%= @user.firstName %>, <%= @user.lastName %>
+
+<style>
+	table, th, td {
+	    border: 1px solid black;
+	}
+</style>
+
+<table>
+	<tr>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>User Type</th>
+		<th>Username</th>
+	</tr>
+	<% @users.each do |user| %>
+		<tr>
+			<td><%= user.first_name %></td>
+			<td><%= user.last_name %></td>
+			<td><%= user.user_type %></td>
+			<td><%= user.username %></td>
+		</tr>
+	<% end %>
+</table>
