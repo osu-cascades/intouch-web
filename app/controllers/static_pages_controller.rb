@@ -7,7 +7,7 @@ class StaticPagesController < ApplicationController
   end
 
   def notifications
-    @notification = Notification.all
+    @notification = Notification.order('created_at DESC')
   end
 
   def users
