@@ -1,3 +1,11 @@
+<% provide(:title, "Users") %>
+
+<h1>Users</h1>
+<p>
+  <%= link_to "Create New User", users_new_path %> 
+
+</p>
+
 <div class = "media">
   <div class = "media-body">
     <table class = "table table-hover">
@@ -25,25 +33,3 @@
     </table>
   </div>
 </div>
-<!-- <style>
-	table, th, td {
-	    border: 1px solid black;
-	}
-</style>
-
-<table>
-	<tr>
-		<th>First Name</th>
-		<th>Last Name</th>
-		<th>User Type</th>
-		<th>Username</th>
-	</tr>
-	<% @users.each do |user| %>
-		<tr>
-			<td><%= user.first_name %></td>
-			<td><%= user.last_name %></td>
-			<td><%= user.user_type %></td>
-			<td><%= user.username %></td>
-		</tr>
-	<% end %>
-</table> -->
