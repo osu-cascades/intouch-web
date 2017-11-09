@@ -1,9 +1,5 @@
 class UsersController < ApplicationController
 
-  # def show
-  # 	@user = User.find(params[:id])
-  # end
-
   def show
     @users = User.all
   end
@@ -34,6 +30,12 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    User.find(params[:id]).destory
+    flash[:success] = "User deleted from database"
+    redirect_to users_url
   end
 
   private
