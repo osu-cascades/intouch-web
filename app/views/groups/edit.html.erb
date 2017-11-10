@@ -1,25 +1,9 @@
 <% provide(:title, 'Edit Group') %>
-<h1>Group User</h1>
+<% provide(:button_text, "Update Group") %>
 
+<h1>Group User</h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@group) do |f| %>
-  <% if @group.errors.any? %>
-  <div id="error_explanation">
-    <div class="alert alert-danger">
-      The form contains <%= pluralize(@group.errors.count, "error") %>.
-    </div>
-    <ul>
-    <% @group.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-  <%= f.label :name, "Name" %>
-  <%= f.text_field :name, class: 'form-control' %>
-
-  <%= f.submit "Update Group", class: "btn btn-primary"%>
-<% end %>
-  </div>
+		<%= render 'form' %>
+	</div>
 </div>
