@@ -22,6 +22,12 @@ class NotificationsController < ApplicationController
   def edit
   end
 
+  def destroy
+    Notification.find(params[:id]).destroy
+    flash[:success] = "Notification deleted"
+    redirect_to notifications_url
+  end 
+
   private
 
     def notification_params
