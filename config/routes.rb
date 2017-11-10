@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'static_pages#login'
 
   # Groups 
-  #get '/groups' , to: 'static_pages#groups'
+  get '/groups' , to: 'static_pages#groups'
   get '/groups/show', to: 'groups#show'
 
   # Login
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get 'sessions/new'
 
   # Users
-  #get '/users' , to: 'static_pages#users'
+  get '/users' , to: 'static_pages#users'
   get '/users/new', to: 'users#new'
   get '/users/show', to: 'users#show'
   post '/users/new', to: 'users#create'
