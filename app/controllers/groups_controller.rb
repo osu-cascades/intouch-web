@@ -5,5 +5,6 @@ class GroupsController < ApplicationController
   end
 
   def new
+    @group = Group.new
   end
 end
