@@ -19,8 +19,8 @@
         <% @groups.each do |group| %>
           <tr>
             <td><%= group.name%></td>
-            <td><%= link_to 'Edit', '#', class: 'btn btn-mini'  %></td>
-            <td><%= link_to 'Delete', '#', method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Edit', edit_group_url(group), class: 'btn btn-mini'  %></td>
+            <td><%= link_to 'Delete', '#' , method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>
