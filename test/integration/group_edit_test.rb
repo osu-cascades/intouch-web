@@ -10,4 +10,16 @@ class GroupEditTest < ActionDispatch::IntegrationTest
     assert_template 'groups/edit'
   end
 
+  test "successful edit" do
+    get edit_group_path(@user)
+    assert_template 'groups/edit'
+    name  = "Foo Bar"
+    patch group_path(@user), params: { group: { name:  name } }
+    assert_not flash.empty?
+    assert_redirected_to @group
+    @user.reload
+    assert_equal group,  @group.name
+
+  end
+
 end
