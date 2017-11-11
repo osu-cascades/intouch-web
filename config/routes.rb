@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   root 'static_pages#login'
 
   # Groups 
-  get '/groups' , to: 'static_pages#groups'
-  get '/groups/show', to: 'groups#show'
+  #get '/groups' , to: 'static_pages#groups'
+  get '/groups', to: 'groups#show'
 
   # Login
   get    '/login',   to: 'sessions#new'
