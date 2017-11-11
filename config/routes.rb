@@ -18,10 +18,12 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   # Notifications
-  resources :notifications
+
   get  '/notifications' , to: 'static_pages#notifications'
   post '/notifications/new',  to: 'notifications#create'
   get 'notifications/new'
+
+  resources :notifications
 
   # Sessions
   get 'sessions/new'
