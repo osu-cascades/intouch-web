@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 test_user:
-  first_name: Michael
-  last_name: Borden
+  first_name: Jonny
+  last_name: Mnemonic
   user_type: admin
-  username: MikeB
+  username: nemon
   password_digest: <%= User.digest('password') %>
 

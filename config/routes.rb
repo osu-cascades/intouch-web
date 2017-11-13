@@ -1,25 +1,44 @@
 Rails.application.routes.draw do
   
-  get 'sessions/new'
-  get 'notifications/new'
   root 'static_pages#login'
-  # old way 'static_pages/login'
-  #get  '/login' , to 'static_pages#login'
-  #This new pattern routes a GET request for the URL /help to the help action in the Static Pages controller.
-  #As with the rule for the root route, this creates two named routes, login_path and login_url:
 
-  get  '/notifications' , to: 'static_pages#notifications'
-  get '/users' , to: 'static_pages#users'
-  get '/groups' , to: 'static_pages#groups'
-  get '/users/new', to: 'users#new'
-  get '/users/show', to: 'users#show'
-  post '/users/new', to: 'users#create'
+  resources :groups
+  #             GET    /groups(.:format)                 groups#index
+  #             POST   /groups(.:format)                 groups#create
+  #  new_group  GET    /groups/new(.:format)             groups#new
+  # edit_group  GET    /groups/:id/edit(.:format)        groups#edit
+  #      group  GET    /groups/:id(.:format)             groups#show
+  #             PATCH  /groups/:id(.:format)             groups#update
+  #             PUT    /groups/:id(.:format)             groups#update
+  #             DELETE /groups/:id(.:format)             groups#destroy
+
+  # Login
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
+
+  # Notifications
+
+  get  '/notifications' , to: 'static_pages#notifications'
   post '/notifications/new',  to: 'notifications#create'
+  get 'notifications/new'
+
+  resources :notifications
+
+  # Sessions
+  get 'sessions/new'
 
   resources :users
-  resources :notifications
+  #           GET    /users(.:format)                  users#index
+  #           POST   /users(.:format)                  users#create
+  #  new_user GET    /users/new(.:format)              users#new
+  # edit_user GET    /users/:id/edit(.:format)         users#edit
+  #      user GET    /users/:id(.:format)              users#show
+  #           PATCH  /users/:id(.:format)              users#update
+  #           PUT    /users/:id(.:format)              users#update
+  #           DELETE /users/:id(.:format)              users#destroy
+  
+  
+  
 
 end
