@@ -4,10 +4,6 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def show
-    @users = User.all
-  end
-
   def new
   	@user = User.new
   end
@@ -30,7 +26,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "User updated"
-      redirect_to user_path
+      redirect_to users_path
     else
       render 'edit'
     end
