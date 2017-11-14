@@ -12,10 +12,10 @@
 
   <div class="field">
     <%= f.label "Groups" %><br />
-    <%= f.collection_check_boxes :group_ids, Group.all, :id, :name do |b| %>
+    <%= f.collection_check_boxes :group_ids, Group.all, :id, :name do |group| %>
       <div class="collection-check-box">
-        <%= b.check_box %>
-        <%= b.label %>
+        <%= group.check_box %> 
+        <%= group.label %>
       </div>
     <% end %>
   </div>
