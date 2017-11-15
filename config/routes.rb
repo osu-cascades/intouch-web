@@ -33,7 +33,4 @@ Rails.application.routes.draw do
   #           PUT    /users/:id(.:format)              users#update
   #           DELETE /users/:id(.:format)              users#destroy
   
-  
-  
-
 end
