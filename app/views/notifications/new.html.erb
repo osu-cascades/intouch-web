@@ -12,11 +12,6 @@
       <%= f.label :To %>
       <%= select(:group, :group_id, Group.all.collect {|g| [g.name, g.id] }, include_blank: true) %>
 
-      <%= f.label :first_name %>
-      <%= f.text_field :first_name, class: 'form-control' %>
-
-      <%= f.label :date %>
-      <%= f.datetime_field :date %>
 
       <%= f.label :content %>
       <%= f.text_area :content, class: 'form-control' %>
