@@ -5,8 +5,8 @@ class NotificationsController < ApplicationController
   end
 
   def show
-    @notification = Notification.find(params[:id])
-    end
+    @notification = Notification.find(12)
+  end
 
   def new
   	@notification = Notification.new
