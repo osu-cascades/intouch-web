@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
   end
 
   def show
-    @notification = Notification.find(12)
+    @notification = Notification.find(params[:id])
   end
 
   def new
@@ -13,21 +13,19 @@ class NotificationsController < ApplicationController
   end
 
   def create
-    #@user = User.find(params[:user_id])
-    #@notification = @user.notification.create(params[:notification])
-    @notification = Notification.new(notification_params)    
-
+    @notification = Notification.new(notification_params)
+    # Get the group, using the group id from the form
+    # Associate each user in the group with the notification.
     if @notification.save
       flash[:success] = "Notification created!"
-      #NotificationUser.create(user_id: current_user.id , notification_id: @notification.id)
       redirect_to @notification
-      
     else
       render 'new'
     end
   end
 
   def edit
+    @notification = Notification.find(params[:id])
   end
 
   def destroy
@@ -39,6 +37,6 @@ class NotificationsController < ApplicationController
   private
 
     def notification_params
-        params.require(:notification).permit(:title, :first_name, :date,:content)
+      params.require(:notification).permit(:title, :first_name, :date, :content)
     end
 end
