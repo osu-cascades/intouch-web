@@ -19,6 +19,9 @@ class NotificationsController < ApplicationController
     @notification.first_name = current_user.first_name
     # Get the group, using the group id from the form
     # Associate each user in the group with the notification.
+
+          
+
     if @notification.save
       flash[:success] = "Notification created!"
       redirect_to notifications_url
@@ -40,6 +43,6 @@ class NotificationsController < ApplicationController
   private
 
     def notification_params
-      params.require(:notification).permit(:title, :first_name, :content)
+      params.require(:notification).permit(:title, :first_name, :content, :group_id)
     end
 end
