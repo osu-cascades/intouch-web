@@ -4,7 +4,8 @@ class User < ApplicationRecord
 
 	# overrides rails attributes, remove
 	# attr_accessor :firstName, :lastName, :userType, :username, :
-
+	has_and_belongs_to_many :notifications
+  
 	before_save { username.downcase! } 
 	#self.username = self.username.downcase 
 
