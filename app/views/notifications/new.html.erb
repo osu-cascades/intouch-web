@@ -3,10 +3,14 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+
     <%= form_for(@notification, url: notifications_new_path) do |f| %>
     <%= render 'shared/noterror_messages' %>
       <%= f.label :title %>
       <%= f.text_field :title, class: 'form-control' %>
+
+      <%= f.label :To %>
+      <%= f.collection_select(:users, User.all, :id, :first_name) %>
 
       <%= f.label :first_name %>
       <%= f.text_field :first_name, class: 'form-control' %>

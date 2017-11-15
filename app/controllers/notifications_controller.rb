@@ -9,11 +9,15 @@ class NotificationsController < ApplicationController
   end
 
   def create
-    @notification = Notification.new(notification_params)    # Not the final implementation!
+    #@user = User.find(params[:user_id])
+    #@notification = @user.notification.create(params[:notification])
+    @notification = Notification.new(notification_params)    
+
     if @notification.save
       flash[:success] = "Notification created!"
+      #NotificationUser.create(user_id: current_user.id , notification_id: @notification.id)
       redirect_to @notification
-      # Handle a successful save.
+      
     else
       render 'new'
     end
