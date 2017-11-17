@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
 
   def index
-    @notifications = Notification.all
+    @notifications = current_user.notifications
   end
 
   def show
@@ -19,7 +19,7 @@ class NotificationsController < ApplicationController
     @notification.first_name = current_user.first_name
     # Get the group, using the group id from the form
     # Associate each user in the group with the notification
-    request.POST
+
     if @notification.save
       @group = Group.find(params[:group][:group_id])
       @users = @group.users
