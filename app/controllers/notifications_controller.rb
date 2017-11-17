@@ -18,11 +18,14 @@ class NotificationsController < ApplicationController
     @notification.date = Time.now
     @notification.first_name = current_user.first_name
     # Get the group, using the group id from the form
-    # Associate each user in the group with the notification.
-    
-          
-
+    # Associate each user in the group with the notification
+    request.POST
     if @notification.save
+      @group = Group.find(params[:group][:group_id])
+      @users = @group.users
+      @users.each do |user|
+      @notification.users << user
+    end
       flash[:success] = "Notification created!"
       redirect_to notifications_url
     else
