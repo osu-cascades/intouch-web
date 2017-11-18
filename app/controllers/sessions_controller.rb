@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   	user = User.find_by(username: params[:session][:username].downcase)
   	if user && user.authenticate(params[:session][:password])
       log_in user
-      redirect_to notifications_url
+      redirect_to notifications_path
   	else
       flash.now[:danger] = 'Invalid username and/or password'
   		render 'new'

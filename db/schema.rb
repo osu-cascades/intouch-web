@@ -41,6 +41,8 @@ ActiveRecord::Schema.define(version: 20171114031650) do
   create_table "notifications_users", id: false, force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "notification_id", null: false
+    t.index ["notification_id", "user_id"], name: "index_notifications_users_on_notification_id_and_user_id"
+    t.index ["user_id", "notification_id"], name: "index_notifications_users_on_user_id_and_notification_id"
   end
 
   create_table "users", force: :cascade do |t|
