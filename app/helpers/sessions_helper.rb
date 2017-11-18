@@ -27,11 +27,7 @@ module SessionsHelper
   end
 
   def admin?
-    if @current_user.user_type == 'admin'
-      true
-    else 
-      false
-    end
+    @current_user.user_type == 'admin' ? true : false
   end
 
   def forget(user)

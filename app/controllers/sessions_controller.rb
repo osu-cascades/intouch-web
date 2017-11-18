@@ -7,13 +7,12 @@ class SessionsController < ApplicationController
   	user = User.find_by(username: params[:session][:username].downcase)
   	if user && user.authenticate(params[:session][:password])
       log_in user
-      remember user
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       redirect_to notifications_path
   	else
       flash.now[:danger] = 'Invalid username and/or password'
   		render 'new'
   	end
-
   end
 
   def destroy
