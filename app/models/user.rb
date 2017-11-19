@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
   has_and_belongs_to_many :groups
+  
 
 	# overrides rails attributes, remove
 	# attr_accessor :firstName, :lastName, :userType, :username, :
