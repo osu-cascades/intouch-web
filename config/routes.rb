@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  root 'static_pages#login'
+  root 'sessions#new'
 
   # Group
   resources :groups

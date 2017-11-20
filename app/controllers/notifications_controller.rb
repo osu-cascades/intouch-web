@@ -27,7 +27,6 @@ class NotificationsController < ApplicationController
 
       #raise @group.inspect
       @group.each do |group|
-       #raise group.inspect
       @user = group.users
       @user.each do |user|
       @notification.users << user
