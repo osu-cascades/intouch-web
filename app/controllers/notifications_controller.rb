@@ -23,11 +23,16 @@ class NotificationsController < ApplicationController
     # Associate each user in the group with the notification
 
     if @notification.save
-      @group = Group.find(params[:group][:group_id])
-      @users = @group.users
-      @users.each do |user|
+      @group = Group.where(id: params[:notification][:groups])
+
+      #raise @group.inspect
+      @group.each do |group|
+       #raise group.inspect
+      @user = group.users
+      @user.each do |user|
       @notification.users << user
     end
+  end
       flash[:success] = "Notification created!"
       redirect_to notifications_url
     else
@@ -48,6 +53,6 @@ class NotificationsController < ApplicationController
   private
 
     def notification_params
-      params.require(:notification).permit(:title, :first_name, :content, :group_id)
+      params.require(:notification).permit(:title, :first_name, :content)
     end
 end
