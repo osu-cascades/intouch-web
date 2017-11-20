@@ -7,3 +7,9 @@ test_user:
   username: nemon
   password_digest: <%= User.digest('password') %>
 
+test_user2:
+  first_name: Buster
+  last_name: Keaton
+  user_type: client
+  username: iamnotcharliechaplin
+  password_digest: <%= User.digest('password') %>
