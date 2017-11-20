@@ -6,6 +6,8 @@ InTouch is a mobile and web application enabling Abilitree staff to notify clien
  * Need to install the Ruby on Rails
  * The website below will give some over view of Rails Framework and installation instructions
   - http://guides.rubyonrails.org/getting_started.html
+  - This website gives instruction step-by-step instuctions on how to install ROR macOSx sierra                    http://railsapps.github.io/installrubyonrails-mac.html
+    - Follow directions up to Check the Gem Manager, skip until you see the command Install Bundler, skip until Install Rails section. 
 
 ## Version
  * ruby 2.4.1  (ruby -v)
@@ -15,11 +17,14 @@ InTouch is a mobile and web application enabling Abilitree staff to notify clien
 ## Database creation
  * Need to install PostgreSQL
  * The website below will give installation instructions
-  - https://www.postgresql.org/download/
+  - http://postgresapp.com/
+    - We use the postgresapp if you are familiar postgres use whatever you are comfortable with
+    - mac users might have to add brew install postgresql if the pg gem cannot be found
+    - Don't choose the default port use something like (e.g. 3000)
 
  ## Running Application 
   * git clone repository in local directory
-  * bundle install
+  * bundle install or exec bundle install (make sure you are in the cloned directory)
   * rake db:create
   * rake db:migrate
   * rails s or bundle exec rails s
