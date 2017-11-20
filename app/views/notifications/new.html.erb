@@ -10,8 +10,7 @@
       <%= f.text_field :title, class: 'form-control' %>
 
       <%= f.label :To %>
-      <%= select(:group, :group_id, Group.all.collect {|g| [g.name, g.id] }, include_blank: true) %>
-
+      <%= f.collection_select(:groups, Group.all, :id, :name, {include_hidden: false},{:multiple => true})%>
 
       <%= f.label :content %>
       <%= f.text_area :content, class: 'form-control' %>
