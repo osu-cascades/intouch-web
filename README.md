@@ -20,7 +20,7 @@ InTouch is a mobile and web application enabling Abilitree staff to notify clien
   - http://postgresapp.com/
     - We use the postgresapp if you are familiar postgres use whatever you are comfortable with
     - mac users might have to add brew install postgresql if the pg gem cannot be found
-    - Don't choose the default port use something like (e.g. 3000)
+    
 
  ## Running Application 
   * git clone repository in local directory
