@@ -1,7 +1,7 @@
 <% provide(:title, "Notifications") %>
 <h1>Notifications</h1>
 <p>
-  <%= link_to "New notification", new_notification_path %>
+  <%= link_to "Create New Notification", new_notification_path, style: "color:blue" %>
 </p>
 
 <div class = "media">
@@ -24,6 +24,7 @@
             <td><%= notification.date.strftime("%a %b %e, %l:%e %p") %></td>
             <td><%= notification.content %></td>
             <td><%= link_to 'Show', notification, class: 'btn btn-mini'  %></td>
+<<<<<<< HEAD
             <td><%= link_to 'Destroy', notification, method: :delete, class: 'btn btn-mini', data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
@@ -54,6 +55,9 @@
             <td><%= notification.content %></td>
             <td><%= link_to 'Show', notification, class: 'btn btn-mini'  %></td>
             <td><%= link_to 'Delete', notification, method: :delete, class: 'btn btn-mini', data: { confirm: 'Are you sure?' } %></td>
+=======
+            <td><%= link_to 'Delete', notification, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: 'Are you sure?' } %></td>
+>>>>>>> 667ba5edcba2c6d7d25eb68b45ee576cd3c797b4
           </tr>
         <% end %>
       </tbody>

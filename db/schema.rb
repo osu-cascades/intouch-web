@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20171120174906) do
+=======
+ActiveRecord::Schema.define(version: 20171121004259) do
+>>>>>>> 667ba5edcba2c6d7d25eb68b45ee576cd3c797b4
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +51,12 @@ ActiveRecord::Schema.define(version: 20171120174906) do
   create_table "notifications_users", id: false, force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "notification_id", null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

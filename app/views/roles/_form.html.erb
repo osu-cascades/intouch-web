@@ -1,13 +1,12 @@
-
-<%= simple_form_for(@group) do |f| %>
+<%= simple_form_for(@role) do |f| %>
   
-  <% if @group.errors.any? %>
+  <% if @role.errors.any? %>
     <div id="error_explanation">
       <div class="alert alert-danger">
-        The form contains <%= pluralize(@group.errors.count, "error") %>.
+        The form contains <%= pluralize(@role.errors.count, "error") %>.
       </div>
       <ul>
-      <% @group.errors.full_messages.each do |msg| %>
+      <% @role.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
