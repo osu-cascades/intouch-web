@@ -1,30 +1,17 @@
-<%= form_for(@user) do |f| %>
+<%= simple_form_for @user do |f| %>
+  
   <%= render 'shared/error_messages', object: @user %>
+  
   <%= f.label :first_lame, "First Name" %>
   <%= f.text_field :first_name, class: 'form-control' %>
 
   <%= f.label :last_name, "Last Name" %>
   <%= f.text_field :last_name, class: 'form-control' %>
 
-  <div>
-      <%= f.label :user_type %>
-      <%= f.radio_button :user_type, 'client' %> 
-      <%= f.label :user_type, "Client" %>
-      <%= f.radio_button :user_type, 'staff' %> 
-      <%= f.label :user_type, "Staff" %>
-      <%= f.radio_button :user_type, 'admin' %> 
-      <%= f.label :user_type, "Admin" %>
-  </div>
+  <%= f.label :user_type, "User Role" %>
+  <%= f.input :user_type, collection: @roles, prompt: "Choose User Role", selected: @user.user_type %> 
 
-  <div class="field">
-    <%= f.label "Groups" %><br />
-    <%= f.collection_check_boxes :group_ids, Group.all, :id, :name do |group| %>
-      <div class="collection-check-box">
-        <%= group.check_box %> 
-        <%= group.label %>
-      </div>
-    <% end %>
-  </div>
+  <%= f.association :groups, as: :check_boxes %>
 
   <%= f.label :username, "Username" %>
   <%= f.text_field :username, class: 'form-control' %>
@@ -37,3 +24,7 @@
 
   <%= f.submit "Update User", class: "btn btn-primary"%>
 <% end %>
+
+
+
+
