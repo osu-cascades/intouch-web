@@ -5,11 +5,11 @@ class ApplicationController < ActionController::Base
   # before_action :correct_user
 
 	def logged_in_user
-      unless logged_in?
-        flash[:danger] = "Access Denied"
-        redirect_to login_path
-      end
+     unless logged_in?
+     flash[:danger] = "Access Denied"
+     redirect_to login_path
     end
+  end
 
   # def correct_user
   #   @user = User.find(params[:id])
