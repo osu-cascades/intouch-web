@@ -8,7 +8,7 @@
   <%= f.label :last_name, "Last Name" %>
   <%= f.text_field :last_name, class: 'form-control' %>
 
-  <%= f.label :user_type, "User Roles" %>
+  <%= f.label :user_type, "User Role" %>
   <%= f.input :user_type, collection: @roles, prompt: "Choose User Role", selected: @user.user_type %> 
 
   <%= f.association :groups, as: :check_boxes %>
