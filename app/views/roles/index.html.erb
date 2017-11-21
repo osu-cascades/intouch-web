@@ -3,7 +3,7 @@
 <h1>Roles</h1>
 
 <p>
-  <%= link_to "Create New Role", new_role_path %> 
+  <%= link_to "Create New Role", new_role_path, style: "color:blue" %> 
 </p>
 
 <div class = "media">
@@ -20,7 +20,7 @@
           <tr>
             <td><%= role.name %></td>
             <td><%= link_to 'Edit', edit_role_path(role), class: 'btn btn-mini' %></td>
-            <td><%= link_to 'Destroy', role, method: :delete, class: 'btn btn-mini btn-danger',data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Delete', role, method: :delete, class: 'btn btn-mini btn-danger',data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>
