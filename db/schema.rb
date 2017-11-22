@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171120174906) do
+ActiveRecord::Schema.define(version: 20171121004259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 20171120174906) do
   create_table "notifications_users", id: false, force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "notification_id", null: false
+    t.index ["notification_id", "user_id"], name: "index_notifications_users_on_notification_id_and_user_id"
+    t.index ["user_id", "notification_id"], name: "index_notifications_users_on_user_id_and_notification_id"
   end
 
   create_table "roles", force: :cascade do |t|
