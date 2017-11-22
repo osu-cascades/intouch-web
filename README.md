@@ -25,6 +25,6 @@ InTouch is a mobile and web application enabling Abilitree staff to notify clien
  ## Running Application 
   * git clone repository in local directory
   * bundle install or exec bundle install (make sure you are in the cloned directory)
-  * rake db:create
-  * rake db:migrate
+  * rake db:create:all
+  * rails db:migrate
   * rails s or bundle exec rails s
