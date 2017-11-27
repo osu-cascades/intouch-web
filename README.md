@@ -3,11 +3,13 @@
 InTouch is a mobile and web application enabling Abilitree staff to notify clients of meeting changes, and for clients to notify staff of cancellations. 
 
 ## Prerequisites
- * Need to install the Ruby on Rails
+ * Need to install Ruby on Rails
  * The website below will give some over view of Rails Framework and installation instructions
   - http://guides.rubyonrails.org/getting_started.html
-  - This website gives instruction step-by-step instuctions on how to install ROR macOSx sierra                    http://railsapps.github.io/installrubyonrails-mac.html
-    - Follow directions up to Check the Gem Manager, skip until you see the command Install Bundler, skip until Install Rails section. 
+  - This website gives step-by-step instuctions on how to install ROR macOSx sierra                    http://railsapps.github.io/installrubyonrails-mac.html
+    - Follow the directions up to Check the Gem Manager
+    - Skip until you see the command Install Bundler
+    - Skip until Install Rails section. 
 
 ## Version
  * ruby 2.4.1  (ruby -v)
