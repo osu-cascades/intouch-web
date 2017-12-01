@@ -1,15 +1,14 @@
 class UsersController < ApplicationController
 
-  def index
-    @users = User.all
-  end
+  #before_action :logged_in_user
 
-  def show
+  def index
     @users = User.all
   end
 
   def new
   	@user = User.new
+    @roles = Role.all
   end
 
   def create
@@ -24,13 +23,14 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @roles = Role.all
   end
 
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "User updated"
-      redirect_to user_path
+      redirect_to users_path
     else
       render 'edit'
     end
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :user_type, :username, :password)
+      params.require(:user).permit(:first_name, :last_name, :user_type, :username, :password, group_ids:[])
     end
 
 end

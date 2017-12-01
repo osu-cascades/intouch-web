@@ -1,0 +1,73 @@
+<% provide(:title, "Notifications") %>
+
+<!-- has to be a better way then repeating code -->
+
+<h1>Notifications</h1>
+<p>
+  <%= link_to "Create New Notification", new_notification_path, style: "color:blue" %>
+</p>
+
+<div class = "media">
+  <div class = "media-body">
+    <table class = "table table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>From</th>
+          <th>Date</th>
+          <th>Content</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @notifications.each do |notification| %>
+          <tr>
+            <% if notification.first_name != current_user.first_name %>
+            <td><%= notification.title %></td>
+            <td><%= notification.first_name %></td>
+            <td><%= notification.date.strftime("%a %b %e, %l:%e %p") %></td>
+            <td><%= notification.content %></td>
+            <td><%= link_to 'Show', notification, class: 'btn btn-mini'  %></td>
+
+            <td><%= link_to 'Delete', notification, method: :delete, class: 'btn btn-mini', data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+<h2>Sent Notifications</h2>
+<div class = "media">
+  <div class = "media-body">
+    <table class = "table table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Group Sent To</th>
+          <th>Content</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @notifications.each do |notification| %>
+          <tr>
+            <% if notification.first_name == current_user.first_name %>
+            <td><%= notification.title %></td>
+            <td><%= notification.date.strftime("%a %b %e, %l:%e %p") %></td>
+
+            <td><%= notification.content %></td>
+            <td><%= link_to 'Show', notification, class: 'btn btn-mini'  %></td>
+            <td><%= link_to 'Delete', notification, method: :delete, class: 'btn btn-mini', data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

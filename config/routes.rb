@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   
-  root 'static_pages#login'
+  resources :roles
+  root 'sessions#new'
 
+  # Group
   resources :groups
   #             GET    /groups(.:format)                 groups#index
   #             POST   /groups(.:format)                 groups#create
@@ -10,7 +12,7 @@ Rails.application.routes.draw do
   #      group  GET    /groups/:id(.:format)             groups#show
   #             PATCH  /groups/:id(.:format)             groups#update
   #             PUT    /groups/:id(.:format)             groups#update
-  #             DELETE /groups/:id(.:format)             groups#destroy
+  #             DELETE /groups/:id(.:format)             
 
   # Login
   get    '/login',   to: 'sessions#new'
@@ -18,15 +20,21 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   # Notifications
-
-  get  '/notifications' , to: 'static_pages#notifications'
-  post '/notifications/new',  to: 'notifications#create'
-  get 'notifications/new'
-
   resources :notifications
 
   # Sessions
-  get 'sessions/new'
+  #get 'sessions/new'
+  get    '/login',   to: 'sessions#new' 
+  post   '/login',   to: 'sessions#create'
+  delete '/logout',  to: 'sessions#destroy'
+
+   # login  GET     /login(.:format)  sessions#new
+   #        POST    /login(.:format)  sessions#create
+   # logout DELETE  /logout(.:format) sessions#destroy
+
+  # GET    /login   login_path  new page for new session(login)
+  # POST   /login   login_path  create create new session(login)
+  # DELETE /logoout logout_path destroy delete a session(log out)
 
   resources :users
   #           GET    /users(.:format)                  users#index
@@ -38,7 +46,4 @@ Rails.application.routes.draw do
   #           PUT    /users/:id(.:format)              users#update
   #           DELETE /users/:id(.:format)              users#destroy
   
-  
-  
-
 end

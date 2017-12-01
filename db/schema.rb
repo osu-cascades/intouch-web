@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171110041859) do
+ActiveRecord::Schema.define(version: 20171121004259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,12 +22,37 @@ ActiveRecord::Schema.define(version: 20171110041859) do
     t.index ["name"], name: "index_groups_on_name", unique: true
   end
 
+  create_table "groups_notifications", id: false, force: :cascade do |t|
+    t.bigint "notification_id", null: false
+    t.bigint "group_id", null: false
+    t.index ["notification_id", "group_id"], name: "index_groups_notifications_on_notification_id_and_group_id"
+  end
+
+  create_table "groups_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "group_id", null: false
+    t.index ["user_id", "group_id"], name: "index_groups_users_on_user_id_and_group_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.string "title"
     t.string "first_name"
     t.string "last_name"
     t.datetime "date"
     t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notifications_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "notification_id", null: false
+    t.index ["notification_id", "user_id"], name: "index_notifications_users_on_notification_id_and_user_id"
+    t.index ["user_id", "notification_id"], name: "index_notifications_users_on_user_id_and_notification_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -41,6 +66,7 @@ ActiveRecord::Schema.define(version: 20171110041859) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.string "remember_digest"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
