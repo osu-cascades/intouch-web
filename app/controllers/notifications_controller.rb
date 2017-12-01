@@ -28,13 +28,12 @@ class NotificationsController < ApplicationController
       @group = Group.where(id: params[:notification][:groups])
 
       #raise current_user.id.inspect
-        @group.each do |group|
-         @user = group.users
-           @user.each do |user|
-            #if user.id != current_user.id 
-            @notification.users << user
+        @group.each do |group| #gets each group individually
+        @notification.groups << group #hopefully adds the single group and associate with not_grou
+         @user = group.users #grabs users associated with the single group
+           @user.each do |user| #grabs single user from group of users in each group
+            @notification.users << user # adds the user to the notifications_users association table
             end
-         # end
         end
       flash[:success] = "Notification created!"
       redirect_to notifications_url
