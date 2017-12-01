@@ -30,3 +30,6 @@ InTouch is a mobile and web application enabling Abilitree staff to notify clien
   * rake db:create:all
   * rails db:migrate
   * rails s or bundle exec rails s
+
+
+© 2017 Aaron Baker, Kyleen Gonzalez
