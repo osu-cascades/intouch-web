@@ -61,8 +61,6 @@
             <td><%= notification.title %></td>
             <td><%= notification.date.strftime("%a %b %e, %l:%e %p") %></td>
 
-            
-
             <td><%= notification.content %></td>
             <td><%= link_to 'Show', notification, class: 'btn btn-mini'  %></td>
             <td><%= link_to 'Delete', notification, method: :delete, class: 'btn btn-mini', data: { confirm: 'Are you sure?' } %></td>

@@ -27,7 +27,7 @@ class NotificationsController < ApplicationController
     if @notification.save
       @group = Group.where(id: params[:notification][:groups])
 
-      #raise current_user.id.inspect
+      #raise @group.inspect
         @group.each do |group| #gets each group individually
         @notification.groups << group #hopefully adds the single group and associate with not_grou
          @user = group.users #grabs users associated with the single group
