@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
   #before_action :logged_in_user
 
   def index
-    @notifications = current_user.notifications
+    @notifications = Notification.all
     
   end
 
@@ -21,7 +21,7 @@ class NotificationsController < ApplicationController
     #this will prefill each notification date with the current time
     @notification.date = Time.now
     #this is the first_name of the sender so current_user >> sending to groupX
-    @notification.first_name = current_user.first_name
+    @notification.user_id = current_user.id
 
 
     if @notification.save

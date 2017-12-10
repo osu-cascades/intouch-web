@@ -22,10 +22,10 @@
       <tbody>
         <% @notifications.each do |notification| %>
           <tr>
-            <% if notification.first_name != current_user.first_name %>
+            <% if notification.id != current_user.id%>
             <td><%= notification.title %></td>
-            <td><%= notification.first_name %></td>
-            <td><%= notification.date.strftime("%a %b %e, %l:%e %p") %></td>
+            <td><%= notification.user.first_name %></td>
+            <td><%= notification.created_at.strftime("%a %b %e, %l:%e %p") %></td>
             <td><%= notification.content %></td>
             <td><%= link_to 'Show', notification, class: 'btn btn-mini'  %></td>
 
@@ -38,8 +38,9 @@
   </div>
 </div>
 
-
-
+<br>
+<br>
+<br>
 
 <h2>Sent Notifications</h2>
 <div class = "media">
@@ -57,10 +58,10 @@
       <tbody>
         <% @notifications.each do |notification| %>
           <tr>
-            <% if notification.first_name == current_user.first_name %>
+            <% if notification.user_id == current_user.id %>
             <td><%= notification.title %></td>
             <td><%= notification.date.strftime("%a %b %e, %l:%e %p") %></td>
-
+            <td></td>
             <td><%= notification.content %></td>
             <td><%= link_to 'Show', notification, class: 'btn btn-mini'  %></td>
             <td><%= link_to 'Delete', notification, method: :delete, class: 'btn btn-mini', data: { confirm: 'Are you sure?' } %></td>

@@ -4,6 +4,28 @@
 
 /* universal */
 
+
+
+
+
+.navbar-inverse {
+  background-color: #3f5c22;
+}
+
+html, body { height: 100%; margin: 0; }
+
+#container {
+  margin-top: 10%;
+  min-height: 90%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto [footer-height];
+}
+
+#push {
+  height: [footer-height];
+}
+
 body {
   padding-top: 60px;
 }
@@ -59,8 +81,8 @@ p {
   font-size: 1.7em;
   color: #fff;
   text-transform: uppercase;
-  letter-spacing: -1px;
-  padding-top: 9px;
+  letter-spacing: 3px;
+  padding-top: 15px;
   font-weight: bold;
 }
 
@@ -74,7 +96,8 @@ p {
 /* footer */
 
 footer {
-  margin-top: 45px;
+  //margin-top: 60px;
+  height: [footer-height];
   padding-top: 5px;
   border-top: 1px solid #eaeaea;
   color: #777;
@@ -102,6 +125,10 @@ footer ul li {
   float: left;
   margin-left: 15px;
 }
+
+
+
+
 
 /* debug  */
 
