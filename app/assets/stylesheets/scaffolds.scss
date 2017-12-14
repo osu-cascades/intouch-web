@@ -16,6 +16,10 @@ p, ol, ul, td {
   line-height: 18px;
 }
 
+label {
+  margin-right: 20px; 
+}
+
 pre {
   background-color: #eee;
   padding: 10px;
@@ -81,6 +85,4 @@ div {
   }
 }
 
-label {
-  display: block;
-}
+

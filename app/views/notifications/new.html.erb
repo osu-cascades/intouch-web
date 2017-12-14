@@ -9,8 +9,14 @@
       <%= f.label :title %>
       <%= f.text_field :title, class: 'form-control' %>
 
+      <div class ="well">
       <%= f.label :To %>
-      <%= f.collection_select(:groups, Group.all, :id, :name, {include_hidden: false},{:multiple => true})%>
+  
+      <br>
+
+      <%= f.collection_check_boxes :groups, Group.all, :id, :name  %>
+      </div>
+     
 
       <%= f.label :content %>
       <%= f.text_area :content, class: 'form-control' %>

@@ -5,8 +5,9 @@
 /* universal */
 
 
-
-
+.well { //this is for the div around group create new notificaition form
+  margin-top: 20px; 
+}
 
 .navbar-inverse {
   background-color: #3f5c22;
@@ -15,7 +16,7 @@
 html, body { height: 100%; margin: 0; }
 
 #container {
-  margin-top: 10%;
+  //margin-top: 10%;
   min-height: 90%;
   height: auto !important;
   height: 100%;
@@ -151,16 +152,14 @@ $gray-medium-light: #eaeaea;
 
 /* forms */
 
-input, textarea, select, .uneditable-input {
+ textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
   @include box_sizing;
 }
 
-input {
-  height: auto !important;
-}
+​
 
 #error_explanation {
   color: red;
@@ -193,6 +192,8 @@ input {
 
 
 
-
+.btn-primary {
+  margin-top:  10px;
+}
 
 
