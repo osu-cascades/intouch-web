@@ -25,7 +25,7 @@
             <% if notification.id != current_user.id%>
             <td><%= notification.title%></td>
             <td><%= notification.user.first_name %></td>
-            <td><%= notification.created_at.strftime("%a %b %e, %l:%e %p") %></td>
+            <td><%= notification.created_at %></td>
             <td><%= notification.content %></td>
             <td><%= link_to 'Show', notification, class: 'btn btn-mini'  %></td>
             <td><%= link_to 'Delete', notification, method: :delete, class: 'btn btn-mini', data: { confirm: 'Are you sure?' } %></td>
@@ -59,10 +59,8 @@
           <tr>
             <% if notification.user_id == current_user.id %>
             <td><%= notification.title %></td>
-            <td><%= notification.date.strftime("%a %b %e, %l:%e %p") %></td>
-
-
-            <td><%= notification.groups.group_id%></td>
+            <td><%= notification.date %></td>
+  
 
 
             <td><%= notification.content %></td>
