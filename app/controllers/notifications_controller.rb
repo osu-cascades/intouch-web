@@ -16,7 +16,7 @@ class NotificationsController < ApplicationController
   end
 
   def create
-   
+  
     @notification = Notification.new(notification_params)
     #this will prefill each notification date with the current time
     @notification.date = Time.now
@@ -55,6 +55,6 @@ class NotificationsController < ApplicationController
   private
 
     def notification_params
-      params.require(:notification).permit(:title, :first_name, :content)
+      params.require(:notification).permit(:title, :groups, :content)
     end
 end
