@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+
+/*https://github.com/mkhairi/materialize-sass*/
+@import "materialize/components/color";
+$primary-color: color("grey", "darken-3") !default;
+$secondary-color: color("green", "darken") !default;
+
+@import "materialize";
+
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";

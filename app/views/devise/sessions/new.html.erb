@@ -1,0 +1,14 @@
+
+<span class="card-title">Log in</span>
+
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<div class="form-inputs">
+<%= f.input :email, required: false, autofocus: true %>
+<%= f.input :password, required: false %>
+<%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+</div>
+
+<button class="btn waves-effect waves-light" type="submit" name="commit" value="Login">
+<i class="material-icons right">send</i>Submit </button>
+<% end %>
+<%= render "devise/shared/links" %>

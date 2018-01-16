@@ -1,19 +1,18 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  include SessionsHelper
 
-   #before_action :correct_user
+  # http://www.rubydoc.info/github/plataformatec/devise/Devise/ParameterSanitizer
 
-	def logged_in_user
-     unless logged_in?
-     flash[:danger] = "Access Denied"
-     redirect_to login_path
-    end
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+
+  def configure_permitted_parameters
+    # Permit the `field` parameter along with the other
+    # sign up parameters.
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :user_type, :username, :email])
+    # Removing the `password` parameter from the `account_update` action.
+    devise_parameter_sanitizer.permit(:account_update, except: [:password])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :user_type, :username, :email])
   end
-
-   #def correct_user
-    #@user = User.find(params[:id])
-    #redirect_to(root_url) unless current_user?(@user)
-   #end
-
 end

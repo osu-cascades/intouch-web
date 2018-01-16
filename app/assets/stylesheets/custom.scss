@@ -17,20 +17,18 @@
 html, body { height: 100%; margin: 0; }
 
 #container {
-  //margin-top: 10%;
-  min-height: 90%;
-  height: auto !important;
-  height: 100%;
-  margin: 0 auto [footer-height];
+  margin-top: 5%;
+  min-height: 80%;
+  //height: auto !important;
+  //height: 100%;
+  //margin: 0 auto [footer-height];
 }
 
 #push {
   height: [footer-height];
 }
 
-body {
-  padding-top: 60px;
-}
+
 
 section {
   overflow: auto;
@@ -78,7 +76,6 @@ p {
 /* header */
 
 #logo {
-  float: left;
   margin-right: 10px;
   font-size: 1.7em;
   color: #fff;
@@ -129,7 +126,14 @@ footer ul li {
 }
 
 
-
+.checkbox {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  span {
+    margin-left: 20px;
+    font-weight: normal;
+  }
+}
 
 
 /* debug  */
@@ -160,7 +164,12 @@ $gray-medium-light: #eaeaea;
   @include box_sizing;
 }
 
-​
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+  position: absolute;
+  opacity: 10  !important;
+  pointer-events: none;
+}
 
 #error_explanation {
   color: red;
@@ -177,19 +186,7 @@ $gray-medium-light: #eaeaea;
   }
 }
 
-.checkbox {
-  margin-top: -10px;
-  margin-bottom: 10px;
-  span {
-    margin-left: 20px;
-    font-weight: normal;
-  }
-}
 
-#session_remember_me {
-  width: auto;
-  margin-left: 0;
-}
 
 
 

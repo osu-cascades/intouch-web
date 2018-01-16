@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
   
-  devise_for :users
+  get 'welcome/index'
+
+  root to: 'welcome#index'
+
+  # devise_for :users
+  devise_for :users, :path => 'auth', controllers: {confirmations: 'confirmations'}
   resources :roles
-  root 'sessions#new'
+
 
   # Group
   resources :groups
@@ -15,27 +20,11 @@ Rails.application.routes.draw do
   #             PUT    /groups/:id(.:format)             groups#update
   #             DELETE /groups/:id(.:format)             
 
-  # Login
-  get    '/login',   to: 'sessions#new'
-  post   '/login',   to: 'sessions#create'
-  delete '/logout',  to: 'sessions#destroy'
 
   # Notifications
   resources :notifications
 
-  # Sessions
-  #get 'sessions/new'
-  get    '/login',   to: 'sessions#new' 
-  post   '/login',   to: 'sessions#create'
-  delete '/logout',  to: 'sessions#destroy'
-
-   # login  GET     /login(.:format)  sessions#new
-   #        POST    /login(.:format)  sessions#create
-   # logout DELETE  /logout(.:format) sessions#destroy
-
-  # GET    /login   login_path  new page for new session(login)
-  # POST   /login   login_path  create create new session(login)
-  # DELETE /logoout logout_path destroy delete a session(log out)
+ 
 
   resources :users
   #           GET    /users(.:format)                  users#index

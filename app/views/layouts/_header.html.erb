@@ -1,25 +1,30 @@
 <!-- Files with a _ infront of it means it is a partial facility -->
 
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container"> 
-    <%= link_to "InTouch", root_path, id: "logo" %>
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-        <% if logged_in? %>
-          <% if admin? %>
-            <li><%= link_to "Users",   users_path %></li>
-            <li><%= link_to "Groups",   groups_path %></li>
-            <li><%= link_to "Roles",   roles_path %></li>
-            <li><%= link_to "Notifications", notifications_path %></li>
-          <% end %>
-          <li class="navbar-text">Signed in as <%= current_user.username %> </li>
-          <li><%= link_to "Log out", logout_path, method: :delete %> </li>
 
-            <%  else %>
-              <!--<li><%= link_to "Log in", login_path %></li>-->
-
+<nav>
+  <div class="nav-wrapper">
+    <%= link_to "InTouch", welcome_index_path, id: "logo" %>
+    <!-- This line below is to handle the resizing of windows and creates a sidebar
+    http://materializecss.com/navbar.html under Mobile Collapse Button. -->
+    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <% if user_signed_in? %>
+          <li>Logged in as <%= current_user.email %> </li>
+          <li><%= link_to "Users",   users_path %></li>
+          <li><%= link_to "Groups",   groups_path %></li>
+          <li><%= link_to "Roles",   roles_path %></li>
+          <li><%= link_to "Notifications", notifications_path %></li>
+          <li><%= link_to "Log out", destroy_user_session_path, method: :delete %> </li>
+        <% else %>
+          <li class="navbar-text"> 
+          <li><%= link_to "Log in", new_user_session_url %> </li>
+          </li>
         <% end %>
       </ul>
-    </nav>
- </div>
-</header>
+      <!-- This is the sidebar when resizing the browser and the links you want to appear are between the <li></li> tags -->
+      <!-- Having issues with this during certain times it doesn't work. Need to refer to video to figure out why -->
+        <ul class="side-nav" id="mobile-demo">
+            <li><%= link_to "Notifications", notifications_path %></li>
+        </ul>
+  </div>
+</nav>
