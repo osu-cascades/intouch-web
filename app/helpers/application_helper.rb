@@ -10,6 +10,12 @@ module ApplicationHelper
     end
   end
 
-  
+  def user_admin(current_user)
+    if (current_user.user_type == 'admin')
+      return true
+    else
+      return false
+    end
+  end
 
 end

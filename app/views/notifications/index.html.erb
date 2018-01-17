@@ -1,6 +1,6 @@
 <% provide(:title, "Notifications") %>
 
-<!-- has to be a better way then repeating code -->
+<!-- Create partial that holds this format? -->
 
 <h1>Messages</h1>
 <p>
@@ -61,7 +61,7 @@
             <td><%= notification.title %></td>
             <td><%= notification.date %></td>
   
-
+            <td></td>
 
             <td><%= notification.content %></td>
             <td><%= link_to 'Show', notification, class: 'btn btn-mini'  %></td>
