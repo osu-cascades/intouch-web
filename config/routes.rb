@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   # We will also remove the links in devise/shared/_links.html.erb that reference "sign up"
   #https://rails.devcamp.com/rails-bdd-tdd-course/install-customize-administrate-dashboard/how-to-remove-ability-users-register-devise
 
-  resources :roles
+  # resources :roles
   resources :groups
   resources :notifications
   resources :users
