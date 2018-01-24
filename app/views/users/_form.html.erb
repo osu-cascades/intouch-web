@@ -17,12 +17,13 @@
 
   <%= f.label :email, "Email" %>
   <%= f.text_field :email, class: 'form-control' %>
+  <% if current_page?(controller: 'users', action: 'new') %>
+    <%= f.label :password, "Password" %>
+    <%= f.password_field :password, class: 'form-control' %>
 
-  <%= f.label :password, "Password" %>
-  <%= f.password_field :password, class: 'form-control' %>
-
-  <%= f.label :password_confirmation, "Re-type Password" %>
-  <%= f.password_field :password_confirmation, class: 'form-control' %>
+    <%= f.label :password_confirmation, "Re-type Password" %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+  <% end %>
 
   <%= f.submit "Update User", class: "btn btn-primary"%>
 <% end %>
