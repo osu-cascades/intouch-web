@@ -1,8 +1,11 @@
 class NotificationsController < ApplicationController
 
- before_action :authenticate_user!
+  before_action :authenticate_user!
+  
   def index
-    @notifications = Notification.all
+    # Apartment.joins(:towers).select('apartments.id, apartments.name, towers.id , towers.name')
+
+    @notifications = current_user.notifications
     
   end
 
