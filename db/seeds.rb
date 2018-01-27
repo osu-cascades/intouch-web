@@ -38,7 +38,7 @@ case Rails.env
              last_name: "Weirup",
              user_type: "admin",
              username: "charlene",
-             password: "abilitree",
+             password: "loopdeloop",
              email: "place@holder.com")
 
     User.create!(first_name: "admin",
