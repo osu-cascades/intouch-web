@@ -37,7 +37,7 @@ class NotificationsController < ApplicationController
       @recipients = []
       #raise @group.inspect
         @group.each do |group| #gets each group individually
-        # @notification.groups << group #hopefully adds the single group and associate with not_grou
+          @notification.groups << group #hopefully adds the single group and associate with not_grou
           @user = group.users #grabs users associated with the single group
            @user.each do |user| #grabs single user from group of users in each 
             if current_user.username == user.username 
