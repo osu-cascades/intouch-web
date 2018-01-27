@@ -22,6 +22,9 @@ class NotificationsController < ApplicationController
     #this is the first_name of the sender so current_user >> sending to groupX
     @notification.user_id = current_user.id
 
+    if current_user.user_type == 'client'
+      @isClient = true
+    end
 
     if @notification.save
       @group = Group.where(id: params[:notification][:groups])
@@ -38,8 +41,23 @@ class NotificationsController < ApplicationController
            # @notification.users << user # adds the user to the notifications_users association table
           end
         end
+
         
+        # get rid of duplicates
         @recipients.uniq! { |r| r.username }
+
+        @recipients.each do |r|
+          puts r.user_type
+        end
+
+        # if client is sending, send only to staff
+        if @isClient
+          @recipients.reject! { |r| r.user_type == "client" }
+        end
+
+        @recipients.each do |r|
+          puts r.user_type
+        end
 
         @recipients.each do |user|
           @notification.users << user
