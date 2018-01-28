@@ -1,15 +1,12 @@
+
 class NotificationsController < ApplicationController
 
   before_action :authenticate_user!
   
   def index
-
     @notifications = current_user.notifications
-
     @notifications_by = Notification.all
-
     @notifications_by = @notifications_by.reject { |n| n.user_id != current_user.id }
-    
   end
 
   def show
@@ -47,28 +44,19 @@ class NotificationsController < ApplicationController
            # @notification.users << user # adds the user to the notifications_users association table
           end
         end
-
         
         # get rid of duplicates
         @recipients.uniq! { |r| r.username }
-
-        @recipients.each do |r|
-          puts r.user_type
-        end
 
         # if client is sending, send only to staff
         if @isClient
           @recipients.reject! { |r| r.user_type == "client" }
         end
 
-        @recipients.each do |r|
-          puts r.user_type
-        end
-
         @recipients.each do |user|
           @notification.users << user
         end
-
+      push_notification
       flash[:success] = "Notification created!"
       redirect_to notifications_url
     else
@@ -91,4 +79,9 @@ class NotificationsController < ApplicationController
     def notification_params
       params.require(:notification).permit(:title, :groups, :content)
     end
+
+    def push_notification
+      Pusher.trigger('my-channel', 'my-event', {:message => @notification.content })
+    end
+
 end
