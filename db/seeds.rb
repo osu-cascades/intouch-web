@@ -15,19 +15,37 @@ case Rails.env
             username: "admin",
             password: "password",
             email: "admin@admin.com")
-    User.create!(first_name: "staff",
-            last_name: "staff",
+    User.create!(first_name: "staff1",
+            last_name: "staff1",
             user_type: "staff",
-            username: "staff",
+            username: "staff1",
             password: "password",
-            email: "staff@staff.com")
+            email: "staff1@staff.com")
+    User.create!(first_name: "staff2",
+            last_name: "staff2",
+            user_type: "staff",
+            username: "staff2",
+            password: "password",
+            email: "staff2@staff.com")
 
-    User.create!(first_name: "client",
-            last_name: "client",
+    User.create!(first_name: "client1",
+            last_name: "client1",
             user_type: "client",
-            username: "client",
+            username: "client1",
             password: "password",
-            email: "client@client.com")
+            email: "client1@client.com")
+    User.create!(first_name: "client2",
+            last_name: "client2",
+            user_type: "client",
+            username: "client2",
+            password: "password",
+            email: "client2@client.com")
+    User.create!(first_name: "client3",
+            last_name: "client3",
+            user_type: "client",
+            username: "client3",
+            password: "password",
+            email: "client3@client.com")
 
     Group.create!(name: "Group1")
     Group.create!(name: "Group2")
