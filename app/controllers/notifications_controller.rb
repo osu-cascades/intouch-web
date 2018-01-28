@@ -7,7 +7,7 @@ class NotificationsController < ApplicationController
     @notifications = current_user.notifications
     @notifications = @notifications.reject { |n| n.user_id == current_user.id}
 
-    @notifications_by = Notification.all
+    @notifications_by = current_user.notifications
     @notifications_by = @notifications_by.reject { |n| n.user_id != current_user.id }
   end
 
@@ -79,7 +79,8 @@ class NotificationsController < ApplicationController
   end
 
   def destroy
-    Notification.find(params[:id]).destroy
+
+    Notification.find(params[:id]).users.delete(current_user)
     flash[:success] = "Notification deleted"
     redirect_to notifications_url
   end 
