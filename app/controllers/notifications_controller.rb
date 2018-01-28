@@ -5,6 +5,8 @@ class NotificationsController < ApplicationController
   
   def index
     @notifications = current_user.notifications
+    @notifications = @notifications.reject { |n| n.user_id == current_user.id}
+
     @notifications_by = Notification.all
     @notifications_by = @notifications_by.reject { |n| n.user_id != current_user.id }
   end
@@ -30,6 +32,7 @@ class NotificationsController < ApplicationController
     end
 
     if @notification.save
+      @notification.users << current_user
       @group = Group.where(id: params[:notification][:groups])
       @recipients = []
       #raise @group.inspect
@@ -44,6 +47,10 @@ class NotificationsController < ApplicationController
            # @notification.users << user # adds the user to the notifications_users association table
           end
         end
+        puts 'before'
+        @recipients.each do |r|
+          puts r.username
+        end
         
         # get rid of duplicates
         @recipients.uniq! { |r| r.username }
@@ -52,7 +59,10 @@ class NotificationsController < ApplicationController
         if @isClient
           @recipients.reject! { |r| r.user_type == "client" }
         end
-
+        puts 'after'
+        @recipients.each do |r|
+          puts r.username
+        end
         @recipients.each do |user|
           @notification.users << user
         end
@@ -81,7 +91,7 @@ class NotificationsController < ApplicationController
     end
 
     def push_notification
-      Pusher.trigger('my-channel', 'my-event', {:message => @notification.content })
+      Pusher.trigger('main', 'notification', {:message => @notification.content })
     end
 
 end
