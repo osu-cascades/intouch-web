@@ -19,12 +19,16 @@ class NotificationsController < ApplicationController
   	@notification = Notification.new
   end
 
-  def create
-  
+
+
+
+  def create  
     @notification = Notification.new(notification_params)
+
     #this will prefill each notification date with the current time
     @notification.date = Time.now
-    #this is the first_name of the sender so current_user >> sending to groupX
+
+    
     @notification.user_id = current_user.id
 
     if current_user.user_type == 'client'
@@ -35,7 +39,7 @@ class NotificationsController < ApplicationController
       @notification.users << current_user
       @group = Group.where(id: params[:notification][:groups])
       @recipients = []
-      #raise @group.inspect
+      
         @group.each do |group| #gets each group individually
           @notification.groups << group #hopefully adds the single group and associate with not_grou
           @user = group.users #grabs users associated with the single group
@@ -74,16 +78,19 @@ class NotificationsController < ApplicationController
     end
   end
 
+
+
+
   def edit
     @notification = Notification.find(params[:id])
   end
 
   def destroy
-
     Notification.find(params[:id]).users.delete(current_user)
     flash[:success] = "Notification deleted"
     redirect_to notifications_url
   end 
+
 
   private
 
