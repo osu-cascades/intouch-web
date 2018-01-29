@@ -70,7 +70,7 @@ class NotificationsController < ApplicationController
         @recipients.each do |user|
           @notification.users << user
         end
-      push_notification
+      #push_notification
       flash[:success] = "Notification created!"
       redirect_to notifications_url
     else
