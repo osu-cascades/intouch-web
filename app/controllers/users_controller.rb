@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   
 
   def index
-    @users = User.all
+    @users = User.order("lower(first_name) ASC").all
   end
 
   def new
@@ -38,10 +38,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User deleted from database"
+    @user = User.find(params[:id])
+    @user.update_attributes(deactivated: true) #unless deactivated
+    flash[:success] = "User deactivated from database"
     redirect_to users_path
   end
+
+  
 
   private
 

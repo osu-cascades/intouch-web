@@ -24,4 +24,8 @@ validates :username, presence: true, length: { maximum: 50 }, uniqueness: { case
     false
   end
 
+  def active_for_authentication?
+    super && !deactivated
+  end
+
 end
