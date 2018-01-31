@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
     notifications_path
   end
 
+
   protected
 
   def configure_permitted_parameters
