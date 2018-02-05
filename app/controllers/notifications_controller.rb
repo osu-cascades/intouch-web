@@ -86,7 +86,8 @@ class NotificationsController < ApplicationController
     end
 
     def push_notification
-      Pusher.trigger('my-channel', 'my-event', {:message => @notification.content })
+      data = "#{@notification.title}: #{@notification.content}"
+      Pusher.trigger('abilitree', 'notifications', {:message => @notification.title + " - " + @notification.content})
     end
 
 end
