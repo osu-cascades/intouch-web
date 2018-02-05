@@ -1,8 +1,8 @@
 
 class NotificationsController < ApplicationController
 
-  before_action :authenticate_user!
-  
+  before_action :authenticate_user!, except: :messages
+
   def index
     @notifications = current_user.notifications
     @notifications = @notifications.reject { |n| n.user_id == current_user.id}
@@ -47,10 +47,6 @@ class NotificationsController < ApplicationController
            # @notification.users << user # adds the user to the notifications_users association table
           end
         end
-        puts 'before'
-        @recipients.each do |r|
-          puts r.username
-        end
         
         # get rid of duplicates
         @recipients.uniq! { |r| r.username }
@@ -59,14 +55,13 @@ class NotificationsController < ApplicationController
         if @isClient
           @recipients.reject! { |r| r.user_type == "client" }
         end
-        puts 'after'
-        @recipients.each do |r|
-          puts r.username
-        end
+
         @recipients.each do |user|
           @notification.users << user
         end
-      #push_notification
+
+      push_notification
+
       flash[:success] = "Notification created!"
       redirect_to notifications_url
     else
@@ -92,7 +87,8 @@ class NotificationsController < ApplicationController
     end
 
     def push_notification
-      Pusher.trigger('main', 'notification', {:message => @notification.content })
+      data = "#{@notification.title}: #{@notification.content}"
+      Pusher.trigger('abilitree', 'notifications', {:message => @notification.title + " - " + @notification.content})
     end
 
 end
