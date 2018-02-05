@@ -2,9 +2,11 @@
 
 <!-- Create partial that holds this format? -->
 
-<h1>Messages</h1>
+<h1>Notifications</h1>
+
+
 <p>
-  <%= link_to "Create New Message", new_notification_path, style: "color:blue" %>
+  <%= link_to "Create New Notification", new_notification_path, class: 'btn btn-mini' %>
 </p>
 
 <div class = "media">
@@ -24,7 +26,7 @@
           <tr>
             <% if notification.id != current_user.id%>
             <td><%= notification.title%></td>
-            <td><%= notification.user_id %></td>
+            <td><%= notification.user.first_name %></td>
             <td><%= notification.created_at %></td>
             <td><%= notification.content %></td>
             <td><%= link_to 'Show', notification, class: 'btn btn-mini'  %></td>
