@@ -99,6 +99,8 @@ class NotificationsController < ApplicationController
 
     def send_to_ios
 
+      require 'net/http'
+
       addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
 
       uri = URI.parse(addr)
