@@ -65,8 +65,7 @@ class NotificationsController < ApplicationController
         end
 
       push_notification
-      #send_to_pusher_to_apns
-      send_to_apns
+      send_to_ios
 
       flash[:success] = "Notification created!"
       redirect_to notifications_url
@@ -98,7 +97,7 @@ class NotificationsController < ApplicationController
       Pusher.trigger('abilitree', 'notifications', {:message => @notification.title + " - " + @notification.content})
     end
 
-    def send_to_pusher_to_apns
+    def send_to_ios
 
       addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
 
@@ -117,32 +116,33 @@ class NotificationsController < ApplicationController
       response = http.request(request)
     end
 
-    def send_to_apns
-      uri = URI.parse("https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes")
-      request = Net::HTTP::Post.new(uri)
-      request.content_type = "application/json"
-      request["Authorization"] = "Bearer 638FD20E88772FEA09A6CDD6497E9A0"
-      request.body = JSON.dump({
-        "interests" => [
-          "hello"
-        ],
-        "apns" => {
-          "aps" => {
-            "alert" => {
-              "title" => "Hello",
-              "body" => "Hello, world!"
-            }
-          }
-        }
-      })
+    # from curl-to-ruby, https://jhawthorn.github.io/curl-to-ruby/
+    # def send_to_apns
+    #   uri = URI.parse("https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes")
+    #   request = Net::HTTP::Post.new(uri)
+    #   request.content_type = "application/json"
+    #   request["Authorization"] = "Bearer 638FD20E88772FEA09A6CDD6497E9A0"
+    #   request.body = JSON.dump({
+    #     "interests" => [
+    #       "hello"
+    #     ],
+    #     "apns" => {
+    #       "aps" => {
+    #         "alert" => {
+    #           "title" => "Hello",
+    #           "body" => "Hello, world!"
+    #         }
+    #       }
+    #     }
+    #   })
 
-      req_options = {
-        use_ssl: uri.scheme == "https",
-      }
+    #   req_options = {
+    #     use_ssl: uri.scheme == "https",
+    #   }
 
-      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-        http.request(request)
-      end
-    end
+    #   response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+    #     http.request(request)
+    #   end
+    # end
 
 end
