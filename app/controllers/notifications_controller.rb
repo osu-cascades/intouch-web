@@ -65,7 +65,7 @@ class NotificationsController < ApplicationController
         end
 
       push_notification
-      #send_to_pusher
+      send_to_pusher_to_apns
 
       flash[:success] = "Notification created!"
       redirect_to notifications_url
@@ -97,11 +97,14 @@ class NotificationsController < ApplicationController
       Pusher.trigger('abilitree', 'notifications', {:message => @notification.title + " - " + @notification.content})
     end
 
-    def send_to_pusher
-      uri = URI.parse("https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes")
+    def send_to_pusher_to_apns
+
+      addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
+
+      uri = URI.parse(addr)
 
       header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
-      data = {"interests":["hello"],"apns":{"aps":{"alert":{"title":"Your Attention Please","body":"Everyone report to the dance floor!"}}}}
+      data = {"interests":["hello"],"apns":{"aps":{"alert":{"title":"#{@notification.title}","body":"#{@notification.content}"}}}}
 
       # Create the HTTP objects
       http = Net::HTTP.new(uri.host, uri.port)
