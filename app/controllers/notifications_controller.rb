@@ -33,6 +33,7 @@ class NotificationsController < ApplicationController
     end
 
     if @notification.save
+        # TODO need to get the id from the db
 
        @notification.users << current_user
        @group = Group.where(id: params[:notification][:groups])
@@ -99,14 +100,33 @@ class NotificationsController < ApplicationController
 
     def send_to_ios
 
-      require 'net/http'
+      require 'net/http' # needed for production environment, but not dev?
+      require 'time'
+
+      datetime = DateTime.now
 
       addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
 
       uri = URI.parse(addr)
 
       header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
-      data = {"interests":["hello"],"apns":{"aps":{"alert":{"title":"#{@notification.title}","body":"#{@notification.content}"}}}}
+      data = 
+      {
+          "interests":["abilitree"],
+          "apns": {
+            "aps": {
+              "alert": {
+                "title":@notification.title,
+                "body":@notification.content,
+                "from": "#{current_user.first_name} #{current_user.last_name}",
+                "datetime": "#{datetime}"
+              },
+              "badge":0,
+              "sound":"default"
+            }
+          }
+      }
+
 
       # Create the HTTP objects
       http = Net::HTTP.new(uri.host, uri.port)
@@ -117,34 +137,5 @@ class NotificationsController < ApplicationController
       # Send the request
       response = http.request(request)
     end
-
-    # from curl-to-ruby, https://jhawthorn.github.io/curl-to-ruby/
-    # def send_to_apns
-    #   uri = URI.parse("https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes")
-    #   request = Net::HTTP::Post.new(uri)
-    #   request.content_type = "application/json"
-    #   request["Authorization"] = "Bearer 638FD20E88772FEA09A6CDD6497E9A0"
-    #   request.body = JSON.dump({
-    #     "interests" => [
-    #       "hello"
-    #     ],
-    #     "apns" => {
-    #       "aps" => {
-    #         "alert" => {
-    #           "title" => "Hello",
-    #           "body" => "Hello, world!"
-    #         }
-    #       }
-    #     }
-    #   })
-
-    #   req_options = {
-    #     use_ssl: uri.scheme == "https",
-    #   }
-
-    #   response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-    #     http.request(request)
-    #   end
-    # end
 
 end
