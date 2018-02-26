@@ -103,6 +103,7 @@ class NotificationsController < ApplicationController
       require 'net/http' # needed for production environment, but not dev?
       require 'time'
 
+      # everything updates except for the minutes
       datetime = DateTime.now
 
       addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
