@@ -1,3 +1,6 @@
+require 'net/http'
+require 'uri'
+require 'json'
 
 class NotificationsController < ApplicationController
 
@@ -22,6 +25,7 @@ class NotificationsController < ApplicationController
 
 
   def create  
+
     @notification = Notification.new(notification_params)
 
     @notification.date = Time.now
@@ -64,7 +68,34 @@ class NotificationsController < ApplicationController
           @notification.users << user
         end
 
-      push_notification
+        #THis is for FCM 
+        uri = URI.parse("https://420e9921-9c12-47ed-a62c-d4de75534b91.pushnotifications.pusher.com/publish_api/v1/instances/420e9921-9c12-47ed-a62c-d4de75534b91/publishes")
+        request = Net::HTTP::Post.new(uri)
+        request.content_type = "application/json"
+        request["Authorization"] = "Bearer D998ED427143558C8DC691545174245"
+        request.body = JSON.dump({
+          "interests" => [
+            "hello"
+          ],
+          "fcm" => {
+            "notification" => {
+              "title" => current_user.username,
+              "body" => @notification.content
+            }
+          }
+        })
+
+      req_options = {
+        use_ssl: uri.scheme == "https",
+      }
+
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+
+    # response.code
+    #  response.body
+    #push_notification
 
       flash[:success] = "Notification created!"
       redirect_to notifications_url
