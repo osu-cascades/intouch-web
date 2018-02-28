@@ -37,6 +37,7 @@ class NotificationsController < ApplicationController
     end
 
     if @notification.save
+        # TODO need to get the id from the db
 
        @notification.users << current_user
        @group = Group.where(id: params[:notification][:groups])
@@ -68,34 +69,9 @@ class NotificationsController < ApplicationController
           @notification.users << user
         end
 
-        #THis is for FCM 
-        uri = URI.parse("https://420e9921-9c12-47ed-a62c-d4de75534b91.pushnotifications.pusher.com/publish_api/v1/instances/420e9921-9c12-47ed-a62c-d4de75534b91/publishes")
-        request = Net::HTTP::Post.new(uri)
-        request.content_type = "application/json"
-        request["Authorization"] = "Bearer D998ED427143558C8DC691545174245"
-        request.body = JSON.dump({
-          "interests" => [
-            "hello"
-          ],
-          "fcm" => {
-            "notification" => {
-              "title" => current_user.username,
-              "body" => @notification.content
-            }
-          }
-        })
+      send_to_ios
+      send_to_fcm
 
-      req_options = {
-        use_ssl: uri.scheme == "https",
-      }
-
-    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-      http.request(request)
-    end
-
-    # response.code
-    #  response.body
-    #push_notification
 
       flash[:success] = "Notification created!"
       redirect_to notifications_url
@@ -103,7 +79,6 @@ class NotificationsController < ApplicationController
       render 'new'
     end
   end
-
 
   def edit
     @notification = Notification.find(params[:id])
@@ -115,16 +90,84 @@ class NotificationsController < ApplicationController
     redirect_to notifications_url
   end 
 
-
   private
 
-    def notification_params
-      params.require(:notification).permit(:title, :groups, :content)
-    end
+  def notification_params
+    params.require(:notification).permit(:title, :groups, :content)
+end
 
-    def push_notification
-      data = "#{@notification.title}: #{@notification.content}"
-      Pusher.trigger('abilitree', 'notifications', {:message => @notification.title + " - " + @notification.content})
-    end
+  def send_to_ios
+
+    require 'net/http' # needed for production environment, but not dev?
+    require 'time'
+
+    # everything updates except for the minutes
+    datetime = DateTime.now
+
+    addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
+
+    uri = URI.parse(addr)
+
+    header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
+    data = 
+    {
+        "interests":["abilitree"],
+        "apns": {
+          "aps": {
+            "alert": {
+              "title":@notification.title,
+              "body":@notification.content,
+              "from": "#{current_user.first_name} #{current_user.last_name}",
+              "datetime": "#{datetime}"
+            },
+            "badge":0,
+            "sound":"default"
+          }
+        }
+    }
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Post.new(uri.request_uri, header)
+    request.body = data.to_json
+
+    response = http.request(request)
+end
+
+  def send_to_fcm
+    require 'net/http' # needed for production environment, but not dev?
+    require 'time'
+
+    # everything updates except for the minutes
+    datetime = DateTime.now
+
+    addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
+
+    uri = URI.parse(addr)
+
+    header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
+    data = 
+    {
+      "interests":["abilitree"],
+      "fcm": {
+        "notification": {
+          "title": @notification.title,
+          "body": @notification.content
+        },
+        "data": {
+          "title": @notification.title,
+          "body": @notification.content,
+          "by": "#{current_user.first_name} #{current_user.last_name}",
+          "datetime": "#{datetime}"
+        }
+      }
+    }
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Post.new(uri.request_uri, header)
+    request.body = data.to_json
+    response = http.request(request)
+end
 
 end
