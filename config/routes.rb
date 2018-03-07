@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get '/authorize', to: 'auth#authorize'
+
   get 'welcome/index'
 
   root to: 'welcome#index'
