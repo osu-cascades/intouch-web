@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   
   #get '/authorize', to: 'auth#authorize'
-  post '/authenticate', to: 'api#authenticate'
+  post '/auth', to: 'api#auth'
+  post '/push', to: 'api#push'
 
   get 'welcome/index'
 
