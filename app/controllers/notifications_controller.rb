@@ -96,7 +96,7 @@ class NotificationsController < ApplicationController
       require 'net/http' # needed for production environment, but not dev?
       require 'time'
 
-      # everything updates except for the minutes
+      # everything updates except for the minutes ~ ?
       datetime = DateTime.now
 
       addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
@@ -106,7 +106,7 @@ class NotificationsController < ApplicationController
       header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
       data = 
       {
-          "interests":["abilitree"],
+          "interests":["abilitree-dev"],
           "apns": {
             "aps": {
               "alert": {
@@ -125,7 +125,6 @@ class NotificationsController < ApplicationController
       http.use_ssl = true
       request = Net::HTTP::Post.new(uri.request_uri, header)
       request.body = data.to_json
-
       response = http.request(request)
     end
 
@@ -143,7 +142,7 @@ class NotificationsController < ApplicationController
       header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
       data = 
       {
-        "interests":["abilitree"],
+        "interests":["abilitree-dev"],
         "fcm": {
           "notification": {
             "title": @notification.title,
