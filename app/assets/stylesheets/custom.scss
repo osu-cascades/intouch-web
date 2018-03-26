@@ -8,10 +8,7 @@
   font-family: "Gotham Medium";
   src: url('/assets/_GothamRnd-Medium');
 }
-@font-face{
-  font-family: "Gotham Booklta";
-  src: url('/assets/GothamRnd-Booklta');
-}
+
 
 /* universal */
 
@@ -96,12 +93,12 @@ nav ul a {
 }
 
 th {
- font-family: "Gotham Booklta";
+ font-family: "Gotham Medium";
  font-size: 1.5em; 
 }
 
 tr td {
- font-family: "Gotham Booklta"; 
+ font-family: "Gotham Medium"; 
  font-size: 1.2em;
 }
 

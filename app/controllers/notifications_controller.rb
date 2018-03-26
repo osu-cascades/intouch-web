@@ -69,7 +69,7 @@ class NotificationsController < ApplicationController
           @notification.users << user
         end
 
-      send_to_ios
+      #send_to_ios
       send_to_fcm
 
 
@@ -148,7 +148,7 @@ end
     header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
     data = 
     {
-      "interests":["abilitree"],
+      "interests":["test_abilitree"],
       "fcm": {
         "notification": {
           "title": @notification.title,
