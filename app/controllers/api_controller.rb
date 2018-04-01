@@ -75,7 +75,7 @@ class ApiController < ApplicationController
         header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
         data = 
         {
-            "interests":["abilitree-dev"],
+            "interests":["abilitree_dev"],
             "apns": {
               "aps": {
                 "alert": {
@@ -112,7 +112,7 @@ class ApiController < ApplicationController
         header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
         data = 
         {
-          "interests":["abilitree-dev"],
+          "interests":["abilitree_dev"],
           "fcm": {
             "notification": {
               "title": @notification.title,
