@@ -27,9 +27,7 @@ class ApiController < ApplicationController
     password = params[:password]
     title = params[:title]
     content = params[:body]
-    # title = params[:title]
-    # groups = params[:groups]
-    # content = params[:content]
+
     @user = User.find_for_authentication(username: username)
     if @user && @user.valid_password?(password)
       @notification = Notification.new
