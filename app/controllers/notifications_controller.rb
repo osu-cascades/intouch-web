@@ -70,8 +70,9 @@ class NotificationsController < ApplicationController
         end
 
       #send_to_ios
+      ########################
       send_to_fcm
-
+      ########################
 
       flash[:success] = "Notification created!"
       redirect_to notifications_url
@@ -80,9 +81,13 @@ class NotificationsController < ApplicationController
     end
   end
 
+
+
   def edit
     @notification = Notification.find(params[:id])
   end
+
+
 
   def destroy
     Notification.find(params[:id]).users.delete(current_user)
@@ -90,11 +95,11 @@ class NotificationsController < ApplicationController
     redirect_to notifications_url
   end 
 
-  private
+
 
   def notification_params
     params.require(:notification).permit(:title, :groups, :content)
-end
+  end
 
   def send_to_ios
 
@@ -102,7 +107,7 @@ end
     require 'time'
 
     # everything updates except for the minutes
-    datetime = DateTime.now
+    datetime = Time.now
 
     addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
 
@@ -146,23 +151,25 @@ end
     uri = URI.parse(addr)
 
     header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
+    
     data = 
-    {
-      "interests":["test_abilitree"],
-      "fcm": {
-        "notification": {
-          "title": @notification.title,
-          "body": @notification.content
-        },
-        "data": {
-          "title": @notification.title,
-          "body": @notification.content,
-          "by": "#{current_user.first_name} #{current_user.last_name}",
-          "datetime": "#{datetime}"
+      {
+        "interests":["test_abilitree"],
+        "fcm": {
+          "notification": {
+            "title": @notification.title,
+            "body": @notification.content
+          },
+          "data": {
+            "title": @notification.title,
+            "body": @notification.content,
+            "by": "#{current_user.first_name} #{current_user.last_name}",
+            "datetime": "#{datetime}"
+          }
         }
       }
-    }
 
+     
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     request = Net::HTTP::Post.new(uri.request_uri, header)
