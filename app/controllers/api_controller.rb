@@ -10,8 +10,9 @@ class ApiController < ApplicationController
     if user && user.valid_password?(password)
 
       # TODO get, send token
+      # TODO create json object of group names to send back
 
-      render html: 'authenticated: ' + username
+      render html: 'usertype ' + user.usertype
     else
       render html: 'invalid username and/or password'
     end
