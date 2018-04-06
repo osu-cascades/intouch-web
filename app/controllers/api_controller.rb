@@ -12,7 +12,7 @@ class ApiController < ApplicationController
       # TODO get, send token
       # TODO create json object of group names to send back
 
-      render html: 'usertype ' + user.usertype
+      render html: 'usertype ' + user.user_type
     else
       render html: 'invalid username and/or password'
     end
