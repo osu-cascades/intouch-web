@@ -22,12 +22,15 @@ class ApiController < ApplicationController
   def push
     # TODO
     # if token valid?
+    
     # create notification
     permit_params_push
     username = params[:username]
     password = params[:password]
     title = params[:title]
+    group = params[:groups]
     content = params[:body]
+    puts "params: " + params
 
     @user = User.find_for_authentication(username: username)
     if @user && @user.valid_password?(password)
@@ -36,10 +39,32 @@ class ApiController < ApplicationController
       @notification.content = content
       @notification.date = Time.now
       @notification.user_id = @user.id
+
+      @group = Group.where(name: group)
+      @recipients = @group.users
+
+      # for now (4-7-18), when a user sends a notification they will also receive that notificaion so that their local device has a record
+      addUser = true
+      @recipients.each do |user|
+        if user.username == username
+          addUser = false
+        end
+      end
+
+      if addUser
+        user = User.where(name: username)
+        @recipients << user
+      end
+
+      puts 'recipients: ' + @recipients
+
       if @notification.save
         @notification.users << @user
-        send_to_ios
-        send_to_fcm
+        @recipients.each do |r|
+          @notification.user << r
+          send_to_ios(r.username)
+          send_to_fcm(r.username)
+        end
         render html: 'notification sent'
       else
         render html: 'error creating notification'
@@ -58,10 +83,10 @@ class ApiController < ApplicationController
     end
 
     def permit_params_push
-      params.permit(:username, :password, :title, :groups, :body)
+      params.permit(:username, :password, :title, :group, :body)
     end
 
-    def send_to_ios
+    def send_to_ios(channel)
 
         require 'net/http' # needed for production environment, but not dev?
         require 'time'
@@ -74,9 +99,10 @@ class ApiController < ApplicationController
         uri = URI.parse(addr)
 
         header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
+        
         data = 
         {
-            "interests":["abilitree_dev"],
+            "interests":[channel],
             "apns": {
               "aps": {
                 "alert": {
@@ -99,7 +125,7 @@ class ApiController < ApplicationController
         response = http.request(request)
       end
 
-      def send_to_fcm
+      def send_to_fcm(channel)
         require 'net/http' # needed for production environment, but not dev?
         require 'time'
 
@@ -113,7 +139,7 @@ class ApiController < ApplicationController
         header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
         data = 
         {
-          "interests":["abilitree_dev"],
+          "interests":[channel],
           "fcm": {
             "notification": {
               "title": @notification.title,
