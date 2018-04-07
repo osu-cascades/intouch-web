@@ -63,9 +63,11 @@ class NotificationsController < ApplicationController
 
         @recipients.each do |user|
           @notification.users << user
+          send_to_ios(user.username)
+          #send_to_fcm(user.username)
         end
  
-      send_to_ios
+      #send_to_ios
       send_to_fcm
 
       flash[:success] = "Notification created!"
@@ -91,13 +93,14 @@ class NotificationsController < ApplicationController
       params.require(:notification).permit(:title, :groups, :content)
     end
 
-    def send_to_ios
+    def send_to_ios(channel)
 
       require 'net/http' # needed for production environment, but not dev?
       require 'time'
 
       # everything updates except for the minutes ~ ?
       datetime = DateTime.now
+      #datetime.strftime "%d/%m/%Y %H:%M"
 
       addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
 
@@ -106,7 +109,7 @@ class NotificationsController < ApplicationController
       header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
       data = 
       {
-          "interests":["abilitree_dev"],
+          "interests":[channel],
           "apns": {
             "aps": {
               "alert": {
