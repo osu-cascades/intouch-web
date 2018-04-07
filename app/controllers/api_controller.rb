@@ -30,7 +30,6 @@ class ApiController < ApplicationController
     title = params[:title]
     group = params[:groups]
     content = params[:body]
-    puts "params: " + params
 
     @user = User.find_for_authentication(username: username)
     if @user && @user.valid_password?(password)
@@ -55,8 +54,6 @@ class ApiController < ApplicationController
         user = User.where(name: username)
         @recipients << user
       end
-
-      puts 'recipients: ' + @recipients
 
       if @notification.save
         @notification.users << @user
