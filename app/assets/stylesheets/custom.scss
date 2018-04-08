@@ -1,5 +1,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@font-face{
+  font-family: "Gotham Bold";
+  src: url('/assets/_GothamRnd-Bold');
+}
+@font-face{
+  font-family: "Gotham Medium";
+  src: url('/assets/_GothamRnd-Medium');
+}
 
 
 /* universal */
@@ -50,6 +58,7 @@ textarea {
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
+  font-family: "Gotham Bold";
 }
 
 h1 {
@@ -71,11 +80,32 @@ h2 {
 p {
   font-size: 1.1em;
   line-height: 1.7em;
+  font-family: "Gotham Medium";
+}
+
+li {
+  font-family: "Gotham Medium";
+  font-size: 1.5em;
+}
+
+nav ul a {
+  font-size: 1em !important; 
+}
+
+th {
+ font-family: "Gotham Medium";
+ font-size: 1.5em; 
+}
+
+tr td {
+ font-family: "Gotham Medium"; 
+ font-size: 1.2em;
 }
 
 /* header */
 
 #logo {
+  font-family: "Gotham Bold";
   margin-right: 10px;
   font-size: 1.7em;
   color: #fff;
@@ -83,6 +113,7 @@ p {
   letter-spacing: 3px;
   padding-top: 15px;
   font-weight: bold;
+  padding-left: 10px; 
 }
 
 #logo:hover {

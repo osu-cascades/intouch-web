@@ -1,3 +1,5 @@
+require 'uri'
+require 'json'
 
 class NotificationsController < ApplicationController
 
@@ -19,9 +21,8 @@ class NotificationsController < ApplicationController
   	@notification = Notification.new
   end
 
-
-
   def create  
+
     @notification = Notification.new(notification_params)
 
     @notification.date = Time.now
@@ -66,9 +67,10 @@ class NotificationsController < ApplicationController
           send_to_ios(user.username)
           #send_to_fcm(user.username)
         end
- 
+
       #send_to_ios
       send_to_fcm
+
 
       flash[:success] = "Notification created!"
       redirect_to notifications_url
@@ -94,7 +96,6 @@ class NotificationsController < ApplicationController
     end
 
     def send_to_ios(channel)
-
       require 'net/http' # needed for production environment, but not dev?
       require 'time'
 
@@ -102,26 +103,26 @@ class NotificationsController < ApplicationController
       datetime = DateTime.now
       #datetime.strftime "%d/%m/%Y %H:%M"
 
-      addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
-
       uri = URI.parse(addr)
+
+      addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
 
       header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
       data = 
       {
           "interests":[channel],
-          "apns": {
-            "aps": {
-              "alert": {
-                "title":@notification.title,
-                "body":@notification.content,
-                "from": "#{current_user.first_name} #{current_user.last_name}",
-                "datetime": "#{datetime}"
-              },
-              "badge":0,
-              "sound":"default"
+            "apns": {
+              "aps": 
+                "alert": {
+                  "title":@notification.title,
+                  "body":@notification.content,
+                  "from": "#{current_user.first_name} #{current_user.last_name}",
+                  "datetime": "#{datetime}"
+                },
+                "badge":0,
+                "sound":"default"
+              }
             }
-          }
       }
 
       http = Net::HTTP.new(uri.host, uri.port)
@@ -131,21 +132,22 @@ class NotificationsController < ApplicationController
       response = http.request(request)
     end
 
-    def send_to_fcm
-      require 'net/http' # needed for production environment, but not dev?
-      require 'time'
+  def send_to_fcm
+    require 'net/http' # needed for production environment, but not dev?
+    require 'time'
 
-      # everything updates except for the minutes
-      datetime = DateTime.now
+    # everything updates except for the minutes
+    datetime = DateTime.now
 
-      addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
+    addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
 
-      uri = URI.parse(addr)
+    uri = URI.parse(addr)
 
-      header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
-      data = 
+    header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
+    
+    data = 
       {
-        "interests":["abilitree_dev"],
+      "interests":["abilitree_dev"],
         "fcm": {
           "notification": {
             "title": @notification.title,
@@ -160,11 +162,11 @@ class NotificationsController < ApplicationController
         }
       }
 
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
-      request = Net::HTTP::Post.new(uri.request_uri, header)
-      request.body = data.to_json
-      response = http.request(request)
-    end
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Post.new(uri.request_uri, header)
+    request.body = data.to_json
+    response = http.request(request)
+  end
 
 end
