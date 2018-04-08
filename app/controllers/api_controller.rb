@@ -35,7 +35,7 @@ class ApiController < ApplicationController
     # puts 'group: ' + group
 
     @user = User.find_for_authentication(username: username)
-    puts "@user: #{@user.username}"
+    #puts "@user: #{@user.username}"
 
     if @user && @user.valid_password?(password)
       @notification = Notification.new
@@ -64,7 +64,7 @@ class ApiController < ApplicationController
           #puts "group name: #{g.name}"
           users = g.users
           users.each do |u|
-            recipient.push(u)
+            recipients.push(u)
           end
         end
         recipients.uniq! { |r| r.username }
