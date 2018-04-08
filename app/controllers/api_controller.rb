@@ -28,10 +28,15 @@ class ApiController < ApplicationController
     username = params[:username]
     password = params[:password]
     title = params[:title]
-    group = params[:groups]
+    group = params[:group]
     content = params[:body]
+    # puts 'username: ' + username
+    # puts 'title: ' + title
+    # puts 'group: ' + group
 
     @user = User.find_for_authentication(username: username)
+    puts "@user: #{@user.username}"
+
     if @user && @user.valid_password?(password)
       @notification = Notification.new
       @notification.title = title
@@ -39,34 +44,68 @@ class ApiController < ApplicationController
       @notification.date = Time.now
       @notification.user_id = @user.id
 
-      @group = Group.where(name: group)
-      @recipients = @group.users
+      recipients = []
+      case group
+      when 'All'
+        #puts 'Case all'
+        recipients = User.all
+      when 'All Staff'
+        #puts 'All Staff'
+        recipients = User.all
+        recipients = recipients.reject {|r| r.user_type == 'client'} 
+      when 'All Clients'
+        #puts 'All Clients'
+        recipients = User.all
+        recipients = recipients.reject {|r| r.user_type != 'client'}
+      else
+        #puts 'case: Else'
+        @group = Group.where(name: group)
+        @group.each do |g|
+          #puts "group name: #{g.name}"
+          users = g.users
+          users.each do |u|
+            recipient.push(u)
+          end
+        end
+        recipients.uniq! { |r| r.username }
+      end
+      
+      # recipients.each do |r|
+      #   puts "recipient: #{r.username}"
+      # end
 
       # for now (4-7-18), when a user sends a notification they will also receive that notificaion so that their local device has a record
       addUser = true
-      @recipients.each do |user|
+      recipients.each do |user|
         if user.username == username
           addUser = false
+          break
         end
       end
 
+      #puts "addUser: #{(addUser ? "true" : "false")}"
+
       if addUser
-        user = User.where(name: username)
-        @recipients << user
+        recipients.push(@user)
       end
 
+      # puts "# recipients: #{recipients.length}"
+
       if @notification.save
-        @notification.users << @user
         @recipients.each do |r|
+          # puts "r: " + r.username
           @notification.user << r
           send_to_ios(r.username)
           send_to_fcm(r.username)
         end
+        # puts "notification sent"
         render html: 'notification sent'
       else
+        # puts "error creating notification"
         render html: 'error creating notification'
       end  
     else 
+      # puts "invalid token"
       render html: 'invalid token'
     end
 
@@ -106,7 +145,7 @@ class ApiController < ApplicationController
                   "title": @notification.title,
                   "body": @notification.content,
                   "from": "#{@user.first_name} #{@user.last_name}",
-                  "datetime": @notification.date
+                  "datetime": "#{DateTime.now}"
                 },
                 "badge": 0,
                 "sound": "default"
@@ -127,7 +166,7 @@ class ApiController < ApplicationController
         require 'time'
 
         # everything updates except for the minutes
-        datetime = DateTime.now
+        #datetime = DateTime.now
 
         addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
 
