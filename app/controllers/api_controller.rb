@@ -92,7 +92,7 @@ class ApiController < ApplicationController
       # puts "# recipients: #{recipients.length}"
 
       if @notification.save
-        @recipients.each do |r|
+        recipients.each do |r|
           # puts "r: " + r.username
           @notification.user << r
           send_to_ios(r.username)
