@@ -1,10 +1,14 @@
 
-
-
-<%= @notification.title %>, <%= @notification.date %>,
-<%= @notification.content %> 
-
-
-
+<body>
+  <div class = "container">
+   <div class="card-panel teal lighten-2">
+    <h3><%= @notification.title %></h3>
+    <h4><%= @notification.date %></h4>
+    <div class="card-panel">
+    <%= @notification.content %> 
+  </div>
+    </div>
+  </div>
+</body>
 
 
