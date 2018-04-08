@@ -112,7 +112,7 @@ class NotificationsController < ApplicationController
       {
           "interests":[channel],
             "apns": {
-              "aps": 
+              "aps": {
                 "alert": {
                   "title":@notification.title,
                   "body":@notification.content,
