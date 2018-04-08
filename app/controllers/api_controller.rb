@@ -94,7 +94,7 @@ class ApiController < ApplicationController
       if @notification.save
         recipients.each do |r|
           # puts "r: " + r.username
-          @notification.user << r
+          @notification.users << r
           send_to_ios(r.username)
           send_to_fcm(r.username)
         end
