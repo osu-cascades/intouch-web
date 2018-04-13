@@ -65,12 +65,8 @@ class NotificationsController < ApplicationController
         @recipients.each do |user|
           @notification.users << user
           send_to_ios(user.username)
-          #send_to_fcm(user.username)
+          send_to_fcm(user.username)
         end
-
-      #send_to_ios
-      send_to_fcm
-
 
       flash[:success] = "Notification created!"
       redirect_to notifications_url
@@ -103,9 +99,9 @@ class NotificationsController < ApplicationController
       datetime = DateTime.now
       #datetime.strftime "%d/%m/%Y %H:%M"
 
-      uri = URI.parse(addr)
-
       addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
+
+      uri = URI.parse(addr)
 
       header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
       data = 
@@ -132,7 +128,7 @@ class NotificationsController < ApplicationController
       response = http.request(request)
     end
 
-  def send_to_fcm
+  def send_to_fcm(channel)
     require 'net/http' # needed for production environment, but not dev?
     require 'time'
 
@@ -147,7 +143,7 @@ class NotificationsController < ApplicationController
     
     data = 
       {
-      "interests":["abilitree_dev"],
+      "interests":[channel],
         "fcm": {
           "notification": {
             "title": @notification.title,
