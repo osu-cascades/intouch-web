@@ -41,7 +41,7 @@ class ApiController < ApplicationController
       @notification = Notification.new
       @notification.title = title
       @notification.content = content
-      @notification.date = Time.now
+      @notification.date = DateTime.now
       @notification.user_id = @user.id
 
       recipients = []
@@ -145,7 +145,7 @@ class ApiController < ApplicationController
                   "title": @notification.title,
                   "body": @notification.content,
                   "from": "#{@user.first_name} #{@user.last_name}",
-                  "datetime": "#{DateTime.now}"
+                  "datetime": "#{@notification.date}"
                 },
                 "badge": 0,
                 "sound": "default"
@@ -185,7 +185,7 @@ class ApiController < ApplicationController
               "title": @notification.title,
               "body": @notification.content,
               "by": "#{@user.first_name} #{@user.last_name}",
-              "datetime": @notification.date
+              "datetime": "#{@notification.date}"
             }
           }
         }
