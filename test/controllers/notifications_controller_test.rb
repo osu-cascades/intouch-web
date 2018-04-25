@@ -2,7 +2,7 @@ require 'test_helper'
 
 class NotificationsControllerTest < ActionDispatch::IntegrationTest
 
-  test "POST /notifications/create" do
+  test "TODO" do
     skip
   end
 
