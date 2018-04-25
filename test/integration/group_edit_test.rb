@@ -2,6 +2,10 @@ require 'test_helper'
 
 class GroupEditTest < ActionDispatch::IntegrationTest
 
+  def setup
+    @group = groups(:test_user)
+  end
+
   test "unsuccessful edit" do
     get edit_group_path(@group)
     assert_template 'groups/edit'
@@ -11,6 +15,7 @@ class GroupEditTest < ActionDispatch::IntegrationTest
   end
 
   test "successful edit" do
+    byebug
     get edit_group_path(@group)
     assert_template 'groups/edit'
     name  = "Foo Bar"
