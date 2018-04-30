@@ -1,28 +1,29 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@font-face{
-  font-family: "Gotham Bold";
-  src: url('/assets/_GothamRnd-Bold');
-}
-@font-face{
-  font-family: "Gotham Medium";
-  src: url('/assets/_GothamRnd-Medium');
-}
+
 
 
 /* universal */
-
 
 
 .well { //this is for the div around group create new notificaition form
   margin-top: 20px; 
 }
 
-.navbar-inverse { 
-  background-color: #6C6864;
+.unique { /* In Your CSS File */
+   background-image: url('background.jpg');
 }
 
-html, body { height: 100%; margin: 0; }
+html, body { 
+  height:100%;
+  margin: 0; 
+  //background-color: #3f5c22;
+  //height: 125vh;
+  //background-image: url('background.jpg');
+  //background-size: cover;
+  background-repeat: no-repeat;
+  background-size: auto;
+}
 
 #container {
   margin-top: 5%;
@@ -104,22 +105,31 @@ tr td {
 
 /* header */
 
-#logo {
-  font-family: "Gotham Bold";
-  margin-right: 10px;
-  font-size: 1.7em;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  padding-top: 15px;
-  font-weight: bold;
-  padding-left: 10px; 
-}
 
-#logo:hover {
-  color: #fff;
-  text-decoration: none;
-  text-color: white;
+nav.navbar-material {
+  background: #ffffff;
+  border: none;
+  box-shadow: none;
+}
+.navbar-material .nav-wrapper {
+  background: white;
+  height: 110px;
+}
+.navbar-material .nav-wrapper > ul > li > a {
+  color: black;
+}
+.navbar-material .nav-wrapper .brand-logo img {
+  height: 90px;
+  padding-left: 50px;
+
+}
+.navbar-material .nav-wrapper .button-collapse i {
+  color: black;
+}
+@media (max-width: 600px) {
+  .navbar-material .nav-wrapper .brand-logo img {
+    height: 56px;
+  }
 }
 
 
@@ -218,7 +228,12 @@ $gray-medium-light: #eaeaea;
 }
 
 
-
+/* Login Front page */
+.card {
+      margin-top: 10% !important;
+      margin-left: 30% !important;
+      left: 40%;
+}
 
 
 .btn-primary {

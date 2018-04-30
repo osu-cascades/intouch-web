@@ -6,8 +6,8 @@ class UserTest < ActiveSupport::TestCase
   	@user = User.new(first_name: "Tim", last_name: "Arnold", user_type: "admin", password: "timothyarnold1", username: "tarnold")
   end
 
-  test "should be valid" do 
-  	assert @user.valid?
+  test "should be valid" do
+  	assert users(:admin).valid?
   end
 
   # presense

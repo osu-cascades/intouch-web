@@ -2,14 +2,12 @@
 
 one:
   title: MyString
-  first_name: MyString
-  last_name: MyString
   date: 2017-11-01 12:52:34
   content: MyText
+  user: users(:admin)
 
 two:
   title: MyString
-  first_name: MyString
-  last_name: MyString
   date: 2017-11-01 12:52:34
   content: MyText
+  user: users(:admin)
