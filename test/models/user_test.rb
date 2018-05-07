@@ -14,7 +14,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "first name should be present" do
   	@user.first_name = "   "
-  	assert_not nil
+  	assert_not @user.valid?
   end
 
   test "lastName should be present" do
@@ -84,8 +84,6 @@ class UserTest < ActiveSupport::TestCase
     assert_not(user_types.include? @user.user_type)
   end
 
-  test "authenticated? should return false for a user with nil digest" do
-    assert_not @user.authenticated?('')
-  end
+
 
 end

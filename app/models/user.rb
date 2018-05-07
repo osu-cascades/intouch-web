@@ -8,7 +8,10 @@ class User < ApplicationRecord
 	has_and_belongs_to_many :notifications
   
 validates :username, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
-  validates :email, uniqueness: true
+validates :email, uniqueness: true
+validates :first_name, presence: true
+validates :last_name, presence: true, length: { maximum: 50 }
+validates :user_type, presence: true
 
 	# Per the instructions to be able to user username as key for authentication
   #https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-sign-in-with-something-other-than-their-email-address
