@@ -10,8 +10,8 @@
   margin-top: 20px; 
 }
 
-.unique { /* In Your CSS File */
-   background-image: url('background.jpg');
+.unique {  
+   background-color: #4d4a39;
 }
 
 html, body { 
@@ -26,7 +26,7 @@ html, body {
 }
 
 #container {
-  margin-top: 5%;
+  margin-top: 8%;
   min-height: 80%;
   //height: auto !important;
   //height: 100%;
@@ -104,8 +104,6 @@ tr td {
 }
 
 /* header */
-
-
 nav.navbar-material {
   background: #ffffff;
   border: none;
@@ -228,12 +226,12 @@ $gray-medium-light: #eaeaea;
 }
 
 
-/* Login Front page */
+/* Login Front page 
 .card {
       margin-top: 10% !important;
       margin-left: 30% !important;
       left: 40%;
-}
+}*/
 
 
 .btn-primary {

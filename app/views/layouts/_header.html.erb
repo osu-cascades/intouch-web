@@ -3,7 +3,7 @@
 
 <nav class="navbar-material">
 	<div class="nav-wrapper">
-		<a href="#!" class="brand-logo">
+		<a href="#!" class="brand-logo center">
       <%=image_tag("Abilitree_TAG_SPOT.jpg")%>
     </a>
 		
@@ -19,10 +19,6 @@
 					<% end %>
 					<li><%= link_to "Notifications", notifications_path %></li>
 					<li><%= link_to "Log out", destroy_user_session_path, method: :delete %> </li>
-					<% else %>
-					<li class="navbar-text"> 
-						<li><%= link_to "Log in", new_user_session_url %> </li>
-					</li>
 				<% end %>
 				<!-- This is the sidebar when resizing the browser and the links you want to appear are between the <li></li> tags -->
 				<!-- Having issues with this during certain times it doesn't work. Need to refer to video to figure out why -->
