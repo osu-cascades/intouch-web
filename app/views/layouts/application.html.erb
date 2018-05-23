@@ -21,22 +21,21 @@
       </script>
   </head>
 
+
       <body>
         <%= render 'layouts/header' %>
-
-        <!-- This is per devise removed our old one to make the layout simpler-->
-        <% if notice %>
-             <p class="alert alert-success"><%= notice %></p>
-        <% end %>
-
-        <% if alert %>
-             <p class="alert alert-danger"><%= alert %></p>
-        <% end %>
-
         <div id="container">
+           <!-- This is per devise removed our old one to make the layout simpler-->
+           <%flash.each do |name,value| %>
+            <div class = 'alert alert-<%= name %>'>
+              <%= value %>
+            </div>
+            <%end%>
+
           <%= yield %>
          </div>
 
         <%= render 'layouts/footer' %>
       </body>
+
 </html>
