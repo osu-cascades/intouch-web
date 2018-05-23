@@ -27,17 +27,7 @@
 
   <body class="unique">
     <%= render 'layouts/header' %>
-
-              <!-- This is for devise above container for styling-->
-        <% if notice %>
-             <p class="alert alert-success"><%= notice %></p>
-        <% end %>
-
-        <% if alert %>
-             <p class="alert alert-danger"><%= alert %></p>
-        <% end %>
-
-
+          
 
       <div id="container">
 
@@ -50,6 +40,14 @@
             <div class="col s6">
               <div class="card ">
                   <div class="card-content">
+                        <!-- This is for devise above container for styling-->
+                      <% if notice %>
+                           <p class="alert alert-success"><%= notice %></p>
+                      <% end %>
+
+                      <% if alert %>
+                           <p class="alert alert-danger"><%= alert %></p>
+                      <% end %>
                     <%= yield %>
                   </div>
               </div>
