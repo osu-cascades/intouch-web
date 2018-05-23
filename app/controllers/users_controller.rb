@@ -20,7 +20,6 @@ class UsersController < ApplicationController
   	else
       # flash[:error] = "New user was not created!"
       redirect_to new_user_path, danger: "New user was not created!"
-  		render 'new'
   	end
   end
 
