@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
  before_action :authenticate_user!
-  
+
 
   def index
     @users = User.order("lower(first_name) ASC").all
@@ -28,7 +28,8 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    
+    # TODO: Check the params hash. If password is blank, then strip it from the
+    #       params hash.
     if @user.update_attributes(user_params_no_password)
       flash[:success] = "User updated"
       redirect_to users_path
@@ -44,14 +45,13 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  
-
   private
 
     def user_params
       params.require(:user).permit(:first_name, :email, :password_confirmation, :password, :last_name, :user_type, :username, group_ids:[])
     end
 
+    # TODO: Delete this.
     def user_params_no_password
       params.require(:user).permit(:first_name, :email, :last_name, :user_type, :username, group_ids:[])
     end
