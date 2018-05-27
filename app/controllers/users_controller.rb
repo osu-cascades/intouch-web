@@ -28,7 +28,6 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-<<<<<<< HEAD
 
     if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
       params[:user].delete(:password)
@@ -39,11 +38,6 @@ class UsersController < ApplicationController
       redirect_to users_path
     elsif params[:user][:password] == params[:user][:password_confirmation]
       @user.update_attributes(user_params)
-=======
-    # TODO: Check the params hash. If password is blank, then strip it from the
-    #       params hash.
-    if @user.update_attributes(user_params_no_password)
->>>>>>> c36a970fc94accdc5ae1fbd0dd6c0aa5000912fc
       flash[:success] = "User updated"
       redirect_to users_path
     else
