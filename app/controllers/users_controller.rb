@@ -33,7 +33,6 @@ class UsersController < ApplicationController
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
       @user.update_attributes(user_params)
-    # if @user.update_attributes(user_params)
       flash[:success] = "User updated"
       redirect_to users_path
     elsif params[:user][:password] == params[:user][:password_confirmation]
