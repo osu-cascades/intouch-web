@@ -5,7 +5,7 @@
 <div class="form-inputs">
 <%= f.input :username, required: false, autofocus: true %>
 <%= f.input :password, required: false %>
-<%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+<%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
 </div>
 
 <button class="btn waves-effect waves-light" type="submit" name="commit" value="Login">

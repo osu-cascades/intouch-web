@@ -28,13 +28,20 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    # TODO: Check the params hash. If password is blank, then strip it from the
-    #       params hash.
-    if @user.update_attributes(user_params_no_password)
+
+    if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+      @user.update_attributes(user_params)
+      flash[:success] = "User updated"
+      redirect_to users_path
+    elsif params[:user][:password] == params[:user][:password_confirmation]
+      @user.update_attributes(user_params)
       flash[:success] = "User updated"
       redirect_to users_path
     else
-      render 'edit'
+      flash[:alert] = "Passwords do not match"
+      render :action => 'edit'
     end
   end
 
