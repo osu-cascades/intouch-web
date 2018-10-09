@@ -46,9 +46,9 @@ class NotificationsController < ApplicationController
           @user.each do |user| #grabs single user from group of users in each 
             #Don't want a notification created for the current user, because the current user is sending it
             #out to other people. 
-            if current_user.username == user.username 
-              next
-            end
+            # if current_user.username == user.username 
+            #   next
+            # end
             @recipients << user #adding to the array we declared earlier @recipients = []
           end
         end
