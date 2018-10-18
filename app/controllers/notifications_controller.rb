@@ -65,7 +65,7 @@ class NotificationsController < ApplicationController
         @recipients.each do |user|
           @notification.users << user
           send_to_ios(user.username)
-          send_to_fcm(user.username)
+          # send_to_fcm(user.username)
         end
 
       flash[:success] = "Notification created!"
