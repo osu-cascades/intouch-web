@@ -7,6 +7,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'dotenv-rails', groups: [:development, :test]
+
 gem 'pusher', '~>1.3.1'
 gem 'rails', '~> 5.1.4'
 gem 'bcrypt', '3.1.11'

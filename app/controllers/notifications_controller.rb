@@ -1,5 +1,12 @@
-require 'uri'
+require 'pusher'
 require 'json'
+
+Pusher.app_id = ENV['APP_ID']
+Pusher.key = ENV['KEY']
+Pusher.secret = ENV['SECRET']
+Pusher.cluster = ENV['CLUSTER']
+Pusher.logger = ENV['LOGGER']
+Pusher.encrypted = ENV['ENCRYPTED']
 
 class NotificationsController < ApplicationController
 
@@ -18,7 +25,7 @@ class NotificationsController < ApplicationController
   end
 
   def new
-  	@notification = Notification.new
+    @notification = Notification.new
   end
 
   def create  
@@ -62,10 +69,12 @@ class NotificationsController < ApplicationController
           @recipients.reject! { |r| r.user_type == "client" }
         end
 
+        print "recipients: #{@recipients}"
+
         @recipients.each do |user|
           @notification.users << user
           send_to_ios(user.username)
-          # send_to_fcm(user.username)
+          send_to_fcm(user.username)
         end
 
       flash[:success] = "Notification created!"
@@ -92,77 +101,26 @@ class NotificationsController < ApplicationController
     end
 
     def send_to_ios(channel)
-      require 'net/http' # needed for production environment, but not dev?
-      require 'time'
-
-      # everything updates except for the minutes ~ ?
       datetime = DateTime.now
-      #datetime.strftime "%d/%m/%Y %H:%M"
 
-      addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
-
-      uri = URI.parse(addr)
-
-      header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
-      data = 
-      {
-          "interests":[channel],
-            "apns": {
-              "aps": {
-                "alert": {
-                  "title":@notification.title,
-                  "body":@notification.content,
-                  "from": "#{current_user.first_name} #{current_user.last_name}",
-                  "datetime": "#{datetime}"
-                },
-                "badge":0,
-                "sound":"default"
-              }
-            }
-      }
-
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
-      request = Net::HTTP::Post.new(uri.request_uri, header)
-      request.body = data.to_json
-      response = http.request(request)
+      Pusher.trigger(channel, 'new-notification', {
+        title: @notification.title,
+        body: @notification.content,
+        from: "#{current_user.first_name} #{current_user.last_name}",
+        datetime: "#{datetime}"
+      })
     end
 
   def send_to_fcm(channel)
-    require 'net/http' # needed for production environment, but not dev?
     require 'time'
 
-    # everything updates except for the minutes
     datetime = DateTime.now
 
-    addr = "https://9313976c-3ca4-4a1c-9538-1627280923f4.pushnotifications.pusher.com/publish_api/v1/instances/9313976c-3ca4-4a1c-9538-1627280923f4/publishes"
-
-    uri = URI.parse(addr)
-
-    header = {'Content-Type': 'application/json', 'Authorization': 'Bearer 638FD20E88772FEA09A6CDD6497E9A0'}
-    
-    data = 
-      {
-      "interests":[channel],
-        "fcm": {
-          "notification": {
-            "title": @notification.title,
-            "body": @notification.content
-          },
-          "data": {
-            "title": @notification.title,
-            "body": @notification.content,
-            "by": "#{current_user.first_name} #{current_user.last_name}",
-            "datetime": "#{datetime}"
-          }
-        }
-      }
-
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    request = Net::HTTP::Post.new(uri.request_uri, header)
-    request.body = data.to_json
-    response = http.request(request)
+    Pusher.trigger(channel, 'new-notification', {
+      title: @notification.title,
+      body: @notification.content,
+      by: "#{current_user.first_name} #{current_user.last_name}",
+      datetime: "#{datetime}"
+    })
   end
-
 end
