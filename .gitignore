@@ -20,5 +20,6 @@
 
 .DS_Store
 .ruby-gemset
-.env
 
+.env*
+!.env.example
