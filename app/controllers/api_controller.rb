@@ -1,3 +1,12 @@
+require 'pusher'
+
+Pusher.app_id = ENV['APP_ID']
+Pusher.key = ENV['KEY']
+Pusher.secret = ENV['SECRET']
+Pusher.cluster = ENV['CLUSTER']
+Pusher.logger = ENV['LOGGER']
+Pusher.encrypted = ENV['ENCRYPTED']
+
 class ApiController < ApplicationController
   skip_before_action :verify_authenticity_token
 
