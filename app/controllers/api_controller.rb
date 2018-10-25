@@ -15,7 +15,7 @@ class ApiController < ApplicationController
     username = params[:username]
     password = params[:password]
     user = User.find_for_authentication(username: username)
-    if user & user.valid_password?(password)
+    if user && user.valid_password?(password)
 
       # TODO: get, send token
       # TODO: create json object of group names to send back
@@ -38,7 +38,7 @@ class ApiController < ApplicationController
 
     @user = User.find_for_authentication(username: username)
 
-    if @user & @user.valid_password?(password)
+    if @user && @user.valid_password?(password)
       @notification = Notification.new
       @notification.title = title
       @notification.content = content
