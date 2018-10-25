@@ -3,9 +3,9 @@ require 'pusher'
 Pusher.app_id = ENV['APP_ID']
 Pusher.key = ENV['KEY']
 Pusher.secret = ENV['SECRET']
-Pusher.cluster = ENV['CLUSTER']
+Pusher.cluster = 'us2'
 Pusher.logger = Rails.logger
-Pusher.encrypted = ENV['ENCRYPTED']
+Pusher.encrypted = true
 
 class ApiController < ApplicationController
   skip_before_action :verify_authenticity_token
