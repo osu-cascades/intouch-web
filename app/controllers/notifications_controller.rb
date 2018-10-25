@@ -5,7 +5,7 @@ Pusher.app_id = ENV['APP_ID']
 Pusher.key = ENV['KEY']
 Pusher.secret = ENV['SECRET']
 Pusher.cluster = ENV['CLUSTER']
-Pusher.logger = ENV['LOGGER']
+Pusher.logger = Rails.logger
 Pusher.encrypted = ENV['ENCRYPTED']
 
 class NotificationsController < ApplicationController

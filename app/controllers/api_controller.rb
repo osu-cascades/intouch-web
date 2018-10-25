@@ -4,7 +4,7 @@ Pusher.app_id = ENV['APP_ID']
 Pusher.key = ENV['KEY']
 Pusher.secret = ENV['SECRET']
 Pusher.cluster = ENV['CLUSTER']
-Pusher.logger = ENV['LOGGER']
+Pusher.logger = Rails.logger
 Pusher.encrypted = ENV['ENCRYPTED']
 
 class ApiController < ApplicationController
@@ -28,6 +28,14 @@ class ApiController < ApplicationController
 
   def push
     # TODO: if token valid? create notification
+
+    puts Pusher.app_id
+    puts Pusher.key
+    puts Pusher.secret
+    puts Pusher.cluster
+    puts Pusher.logger
+    puts Pusher.encrypted
+
     permit_params_push
     username = params[:username]
     password = params[:password]
