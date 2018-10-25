@@ -29,13 +29,6 @@ class ApiController < ApplicationController
   def push
     # TODO: if token valid? create notification
 
-    puts Pusher.app_id
-    puts Pusher.key
-    puts Pusher.secret
-    puts Pusher.cluster
-    puts Pusher.logger
-    puts Pusher.encrypted
-
     permit_params_push
     username = params[:username]
     password = params[:password]
@@ -88,7 +81,7 @@ class ApiController < ApplicationController
 
       if @notification.save
         recipients.each do |r|
-          # puts "r: " + r.username
+          puts "r: " + r.username
           @notification.users << r
           send_to_ios(r.username)
           send_to_fcm(r.username)
