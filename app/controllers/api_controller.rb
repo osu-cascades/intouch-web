@@ -84,7 +84,7 @@ class ApiController < ApplicationController
           puts "r: " + r.username
           @notification.users << r
           send_to_ios(r.username)
-          send_to_fcm(r.username)
+          # send_to_fcm(r.username)
         end
         # puts "notification sent"
         render html: 'notification sent'
@@ -122,7 +122,7 @@ class ApiController < ApplicationController
     {
       title: @notification.title,
       body: @notification.content,
-      by: "#{@user.first_name} #{@user.last_name}",
+      from: "#{@user.first_name} #{@user.last_name}",
       datetime: "#{@notification.date}"
     })
   end

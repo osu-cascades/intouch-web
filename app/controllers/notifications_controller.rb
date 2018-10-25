@@ -73,7 +73,7 @@ class NotificationsController < ApplicationController
         @recipients.each do |user|
           @notification.users << user
           send_to_ios(user.username)
-          send_to_fcm(user.username)
+          # send_to_fcm(user.username)
         end
 
       flash[:success] = "Notification created!"
@@ -118,7 +118,7 @@ class NotificationsController < ApplicationController
     Pusher.trigger(channel, 'new-notification', {
       title: @notification.title,
       body: @notification.content,
-      by: "#{current_user.first_name} #{current_user.last_name}",
+      from: "#{current_user.first_name} #{current_user.last_name}",
       datetime: "#{datetime}"
     })
   end
