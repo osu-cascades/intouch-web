@@ -1,15 +1,16 @@
 Rails.application.routes.draw do
-  
+
   #get '/authorize', to: 'auth#authorize'
   post '/auth', to: 'api#auth'
   post '/push', to: 'api#push'
+  post '/allNotifications', to: 'api#allNotifications'
 
   get 'welcome/index'
 
   root to: 'welcome#index'
 
-  # devise_for :users ....Why we commented this out explanation below. 
-  #To fix problem with too many redirects the routes were the same for users and devise users.  
+  # devise_for :users ....Why we commented this out explanation below.
+  #To fix problem with too many redirects the routes were the same for users and devise users.
   #If you went to rake routes without the code below you would see that declaring
   #resources: users and devise_for :users created the same routes
   #To fix this we rename devise routes to auth. Use command rake routes to see.
