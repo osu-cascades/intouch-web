@@ -104,7 +104,7 @@ class ApiController < ApplicationController
     user = User.find_for_authentication(username: username)
     if user && user.valid_password?(password)
       Notification.find_each do |notification|
-        Pusher.trigger(channel, 'new-notification',
+        Pusher.trigger(user.username, 'new-notification',
         {
           title: notification.title,
           body: notification.content,
