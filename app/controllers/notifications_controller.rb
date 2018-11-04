@@ -25,12 +25,12 @@ class NotificationsController < ApplicationController
     @notification = Notification.new
   end
 
-  def create  
+  def create
 
     @notification = Notification.new(notification_params)
 
     @notification.date = Time.now
-   
+
     @notification.user_id = current_user.id
 
     if current_user.user_type == 'client'
@@ -43,20 +43,20 @@ class NotificationsController < ApplicationController
        @notification.users << current_user
        @group = Group.where(id: params[:notification][:groups])
        @recipients = []
-      
+
         @group.each do |group| #gets each group individually
           @notification.groups << group #hopefully adds the single group and associate with notifi_group table
           @user = group.users #grabs users associated with the single group
-          @user.each do |user| #grabs single user from group of users in each 
+          @user.each do |user| #grabs single user from group of users in each
             #Don't want a notification created for the current user, because the current user is sending it
-            #out to other people. 
-            # if current_user.username == user.username 
+            #out to other people.
+            # if current_user.username == user.username
             #   next
             # end
             @recipients << user #adding to the array we declared earlier @recipients = []
           end
         end
-        
+
         # get rid of duplicates
         @recipients.uniq! { |r| r.username }
 
@@ -107,7 +107,7 @@ class NotificationsController < ApplicationController
         },
         data: {
           title: @notification.title,
-          body: @notification.content
+          body: @notification.content,
           from: "#{current_user.first_name} #{current_user.last_name}",
           datetime: "#{@notification.date}"
         }
