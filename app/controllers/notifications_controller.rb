@@ -1,15 +1,13 @@
-require 'pusher'
+require 'pusher-push-notifications'
 require 'json'
-
-Pusher.app_id = ENV['APP_ID']
-Pusher.key = ENV['KEY']
-Pusher.secret = ENV['SECRET']
-Pusher.cluster = 'us2'
-Pusher.logger = Rails.logger
-Pusher.encrypted = true
 
 class NotificationsController < ApplicationController
   before_action :authenticate_user!, except: :messages
+
+  Pusher::PushNotifications.configure do |config|
+    config.instance_id = ENV['INSTANCE_ID']
+    config.secret_key = ENV['SECRET']
+  end
 
   def index
     @notifications = current_user.notifications
@@ -72,8 +70,7 @@ class NotificationsController < ApplicationController
 
         @recipients.each do |user|
           @notification.users << user
-          send_to_ios(user.username)
-          # send_to_fcm(user.username)
+          send_to_mobile(user.username)
         end
 
       flash[:success] = "Notification created!"
@@ -91,35 +88,44 @@ class NotificationsController < ApplicationController
     Notification.find(params[:id]).users.delete(current_user)
     flash[:success] = "Notification deleted"
     redirect_to notifications_url
-  end 
+  end
 
   private
 
-    def notification_params
-      params.require(:notification).permit(:title, :groups, :content)
-    end
+  def notification_params
+    params.require(:notification).permit(:title, :groups, :content)
+  end
 
-    def send_to_ios(channel)
-      datetime = DateTime.now
+  def send_to_mobile(channel)
+    data = {
+      apns: {
+        aps: {
+          alert: {
+            title: @notification.title,
+            body: @notification.content
+          }
+        },
+        data: {
+          title: @notification.title,
+          body: @notification.content
+          from: "#{current_user.first_name} #{current_user.last_name}",
+          datetime: "#{@notification.date}"
+        }
+      },
+      fcm: {
+        notification: {
+          title: @notification.title,
+          body: @notification.content
+        },
+        data: {
+          title: @notification.title,
+          body: @notification.content,
+          sender: "#{current_user.first_name} #{current_user.last_name}",
+          datetime: "#{@notification.date}"
+        }
+      }
+    }
 
-      Pusher.trigger(channel, 'new-notification', {
-        title: @notification.title,
-        body: @notification.content,
-        from: "#{current_user.first_name} #{current_user.last_name}",
-        datetime: "#{datetime}"
-      })
-    end
-
-  def send_to_fcm(channel)
-    require 'time'
-
-    datetime = DateTime.now
-
-    Pusher.trigger(channel, 'new-notification', {
-      title: @notification.title,
-      body: @notification.content,
-      from: "#{current_user.first_name} #{current_user.last_name}",
-      datetime: "#{datetime}"
-    })
+    Pusher::PushNotifications.publish(interests: [channel], payload: data)
   end
 end

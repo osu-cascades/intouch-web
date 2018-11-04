@@ -9,7 +9,7 @@ end
 
 gem 'dotenv-rails', groups: [:development, :test]
 
-gem 'pusher', '~>1.3.1'
+gem 'pusher-push-notifications'
 gem 'rails', '~> 5.1.4'
 gem 'bcrypt', '3.1.11'
 gem 'pg', '~> 0.18'
