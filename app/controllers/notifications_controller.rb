@@ -107,7 +107,7 @@ class NotificationsController < ApplicationController
         },
         data: {
           title: @notification.title,
-          body: @notification.content
+          body: @notification.content,
           from: "#{current_user.first_name} #{current_user.last_name}",
           datetime: "#{@notification.date}"
         }
