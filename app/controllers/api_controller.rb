@@ -133,7 +133,7 @@ class ApiController < ApplicationController
         data: {
           title: @notification.title,
           body: @notification.content,
-          sender: "#{@user.first_name} #{@user.last_name}",
+          from: "#{@user.first_name} #{@user.last_name}",
           datetime: "#{@notification.date}"
         }
       },
