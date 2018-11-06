@@ -7,16 +7,16 @@
 
 
 .well { //this is for the div around group create new notificaition form
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 
-.unique {  
+.unique {
    background-color: #4d4a39;
 }
 
-html, body { 
+html, body {
   height:100%;
-  margin: 0; 
+  margin: 0;
   background-repeat: no-repeat;
   background-size: auto;
 }
@@ -53,9 +53,14 @@ textarea {
 
 /* typography */
 
+@font-face {
+  font-family: "BebasNeue";
+  src: url('BebasNeue-Regular.ttf') format('truetype');
+}
+
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
-  font-family: "Gotham Bold";
+  font-family: "BebasNeue";
 }
 
 h1 {
@@ -63,6 +68,7 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
+  letter-spacing: 5px;
 }
 
 h2 {
@@ -71,7 +77,8 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: #777;
+  color: #000000;
+  letter-spacing: 5px;
 }
 
 p {
@@ -83,20 +90,20 @@ p {
 li {
   font-family: "Gotham Medium";
   font-size: 1.5em;
-  color: black; 
+  color: black;
 }
 
 nav ul a {
-  font-size: 1em !important; 
+  font-size: 1em !important;
 }
 
 th {
  font-family: "Gotham Medium";
- font-size: 1.5em; 
+ font-size: 1.5em;
 }
 
 tr td {
- font-family: "Gotham Medium"; 
+ font-family: "Gotham Medium";
  font-size: 1.2em;
 }
 
@@ -111,7 +118,8 @@ nav.navbar-material {
   height: 110px;
 }
 .navbar-material .nav-wrapper > ul > li > a {
-  color: black;
+  color: white;
+  background-color: #333333;
 }
 .navbar-material .nav-wrapper .brand-logo img {
   height: 90px;
@@ -127,6 +135,14 @@ nav.navbar-material {
   }
 }
 
+.header-greeting-name {
+  color: white;
+  background-color: #333333;
+  border-bottom-left-radius: 10px;
+  padding-left: 10px;
+  padding-right: 20px;
+}
+
 
 /* footer */
 
@@ -135,7 +151,7 @@ footer {
   height: [footer-height];
   padding-top: 5px;
   border-top: 1px solid #eaeaea;
-  color: #777;
+  color: #777777;
 }
 
 footer a {
@@ -143,7 +159,7 @@ footer a {
 }
 
 footer a:hover {
-  color: #000000;
+  color: white;
   background-color: #FFFFFF;
 }
 
@@ -223,7 +239,7 @@ $gray-medium-light: #eaeaea;
 }
 
 
-/* Login Front page 
+/* Login Front page
 .card {
       margin-top: 10% !important;
       margin-left: 30% !important;
