@@ -21,16 +21,18 @@
       <tbody>
         <% @users.each do |user| %>
           <tr>
+            <% if user.deactivated != true %>
             <td><%= user.first_name%></td>
             <td><%= user.last_name %></td>
             <td><%= user.user_type %></td>
             <td><%= user.username %></td>
             <td><%= link_to 'Edit', edit_user_path(user), class: 'btn btn-mini' %></td>
-            <% if user.user_type != "admin" && user.deactivated != true %>
+            <% if user.user_type != "admin" %>
               <td><%= link_to 'Deactivate', user, method: :delete, class: 'btn btn-mini', data: { confirm: 'Are you sure?' } %></td>
             <% else %>
               <td></td>
             <% end %>
+          <% end %>
           </tr>
         <% end %>
       </tbody>
