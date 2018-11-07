@@ -1,7 +1,5 @@
 require 'rails_helper'
 
-class AuthControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+RSpec.describe AuthController, type: :controller do
+  include Devise::Test::ControllerHelpers
 end

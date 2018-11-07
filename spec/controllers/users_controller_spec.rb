@@ -1,9 +1,5 @@
 require 'rails_helper'
 
-class UsersControllerTest < ActionDispatch::IntegrationTest
-
-  test "TODO" do
-    skip
-  end
-
+RSpec.describe UsersController, type: :controller do
+  include Devise::Test::ControllerHelpers
 end

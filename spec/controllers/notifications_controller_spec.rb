@@ -1,9 +1,5 @@
 require 'rails_helper'
 
-class NotificationsControllerTest < ActionDispatch::IntegrationTest
-
-  test "TODO" do
-    skip
-  end
-
+RSpec.describe NotificationsController, type: :controller do
+  include Devise::Test::ControllerHelpers
 end

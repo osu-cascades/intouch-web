@@ -1,9 +1,5 @@
 require 'rails_helper'
 
-class SessionsControllerTest < ActionDispatch::IntegrationTest
-
-  test "TODO" do
-    skip
-  end
-
+RSpec.describe SessionsController, type: :controller do
+  include Devise::Test::ControllerHelpers
 end
