@@ -1,0 +1,23 @@
+admin:
+  first_name: Fake
+  last_name: Admin
+  user_type: admin
+  username: admin
+  email: admin@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'FAKE') %>
+
+staff:
+  first_name: Fake
+  last_name: Staff
+  user_type: staff
+  username: staff
+  email: staff@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'FAKE') %>
+
+client:
+  first_name: Fake
+  last_name: Client
+  user_type: client
+  username: client
+  email: client@example
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'FAKE') %>
