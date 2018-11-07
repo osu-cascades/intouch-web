@@ -1,5 +1,5 @@
-require 'rails_helper'
+# require 'rails_helper'
 
-RSpec.describe SessionsController, type: :controller do
-  include Devise::Test::ControllerHelpers
-end
+# RSpec.describe SessionsController, type: :controller do
+#   include Devise::Test::ControllerHelpers
+# end

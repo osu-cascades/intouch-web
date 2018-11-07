@@ -1,5 +1,5 @@
-require 'rails_helper'
+# require 'rails_helper'
 
-RSpec.describe NotificationsController, type: :controller do
-  include Devise::Test::ControllerHelpers
-end
+# RSpec.describe NotificationsController, type: :controller do
+#   include Devise::Test::ControllerHelpers
+# end
