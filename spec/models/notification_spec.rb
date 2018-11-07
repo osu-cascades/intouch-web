@@ -1,65 +1,68 @@
-require 'test_helper'
+require 'rails_helper'
 
-class NotificationTest < ActiveSupport::TestCase
-  def setup
+RSpec.describe Notification, type: :model do
+  before(:each) do
     @notification = Notification.new(
       title: 'Example Title', date: DateTime.now,
       content: 'This is example content', user: User.new
     )
   end
 
-  test 'notification should be valid when title, date, content and user are
-        present' do
-    assert @notification.valid?
+  it 'is valid when title, date, content and user are set' do
+    expect(@notification).to be_valid
   end
 
-  test 'notification should be invalid when title is not present' do
+  it 'is invalid when title is not present' do
     @notification.title = nil
-    refute @notification.valid?
+    expect(@notification).to_not be_valid
   end
 
-  test 'notification should be invalid when date is not present' do
+  it 'is invalid when date is not present' do
     @notification.date = nil
-    refute @notification.valid?
+    expect(@notification).to_not be_valid
   end
 
-  test 'notification should be invalid when content is not present' do
+  it 'is invalid when content is not present' do
     @notification.content = nil
-    refute @notification.valid?
+    expect(@notification).to_not be_valid
   end
 
-  test 'notification should be invalid when user is not present' do
+  it 'is invalid when user is not present' do
     @notification.user = nil
-    refute @notification.valid?
+    expect(@notification).to_not be_valid
   end
 
-  test 'notification should be invalid when title is blank' do
+  it 'is invalid when title is blank' do
     @notification.title = '    '
-    refute @notification.valid?
+    expect(@notification).to_not be_valid
   end
 
-  test 'notification should be invalid when date is blank' do
+  it 'is invalid when date is blank' do
     @notification.date = '    '
-    refute @notification.valid?
+    expect(@notification).to_not be_valid
   end
 
-  test 'notification should be invalid when content is blank' do
+  it 'is invalid when content is blank' do
     @notification.content = '    '
-    refute @notification.valid?
+    expect(@notification).to_not be_valid
   end
 
-  test 'has and belongs to many groups' do
+  it 'has and belongs to many groups' do
     association = Notification.reflect_on_association(:groups)
     assert_same association.macro, :has_and_belongs_to_many
   end
 
-  test 'has and belongs to many users' do
+  it 'has and belongs to many users' do
     association = Notification.reflect_on_association(:users)
     assert_same association.macro, :has_and_belongs_to_many
   end
 
-  test 'belongs to a user' do
+  it 'belongs to a user' do
     association = Notification.reflect_on_association(:user)
     assert_same association.macro, :belongs_to
   end
+
+  it { should validate_presence_of :title }
+  it { should validate_presence_of :content }
+  it { should validate_presence_of :date }
 end
