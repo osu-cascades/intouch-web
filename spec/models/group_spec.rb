@@ -1,34 +1,39 @@
 require 'rails_helper'
 
 RSpec.describe Group, type: :model do
+  before(:each) do
+    @group = Group.new(name: 'Group')
+  end
+
   it 'is valid with name set' do
-    expect(Group.new(name: 'Group')).to be_valid
+    expect(@group).to be_valid
   end
 
   it 'is invalid when name is empty' do
-    expect(Group.new(name: '   ')).to_not be_valid
+    @group.name = '    '
+    expect(@group).to_not be_valid
   end
 
   it 'is invalid when name is not present' do
-    expect(Group.new(name: nil)).to_not be_valid
+    @group.name = nil
+    expect(@group).to_not be_valid
   end
 
   it 'is invalid when name is longer than 100 characters' do
-    expect(Group.new(name: 'a' * 101)).to_not be_valid
+    @group.name = 'a' * 101
+    expect(@group).to_not be_valid
   end
 
   it 'is invalid when name is not unique' do
-    group = Group.new(name: 'Group')
-    group.save
-    duplicate_group = group.dup
+    @group.save
+    duplicate_group = @group.dup
     expect(duplicate_group).to_not be_valid
   end
 
-  it 'names are not case sensitive' do
-    group = Group.new(name: 'Group')
-    group.save
-    duplicate_group = group.dup
-    duplicate_group.name = group.name.upcase
+  it 'is invalid when the only thing unique about name is case' do
+    @group.save
+    duplicate_group = @group.dup
+    duplicate_group.name = @group.name.upcase
     expect(duplicate_group).to_not be_valid
   end
 
