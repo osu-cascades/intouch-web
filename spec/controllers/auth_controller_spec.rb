@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'rails_helper'
 
 class AuthControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
