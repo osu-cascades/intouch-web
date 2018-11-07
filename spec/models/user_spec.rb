@@ -1,114 +1,131 @@
-require 'test_helper'
+require 'rails_helper'
 
-class UserTest < ActiveSupport::TestCase
-  def setup
+RSpec.describe User, type: :model do
+  before(:each) do
     @user = User.new(
       first_name: 'Tim', last_name: 'Arnold', user_type: 'admin',
       password: 'timothyarnold1', username: 'tarnold'
     )
   end
 
-  test 'user should be valid when first_name, last_name, user_type, password,
-        and username are present' do
-    assert users(:admin).valid?
+  it 'is valid when first_name, last_name, user_type, password,
+      and username are present' do
+    expect(@user).to be_valid
   end
 
-  test 'user should be invalid when first_name is empty' do
+  it 'is invalid when first_name is blank' do
     @user.first_name = '   '
-    assert_not @user.valid?
+    expect(@user).to_not be_valid
   end
 
-  test 'user should be invalid when last_name is empty' do
+  it 'is invalid when last_name is blank' do
     @user.last_name = '   '
-    assert_not @user.valid?
+    expect(@user).to_not be_valid
   end
 
-  test 'user should be invalid when user_type is empty' do
+  it 'is invalid when user_type is blank' do
     @user.user_type = '    '
-    assert_not @user.valid?
+    expect(@user).to_not be_valid
   end
 
-  test 'user should be invalid when password is empty' do
+  it 'is invalid when password is blank' do
     @user.password = '    '
-    assert_not @user.valid?
+    expect(@user).to_not be_valid
   end
 
-  test 'user should be invalid when username is empty' do
+  it 'is invalid when username is blank' do
     @user.username = '   '
-    assert_not @user.valid?
+    expect(@user).to_not be_valid
   end
 
-  test 'user should be invalid when first_name is not present' do
+  it 'is invalid when first_name is not present' do
     @user.first_name = nil
-    assert_not @user.valid?
+    expect(@user).to_not be_valid
   end
 
-  test 'user should be invalid when last_name is not present' do
+  it 'is invalid when last_name is not present' do
     @user.last_name = nil
-    assert_not @user.valid?
+    expect(@user).to_not be_valid
   end
 
-  test 'user should be invalid when user_type is not present' do
+  it 'is invalid when user_type is not present' do
     @user.user_type = nil
-    assert_not @user.valid?
+    expect(@user).to_not be_valid
   end
 
-  test 'user should be invalid when password is not present' do
+  it 'is invalid when password is not present' do
     @user.password = nil
-    assert_not @user.valid?
+    expect(@user).to_not be_valid
   end
 
-  test 'user should be invalid when username is not present' do
+  it 'is invalid when username is not present' do
     @user.username = nil
-    assert_not @user.valid?
+    expect(@user).to_not be_valid
   end
 
-  test 'first_name should not be longer than 50 characters' do
+  it 'is invalid when first_name is longer than 50 characters' do
     @user.first_name = 'a' * 51
-    assert_not @user.valid?
+    expect(@user).to_not be_valid
   end
 
-  test 'last_name should not be longer than 50 characters' do
+  it 'is invalid when last_name is longer than 50 characters' do
     @user.last_name = 'a' * 51
-    assert_not @user.valid?
+    expect(@user).to_not be_valid
   end
 
-  test 'username should not be longer than 50 characters' do
+  it 'is invalid when username is longer than 50 characters' do
     @user.username = 'a' * 51
-    assert_not @user.valid?
+    expect(@user).to_not be_valid
   end
 
-  test 'password should not be less than 6 characters' do
+  it 'is invalid when password is less than 6 characters' do
     @user.password = 'a' * 5
-    assert_not @user.valid?
+    expect(@user).to_not be_valid
   end
 
-  test 'username should be unique' do
-    duplicate_user = @user.dup
+  it 'is invalid when username not unique' do
     @user.save
-    assert_not duplicate_user.valid?
+    duplicate_user = @user.dup
+    expect(duplicate_user).to_not be_valid
   end
 
-  test 'username should be saved as lower case' do
+  it 'saves username as lowercase' do
     mixed_case_username = 'UseRNaMe'
     @user.username = mixed_case_username
     @user.save
-    assert_equal mixed_case_username.downcase, @user.reload.username
+    assert_equal mixed_case_username.downcase, 'username'
   end
 
-  test 'email should be unique' do
-    duplicate_user = @user.dup
-    @user.save
-    assert_not duplicate_user.valid?
+  it 'is invalid when email not unique' do
+    user = User.new(
+      first_name: 'first_name', last_name: 'last_name', user_type: 'admin',
+      password: 'password', username: 'username', email: 'test@email.com'
+    )
+    user.save
+    duplicate_user = User.new(
+      first_name: 'first_name', last_name: 'last_name', user_type: 'admin',
+      password: 'password', username: 'username2', email: 'test@email.com'
+    )
+    expect(duplicate_user).to_not be_valid
   end
 
-  test 'has and belongs to many groups' do
+  it 'has and belongs to many groups' do
     association = User.reflect_on_association(:groups)
     assert_same association.macro, :has_and_belongs_to_many
   end
 
-  test 'has and belongs to many notifications' do
+  it 'has and belongs to many notifications' do
     association = User.reflect_on_association(:notifications)
     assert_same association.macro, :has_and_belongs_to_many
   end
+
+  it { should validate_presence_of :username }
+  it { should validate_length_of(:username).is_at_most(50) }
+  it { should validate_uniqueness_of(:username).case_insensitive }
+  it { should validate_uniqueness_of(:email).case_insensitive }
+  it { should validate_presence_of :first_name }
+  it { should validate_length_of(:first_name).is_at_most(50) }
+  it { should validate_presence_of :last_name }
+  it { should validate_length_of(:last_name).is_at_most(50) }
+  it { should validate_presence_of :user_type }
 end
