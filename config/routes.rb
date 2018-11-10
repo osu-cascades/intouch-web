@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   #get '/authorize', to: 'auth#authorize'
   post '/auth', to: 'api#auth'
   post '/push', to: 'api#push'
-  post '/allNotifications', to: 'api#allNotifications'
+  post '/get_groups', to: 'api#get_groups'
 
   get 'welcome/index'
 
