@@ -5,7 +5,7 @@ RSpec.describe 'groups/edit', type: :view do
     @group = assign(:group, Group.create!(name: 'Group'))
   end
 
-  it 'renders the edit group form' do
+  skip 'renders the edit group form' do
     render
     assert_select 'form[action=?][method=?]', group_path(@group), 'post' do
       assert_select 'input[name=?]', 'group[name]'

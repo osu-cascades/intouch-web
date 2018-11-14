@@ -41,10 +41,10 @@ class NotificationsController < ApplicationController
         # TODO need to get the id from the db
 
        @notification.users << current_user
-       @group = Group.where(id: params[:notification][:groups])
+       @groups = Group.where(id: params[:notification][:groups])
        @recipients = []
 
-        @group.each do |group| #gets each group individually
+        @groups.each do |group| #gets each group individually
           @notification.groups << group #hopefully adds the single group and associate with notifi_group table
           @user = group.users #grabs users associated with the single group
           @user.each do |user| #grabs single user from group of users in each

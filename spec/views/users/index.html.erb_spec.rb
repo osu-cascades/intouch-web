@@ -7,8 +7,4 @@ RSpec.describe "users/index", type: :view do
       User.create!()
     ])
   end
-
-  it "renders a list of users" do
-    render
-  end
 end
