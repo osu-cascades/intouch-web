@@ -92,19 +92,23 @@ class ApiController < ApplicationController
     end
   end
 
-  def get_groups
+  def allNotifications
     permit_params_auth
     username = params[:username]
     password = params[:password]
     user = User.find_for_authentication(username: username)
     if user && user.valid_password?(password)
-      groups = []
-      Group.all.each do |group|
-        groups << group.name
+      Notification.find_each do |notification|
+        Pusher.trigger(user.username, 'new-notification',
+        {
+          title: notification.title,
+          body: notification.content,
+          from: "#{user.first_name} #{user.last_name}",
+          datetime: "#{notification.date}"
+        })
       end
-      puts groups
-      render json: groups
     end
+
   end
 
   private
