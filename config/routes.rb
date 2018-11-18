@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post '/auth', to: 'api#auth'
   post '/push', to: 'api#push'
   post '/get_groups', to: 'api#get_groups'
+  post '/reply_to_sender', to: 'api#reply_to_sender'
 
   get 'welcome/index'
 
