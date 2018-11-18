@@ -12,4 +12,10 @@ FactoryBot.define do
   factory :group do
     name { 'Test Group' }
   end
+
+  factory :notification do
+  	title { 'Test1' }
+  	content { 'Test123' }
+  	date { Time.now }
+  end
 end
