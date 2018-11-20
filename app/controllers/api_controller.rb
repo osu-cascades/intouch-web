@@ -113,8 +113,8 @@ class ApiController < ApplicationController
     password = params[:password]
     content = params[:body]
     sender = params[:sender]
-    user = User.find_for_authentication(username: username)
-    if user && user.valid_password?(password)
+    @user = User.find_for_authentication(username: username)
+    if @user && @user.valid_password?(password)
       @notification = Notification.new
       @notification.title = "Reply from: #{@user.first_name} #{@user.last_name}"
       @notification.content = content
