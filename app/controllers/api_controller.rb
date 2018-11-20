@@ -164,6 +164,7 @@ class ApiController < ApplicationController
           title: @notification.title,
           body: @notification.content,
           sender: "#{@user.first_name} #{@user.last_name}",
+          from_username: @user.username,
           datetime: "#{@notification.date}"
         }
       }
