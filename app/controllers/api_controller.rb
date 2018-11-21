@@ -120,7 +120,14 @@ class ApiController < ApplicationController
       @notification.content = content
       @notification.date = DateTime.now
       @notification.user_id = @user.id
-      send_to_mobile(sender)
+      if @notification.save
+        send_to_mobile(sender)
+        render html: 'notification sent'
+      else
+        render html: 'error creating notification'
+      end
+    else
+      render html: 'invalid token'
     end
   end
 
