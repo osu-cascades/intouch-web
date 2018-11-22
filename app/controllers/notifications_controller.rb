@@ -5,8 +5,11 @@ class NotificationsController < ApplicationController
   before_action :authenticate_user!, except: :messages
 
   Pusher::PushNotifications.configure do |config|
-    config.instance_id = ENV['INSTANCE_ID']
-    config.secret_key = ENV['SECRET']
+    # config.instance_id = ENV['INSTANCE_ID']
+    # config.secret_key = ENV['SECRET']
+
+    config.instance_id = 'd9585a0d-3255-4f45-9f7f-7fb5c52afe0a'
+    config.secret_key = '1ED200A536B475D233BA18C4714769415DA1799D77D7DAF734DA0E0D97CCA09C'
   end
 
   def index
