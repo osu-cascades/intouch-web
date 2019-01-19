@@ -42,6 +42,7 @@ class ApiController < ApplicationController
       @notification.content = content
       @notification.date = DateTime.now
       @notification.user_id = @user.id
+      @notification.group_recipients << group
 
       recipients = []
       case group
@@ -79,7 +80,6 @@ class ApiController < ApplicationController
 
       if @notification.save
         recipients.each do |r|
-          puts "r: " + r.username
           @notification.users << r
           send_to_mobile(r.username)
         end
@@ -159,7 +159,8 @@ class ApiController < ApplicationController
           body: @notification.content,
           from: "#{@user.first_name} #{@user.last_name}",
           from_username: @user.username,
-          datetime: "#{@notification.date}"
+          datetime: "#{@notification.date}",
+          group: @notification.group_recipients
         }
       },
       fcm: {
@@ -172,7 +173,8 @@ class ApiController < ApplicationController
           body: @notification.content,
           sender: "#{@user.first_name} #{@user.last_name}",
           from_username: @user.username,
-          datetime: "#{@notification.date}"
+          datetime: "#{@notification.date}",
+          group: @notification.group_recipients
         }
       }
     }

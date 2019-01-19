@@ -14,7 +14,7 @@ class NotificationsController < ApplicationController
 
   def index
     @notifications = current_user.notifications
-    @notifications = @notifications.reject { |n| n.user_id == current_user.id}
+    @notifications = @notifications.reject { |n| n.user_id == current_user.id }
 
     @notifications_by = current_user.notifications
     @notifications_by = @notifications_by.reject { |n| n.user_id != current_user.id }
@@ -29,7 +29,6 @@ class NotificationsController < ApplicationController
   end
 
   def create
-
     @notification = Notification.new(notification_params)
 
     @notification.date = Time.now
@@ -38,6 +37,11 @@ class NotificationsController < ApplicationController
 
     if current_user.user_type == 'client'
       @isClient = true
+    end
+
+    @groups = Group.where(id: params[:notification][:groups])
+    @groups.each do |group|
+      @notification.group_recipients << group.name
     end
 
     if @notification.save
@@ -69,8 +73,6 @@ class NotificationsController < ApplicationController
           @recipients.reject! { |r| r.user_type == "client" }
         end
 
-        print "recipients: #{@recipients}"
-
         @recipients.each do |user|
           @notification.users << user
           send_to_mobile(user.username)
@@ -96,7 +98,7 @@ class NotificationsController < ApplicationController
   private
 
   def notification_params
-    params.require(:notification).permit(:title, :groups, :content)
+    params.require(:notification).permit(:title, :content, :group_recipients => [])
   end
 
   def send_to_mobile(channel)
@@ -113,7 +115,8 @@ class NotificationsController < ApplicationController
           body: @notification.content,
           from: "#{current_user.first_name} #{current_user.last_name}",
           from_username: current_user.username,
-          datetime: "#{@notification.date}"
+          datetime: "#{@notification.date}",
+          group: @notification.group_recipients
         }
       },
       fcm: {
@@ -126,7 +129,8 @@ class NotificationsController < ApplicationController
           body: @notification.content,
           sender: "#{current_user.first_name} #{current_user.last_name}",
           from_username: current_user.username,
-          datetime: "#{@notification.date}"
+          datetime: "#{@notification.date}",
+          group: @notification.group_recipients
         }
       }
     }
