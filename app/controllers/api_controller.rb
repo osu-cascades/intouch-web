@@ -160,7 +160,7 @@ class ApiController < ApplicationController
           from: "#{@user.first_name} #{@user.last_name}",
           from_username: @user.username,
           datetime: "#{@notification.date}",
-          group: @notification.group_recipients
+          group_recipients: @notification.group_recipients
         }
       },
       fcm: {
@@ -174,7 +174,7 @@ class ApiController < ApplicationController
           sender: "#{@user.first_name} #{@user.last_name}",
           from_username: @user.username,
           datetime: "#{@notification.date}",
-          group: @notification.group_recipients
+          group_recipients: @notification.group_recipients
         }
       }
     }

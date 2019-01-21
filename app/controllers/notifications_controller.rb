@@ -116,7 +116,7 @@ class NotificationsController < ApplicationController
           from: "#{current_user.first_name} #{current_user.last_name}",
           from_username: current_user.username,
           datetime: "#{@notification.date}",
-          group: @notification.group_recipients
+          group_recipients: @notification.group_recipients
         }
       },
       fcm: {
@@ -130,11 +130,12 @@ class NotificationsController < ApplicationController
           sender: "#{current_user.first_name} #{current_user.last_name}",
           from_username: current_user.username,
           datetime: "#{@notification.date}",
-          group: @notification.group_recipients
+          group_recipients: @notification.group_recipients
         }
       }
     }
 
+    print "type of group recipients #{(@notification.group_recipients).class}"
     Pusher::PushNotifications.publish(interests: [channel], payload: data)
   end
 end
