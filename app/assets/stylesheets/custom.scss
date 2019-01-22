@@ -5,6 +5,10 @@
 
 /* universal */
 
+.media {
+  padding-left: 5%;
+  padding-right: 5%;
+}
 
 .well { //this is for the div around group create new notificaition form
   margin-top: 20px;
@@ -121,9 +125,11 @@ nav.navbar-material {
   color: white;
   background-color: #333333;
 }
+
 .navbar-material .nav-wrapper .brand-logo img {
   height: 90px;
-  padding-left: 50px;
+  padding-top: 5%;
+  background-color: white;
 
 }
 .navbar-material .nav-wrapper .button-collapse i {
@@ -141,6 +147,10 @@ nav.navbar-material {
   border-bottom-left-radius: 10px;
   padding-left: 10px;
   padding-right: 20px;
+}
+
+.header-tab {
+  background-color: #333333;
 }
 
 
@@ -249,6 +259,10 @@ $gray-medium-light: #eaeaea;
 
 .btn-primary {
   margin-top:  10px;
+}
+
+#login_submit_button {
+  background-color: #137E46;
 }
 
 
