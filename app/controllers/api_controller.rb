@@ -118,14 +118,15 @@ class ApiController < ApplicationController
       @notification.user_id = @user.id
       @notification.group_recipients = group_recipients_array
       if @notification.save
+        recipients = []
         group_recipients_array.each do |group|
-          recipients = get_recipients(group, username)
-          puts "sending to group #{group} = #{recipients}"
-          recipients.each do |recipient|
-            @notification.users << recipient
-            puts "sending to #{recipient.username}"
-            send_to_mobile(recipient.username)
-          end
+          recipients += get_recipients(group, username)
+        end
+        recipients.uniq! {|recipient| recipient.username}
+        recipients.each do |recipient|
+          @notification.users << recipient
+          puts "sending to #{recipient.username}"
+          send_to_mobile(recipient.username)
         end
         render html: 'notification sent'
       else
