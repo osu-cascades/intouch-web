@@ -105,7 +105,9 @@ class ApiController < ApplicationController
     group_recipients = params[:group_recipients]
     content = params[:body]
 
-    puts "#{group_recipients}, type of: #{group_recipients.class}"
+    group_recipients_array = group_recipients.split(/\s*,\s*/)
+
+    puts "group_recipients: #{group_recipients}, group_recipients_array: #{group_recipients_array}, array: #{group_recipients_array.class}"
 
     @user = User.find_for_authentication(username: username)
     if @user && @user.valid_password?(password)
@@ -114,9 +116,9 @@ class ApiController < ApplicationController
       @notification.content = content
       @notification.date = DateTime.now
       @notification.user_id = @user.id
-      @notification.group_recipients = group_recipients
+      @notification.group_recipients = group_recipients_array
       if @notification.save
-        group_recipients.each do |group|
+        group_recipients_array.each do |group|
           recipients = get_recipients(group)
           puts "sending to group #{group} = #{recipients}"
           recipients.each do |recipient|
@@ -149,7 +151,7 @@ class ApiController < ApplicationController
   end
 
   def permit_params_reply_all
-    params.permit(:username, :password, :body, :group_recipients => [])
+    params.permit(:username, :password, :body, :group_recipients)
   end
 
   def get_recipients(group)
