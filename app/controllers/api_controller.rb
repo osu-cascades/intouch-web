@@ -44,7 +44,7 @@ class ApiController < ApplicationController
       @notification.user_id = @user.id
       @notification.group_recipients << group
 
-      recipients = get_recipients(group)
+      recipients = get_recipients(group, username)
 
       if @notification.save
         recipients.each do |recipient|
@@ -119,7 +119,7 @@ class ApiController < ApplicationController
       @notification.group_recipients = group_recipients_array
       if @notification.save
         group_recipients_array.each do |group|
-          recipients = get_recipients(group)
+          recipients = get_recipients(group, username)
           puts "sending to group #{group} = #{recipients}"
           recipients.each do |recipient|
             @notification.users << recipient
@@ -154,7 +154,7 @@ class ApiController < ApplicationController
     params.permit(:username, :password, :body, :group_recipients)
   end
 
-  def get_recipients(group)
+  def get_recipients(group, username)
     recipients = []
 
     case group
@@ -181,8 +181,8 @@ class ApiController < ApplicationController
     # So that their local device has a record
 
     add_user = true
-    recipients.each do |user|
-      if user.username == username
+    recipients.each do |recipient|
+      if recipient.username == username
         add_user = false
         break
       end
