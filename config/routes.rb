@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post '/push', to: 'api#push'
   post '/get_groups', to: 'api#get_groups'
   post '/reply_to_sender', to: 'api#reply_to_sender'
+  post '/reply_all', to: 'api#reply_all'
 
   get 'welcome/index'
 
