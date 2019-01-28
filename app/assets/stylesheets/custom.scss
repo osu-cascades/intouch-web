@@ -18,7 +18,7 @@
 }
 
 .unique {
-   background-color: #4d4a39;
+   background-color: #333333;
 }
 
 html, body {
@@ -116,6 +116,10 @@ tr td {
 }
 
 /* header */
+
+.navbar {
+  background-color: #333333 !important;
+}
 
 .nav-item > a {
   font-family: "BebasNeue";
