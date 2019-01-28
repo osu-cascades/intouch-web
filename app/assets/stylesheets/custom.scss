@@ -117,7 +117,7 @@ tr td {
 
 /* header */
 
-a {
+.nav-item > a {
   font-family: "BebasNeue";
   color: white;
   font-size: 2.2em;
@@ -125,7 +125,11 @@ a {
 }
 
 a:visited {
-  color: inherit;
+  color: white !important;
+}
+
+a {
+  font-family: "BebasNeue";
 }
 
 .navbar {
@@ -172,6 +176,17 @@ nav.navbar-material {
 
 .header-tab {
   background-color: #333333;
+}
+
+.navbar-brand {
+  font-family: "BebasNeue";
+  color: white;
+  font-size: 2.2em;
+  letter-spacing: 3px;
+}
+
+.navbar-nav {
+  float: right;
 }
 
 
