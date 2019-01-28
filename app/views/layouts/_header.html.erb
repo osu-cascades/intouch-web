@@ -5,14 +5,20 @@
 
 <nav class="navbar-material">
 	<div class="nav-wrapper">
-		<a href="." class="brand-logo center">
+		<%if !user_signed_in? %>
+			<a href="." class="brand-logo center">
+				<%=image_tag("Abilitree_TAG_SPOT.jpg")%>
+			</a>
+		<% end %>
+<!-- 		<a href="." class="brand-logo center">
       <%=image_tag("Abilitree_TAG_SPOT.jpg")%>
     </a>
-
+ -->
 					<!-- This line below is to handle the resizing of windows and creates a sidebar
 			http://materializecss.com/navbar.html under Mobile Collapse Button. -->
 			<!-- <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a> -->
-			<ul id="nav-mobile" class="right hide-on-med-and-down">
+
+<!-- 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<% if user_signed_in? %>
 					<li class="header-greeting-name">Hello <%= current_user.first_name %>! </li>
 					<% if user_admin(current_user) %>
@@ -22,10 +28,40 @@
 					<li class="header-tab"><%= link_to "Notifications", notifications_path %></li>
 					<li class="header-tab"><%= link_to "Log out", destroy_user_session_path, method: :delete %> </li>
 				<% end %>
-				<!-- This is the sidebar when resizing the browser and the links you want to appear are between the <li></li> tags -->
-				<!-- Having issues with this during certain times it doesn't work. Need to refer to video to figure out why -->
-				<!-- <ul class="side-nav" id="mobile-demo">
-				<li><%= link_to "Notifications", notifications_path %></li>-->
-			</ul>
+			</ul> -->
+
+			<% if user_signed_in? %>
+			<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+				<a class="navbar-brand">
+					<!--
+					<%=image_tag("Abilitree_TAG_SPOT.jpg", :size =>"150x64")%>
+					<-->
+					Abilitree
+				</a>
+				<div class="collapse navbar-collapse" id="navbar-nav">
+					<ul class="navbar-nav">
+						<% if user_admin(current_user) %>
+						<li class="navbar-nav">
+							<%= link_to "Users", users_path %>
+						</li>
+
+						<li class="navbar-nav">
+							<%= link_to "Groups", groups_path %>
+						</li>
+						<% end %>
+
+						<li class="nav-item">
+							<%= link_to "Notifications", notifications_path %>
+						</li>
+
+						<li class="nav-item">
+							<%= link_to "Log out", destroy_user_session_path, method: :delete %>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<% end %>
+
+
 	</div>
 </nav>
