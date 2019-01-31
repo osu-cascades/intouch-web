@@ -1,3 +1,11 @@
 .header-tab {
 	border-radius: 30px;
 }
+
+li {
+	color: white;
+}
+
+a:visited {
+	color: white;
+}

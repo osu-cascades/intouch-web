@@ -5,8 +5,8 @@
 <h1>Notifications</h1>
 
 
-<p>
-  <%= link_to "Create New Notification", new_notification_path, class: 'btn btn-mini' %>
+<p style="padding-left: 5%;">
+<%= link_to "Create New Notification", new_notification_path, class: 'btn btn-mini', id: 'link_id'%>
 </p>
 
 <div class = "media">
@@ -29,7 +29,7 @@
             <td><%= notification.user.first_name %></td>
             <td><%= notification.created_at %></td>
             <td><%= notification.content %></td>
-            <td><%= link_to 'Show', notification, class: 'btn btn-mini'  %></td>
+            <td><%= link_to 'Show', notification, class: 'btn btn-mini' %></td>
             <td><%= link_to 'Delete', notification, method: :delete, class: 'btn btn-mini', data: { confirm: 'Are you sure?' } %></td>
             <% end %>
           </tr>

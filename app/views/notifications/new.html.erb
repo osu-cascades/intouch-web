@@ -11,19 +11,19 @@
 
       <div class ="well">
       <%= f.label :To %>
-  
+
       <br>
 
-      <%= f.collection_check_boxes :groups, Group.all, :id, :name  %>
+      <%= f.collection_check_boxes :groups, Group.all, :id, :name %>
       </div>
-     
+
 
       <%= f.label :content %>
       <%= f.text_area :content, class: 'form-control' %>
 
       <%= f.submit "Create my notification", class: "btn btn-primary" %>
 
-      
+
     <% end %>
   </div>
 </div>

@@ -1,5 +1,5 @@
 
-<span class="card-title">Log in</span>
+<span class="card-title" style="font-family: 'BebasNeue'; letter-spacing: 3px;">Log in</span>
 
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 <div class="form-inputs">
@@ -8,7 +8,7 @@
 <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
 </div>
 
-<button class="btn waves-effect waves-light" type="submit" name="commit" value="Login">
+<button class="btn waves-effect waves-light" type="submit" name="commit" value="Login" id="login_submit_button">
 <i class="material-icons right">send</i>Submit </button>
 <% end %>
 

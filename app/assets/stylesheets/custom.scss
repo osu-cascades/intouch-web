@@ -5,13 +5,32 @@
 
 /* universal */
 
+#notification-panel, #notification-content {
+  background-color: #333333;
+  color: white;
+  border-style: solid;
+  border-radius: 3px;
+  border-color: white;
+}
+
+.btn, .btn-mini {
+}
+
+#link_id {
+  color: white;
+}
+
+.media {
+  padding-left: 5%;
+  padding-right: 5%;
+}
 
 .well { //this is for the div around group create new notificaition form
   margin-top: 20px;
 }
 
 .unique {
-   background-color: #4d4a39;
+   background-color: #333333;
 }
 
 html, body {
@@ -55,7 +74,7 @@ textarea {
 
 @font-face {
   font-family: "BebasNeue";
-  src: url('BebasNeue-Regular.ttf') format('truetype');
+  src: font-url('BebasNeue-Regular.ttf') format('truetype');
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -84,11 +103,11 @@ h2 {
 p {
   font-size: 1.1em;
   line-height: 1.7em;
-  font-family: "Gotham Medium";
+  font-family: "Verdana";
 }
 
 li {
-  font-family: "Gotham Medium";
+  font-family: "Verdana";
   font-size: 1.5em;
   color: black;
 }
@@ -98,16 +117,41 @@ nav ul a {
 }
 
 th {
- font-family: "Gotham Medium";
+ font-family: "Verdana";
  font-size: 1.5em;
+ letter-spacing: 3px;
 }
 
 tr td {
- font-family: "Gotham Medium";
+ font-family: "Verdana";
  font-size: 1.2em;
 }
 
 /* header */
+
+.navbar {
+  background-color: #333333 !important;
+}
+
+.nav-item > a {
+  font-family: "BebasNeue";
+  color: white;
+  font-size: 2.2em;
+  letter-spacing: 3px;
+}
+
+a:visited {
+  color: white !important;
+}
+
+a {
+  font-family: "Verdana";
+}
+
+.navbar {
+  border-radius: 0px;
+}
+
 nav.navbar-material {
   background: #ffffff;
   border: none;
@@ -121,14 +165,17 @@ nav.navbar-material {
   color: white;
   background-color: #333333;
 }
+
 .navbar-material .nav-wrapper .brand-logo img {
   height: 90px;
-  padding-left: 50px;
+  padding-top: 5%;
+  background-color: white;
 
 }
 .navbar-material .nav-wrapper .button-collapse i {
-  color: black;
+  color: white;
 }
+
 @media (max-width: 600px) {
   .navbar-material .nav-wrapper .brand-logo img {
     height: 56px;
@@ -143,6 +190,21 @@ nav.navbar-material {
   padding-right: 20px;
 }
 
+.header-tab {
+  background-color: #333333;
+}
+
+.navbar-brand {
+  font-family: "BebasNeue";
+  color: white;
+  font-size: 2.2em;
+  letter-spacing: 3px;
+}
+
+.navbar-nav {
+  float: right;
+}
+
 
 /* footer */
 
@@ -155,7 +217,12 @@ footer {
 }
 
 footer a {
-  color: #000000;
+  color: white;
+  padding-top: 10px;
+  float: left;
+  font-family: "Verdana";
+  font-size: 1.2em;
+  padding-left: 10px;
 }
 
 footer a:hover {
@@ -170,6 +237,7 @@ footer small {
 footer ul {
   float: right;
   list-style: none;
+  padding-top: 10px;
 }
 
 footer ul li {
@@ -249,6 +317,10 @@ $gray-medium-light: #eaeaea;
 
 .btn-primary {
   margin-top:  10px;
+}
+
+#login_submit_button {
+  background-color: #137E46;
 }
 
 
