@@ -23,5 +23,6 @@ module Intouch
     config.assets.paths << Rails.root.join('/app/assets/fonts')
     config.serve_static_files = true
     config.assets.compile = true
+    config.serve_static_assets = true
   end
 end
