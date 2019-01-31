@@ -4,6 +4,18 @@
 
 
 /* universal */
+
+#notification-panel, #notification-content {
+  background-color: #333333;
+  color: white;
+  border-style: solid;
+  border-radius: 3px;
+  border-color: white;
+}
+
+.btn, .btn-mini {
+}
+
 #link_id {
   color: white;
 }
@@ -91,11 +103,11 @@ h2 {
 p {
   font-size: 1.1em;
   line-height: 1.7em;
-  font-family: "Gotham Medium";
+  font-family: "Verdana";
 }
 
 li {
-  font-family: "Gotham Medium";
+  font-family: "Verdana";
   font-size: 1.5em;
   color: black;
 }
@@ -105,13 +117,13 @@ nav ul a {
 }
 
 th {
- font-family: "BebasNeue";
+ font-family: "Verdana";
  font-size: 1.5em;
  letter-spacing: 3px;
 }
 
 tr td {
- font-family: "BebasNeue";
+ font-family: "Verdana";
  font-size: 1.2em;
 }
 
@@ -133,7 +145,7 @@ a:visited {
 }
 
 a {
-  font-family: "BebasNeue";
+  font-family: "Verdana";
 }
 
 .navbar {
@@ -205,7 +217,12 @@ footer {
 }
 
 footer a {
-  color: #000000;
+  color: white;
+  padding-top: 10px;
+  float: left;
+  font-family: "Verdana";
+  font-size: 1.2em;
+  padding-left: 10px;
 }
 
 footer a:hover {
@@ -220,6 +237,7 @@ footer small {
 footer ul {
   float: right;
   list-style: none;
+  padding-top: 10px;
 }
 
 footer ul li {

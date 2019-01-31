@@ -1,11 +1,11 @@
 
 <body>
   <div class = "container">
-   <div class="card-panel teal lighten-2">
+   <div class="card-panel lighten-2" id="notification-panel">
     <h3><%= @notification.title %></h3>
     <h4><%= @notification.date %></h4>
-    <div class="card-panel">
-    <%= @notification.content %> 
+    <div class="card-panel" id="notification-content">
+    <%= @notification.content %>
   </div>
     </div>
   </div>

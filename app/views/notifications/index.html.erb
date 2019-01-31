@@ -29,7 +29,7 @@
             <td><%= notification.user.first_name %></td>
             <td><%= notification.created_at %></td>
             <td><%= notification.content %></td>
-            <td><%= link_to 'Show', notification, class: 'btn btn-mini'  %></td>
+            <td><%= link_to 'Show', notification, class: 'btn btn-mini' %></td>
             <td><%= link_to 'Delete', notification, method: :delete, class: 'btn btn-mini', data: { confirm: 'Are you sure?' } %></td>
             <% end %>
           </tr>
