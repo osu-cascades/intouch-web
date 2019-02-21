@@ -8,6 +8,10 @@ class ApiController < ApplicationController
     config.secret_key = ENV['SECRET']
   end
 
+  def privacy
+    render :file => '../../public/privacy_policy.html'
+  end
+
   def auth
     permit_params_auth
     username = params[:username]

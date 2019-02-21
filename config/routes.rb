@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post '/reply_all', to: 'api#reply_all'
 
   get 'welcome/index'
+  get '/privacy_policy', to: 'api#privacy'
 
   root to: 'welcome#index'
 
