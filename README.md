@@ -38,4 +38,21 @@ This `intouch-web` repository is for administrator operations such as managing u
 * To view test coverage, open the `coverage/index.html` page
   * [SimpleCov documentation](https://github.com/colszowka/simplecov)
 
+## Heroku
+* This application is hosted on Heroku in both a staging and production environment
+  * Staging: https://abilitree-intouch-staging.herokuapp.com/
+  * Production: https://abilitree-intouch.herokuapp.com/
+* Set up the Heroku remotes
+  * Staging: `git remote add staging https://git.heroku.com/abilitree-intouch-staging.git`
+  * Production: `git remote add production https://git.heroku.com/abilitree-intouch.git`
+* Deploy to Heroku
+  * Staging: `git push staging`
+  * Production: `git push production`
+* Run Rails console
+  * Staging: `heroku run rails console --remote staging`
+  * Production: `heroku run rails console --remote production`
+* View live logs
+  * Staging: `heroku logs --remote staging --tail`
+  * Production: `heroku logs --remote production --tail`
+
 © 2019 Aaron Baker, Kyleen Gonzalez, Brad Cook, Hanna Bennett, Camron Fritz.
