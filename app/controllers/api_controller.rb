@@ -61,9 +61,11 @@ class ApiController < ApplicationController
       @notification.date = DateTime.now
       @notification.user_id = @user.id
       @notification.group_recipients << group
+      @notification.groups << group
 
       recipients = get_recipients(group, username)
       recipients.each do |recipient|
+        @notification.users << recipient.username
         @notification.user_recipients << recipient.username
       end
 
@@ -110,6 +112,7 @@ class ApiController < ApplicationController
       @notification.date = DateTime.now
       @notification.user_id = @user.id
       @notification.user_recipients << sender
+      @notification.users << User.where(username: sender)
       if @notification.save
         send_to_mobile(sender)
         render html: 'notification sent'
@@ -141,10 +144,13 @@ class ApiController < ApplicationController
 
       recipients = []
       group_recipients_array.each do |group|
+        group_object = Group.where(name: group)
+        @notification.groups << group_object
         recipients += get_recipients(group, username)
       end
       recipients.uniq! { |recipient| recipient.username }
       recipients.each do |recipient|
+        @notification.users << recipient
         @notification.user_recipients << recipient.username
       end
 
