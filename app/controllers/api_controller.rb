@@ -9,7 +9,7 @@ class ApiController < ApplicationController
   end
 
   def privacy
-    render :file => '../../public/privacy_policy.html'
+    render file: '../../public/privacy_policy.html'
   end
 
   def auth
@@ -21,16 +21,18 @@ class ApiController < ApplicationController
 
       # TODO: get, send token
       # TODO: create json object of group names to send back
-
-      render html: 'usertype ' + user.user_type
+      notifications = Notification.where("'#{username}' = ANY (user_recipients)")
+      render json: {
+        notifications: notifications,
+        usertype: user.user_type
+      }.to_json
     else
-      render html: 'invalid username and/or password'
+      render json: { error: 'invalid username and/or password' }.to_json
     end
   end
 
   def push
     # TODO: if token valid? create notification
-
     permit_params_push
     username = params[:username]
     password = params[:password]
@@ -47,12 +49,16 @@ class ApiController < ApplicationController
       @notification.date = DateTime.now
       @notification.user_id = @user.id
       @notification.group_recipients << group
+      @notification.groups << group
 
       recipients = get_recipients(group, username)
+      recipients.each do |recipient|
+        @notification.users << recipient.username
+        @notification.user_recipients << recipient.username
+      end
 
       if @notification.save
         recipients.each do |recipient|
-          @notification.users << recipient
           send_to_mobile(recipient.username)
         end
         render html: 'notification sent'
@@ -75,6 +81,8 @@ class ApiController < ApplicationController
         groups << group.name
       end
       render json: groups
+    else
+      render html: 'invalid user'
     end
   end
 
@@ -91,6 +99,8 @@ class ApiController < ApplicationController
       @notification.content = content
       @notification.date = DateTime.now
       @notification.user_id = @user.id
+      @notification.user_recipients << sender
+      @notification.users << User.where(username: sender)
       if @notification.save
         send_to_mobile(sender)
         render html: 'notification sent'
@@ -111,8 +121,6 @@ class ApiController < ApplicationController
 
     group_recipients_array = group_recipients.split(/\s*,\s*/)
 
-    puts "group_recipients: #{group_recipients}, group_recipients_array: #{group_recipients_array}, array: #{group_recipients_array.class}"
-
     @user = User.find_for_authentication(username: username)
     if @user && @user.valid_password?(password)
       @notification = Notification.new
@@ -121,15 +129,21 @@ class ApiController < ApplicationController
       @notification.date = DateTime.now
       @notification.user_id = @user.id
       @notification.group_recipients = group_recipients_array
+
+      recipients = []
+      group_recipients_array.each do |group|
+        group_object = Group.where(name: group)
+        @notification.groups << group_object
+        recipients += get_recipients(group, username)
+      end
+      recipients.uniq!(&:username)
+      recipients.each do |recipient|
+        @notification.users << recipient
+        @notification.user_recipients << recipient.username
+      end
+
       if @notification.save
-        recipients = []
-        group_recipients_array.each do |group|
-          recipients += get_recipients(group, username)
-        end
-        recipients.uniq! {|recipient| recipient.username}
         recipients.each do |recipient|
-          @notification.users << recipient
-          puts "sending to #{recipient.username}"
           send_to_mobile(recipient.username)
         end
         render html: 'notification sent'
@@ -170,7 +184,7 @@ class ApiController < ApplicationController
       recipients = recipients.reject { |r| r.user_type == 'client' }
     when 'All Clients'
       recipients = User.all
-      recipients = recipients.reject { |r| r.user_type != 'client' }
+      recipients = recipients.select { |r| r.user_type == 'client' }
     else
       @group = Group.where(name: group)
       @group.each do |g|
@@ -179,7 +193,7 @@ class ApiController < ApplicationController
           recipients.push(user)
         end
       end
-      recipients.uniq! { |r| r.username }
+      recipients.uniq!(&:username)
     end
 
     # When a user sends a notification they will also receive that notificaion
@@ -211,8 +225,9 @@ class ApiController < ApplicationController
           body: @notification.content,
           from: "#{@user.first_name} #{@user.last_name}",
           from_username: @user.username,
-          datetime: "#{@notification.date}",
+          datetime: @notification.date.to_s,
           group_recipients: @notification.group_recipients
+          # group_recipients: @notification.groups.map(&:name)
         }
       },
       fcm: {
@@ -225,7 +240,7 @@ class ApiController < ApplicationController
           body: @notification.content,
           sender: "#{@user.first_name} #{@user.last_name}",
           from_username: @user.username,
-          datetime: "#{@notification.date}",
+          datetime: @notification.date.to_s,
           group_recipients: @notification.group_recipients
         }
       }

@@ -22,6 +22,14 @@ This `intouch-web` repository is for administrator operations such as managing u
   * [Installation](http://postgresapp.com/)
     - Mac users might have to `brew install postgresql` if the pg gem cannot be found
 
+## Keys File
+* All of the app's secrets are stored in `.env` files for safe keeping
+* Create the following files in the root directory following the [example format](./.env.example)
+  * `.env.test`
+  * `.env.development`
+  * `.env.staging`
+  * `.env.production`
+
 ## Running the Application
 * Run `git clone https://github.com/osu-cascades/intouch-web.git` in desired directory
 * Run `bundle install` or `exec bundle install` inside of the cloned repository
