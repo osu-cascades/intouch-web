@@ -1,5 +1,4 @@
 class GroupsController < ApplicationController
-
   before_action :authenticate_user!
 
   def index
@@ -17,7 +16,7 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     if @group.save
-      flash[:success] = "New group created!"
+      flash[:success] = 'New group created!'
       redirect_to groups_path
     else
       render 'new'
@@ -31,7 +30,7 @@ class GroupsController < ApplicationController
   def update
     @group = Group.find(params[:id])
     if @group.update_attributes(group_params)
-      flash[:success] = "Group updated"
+      flash[:success] = 'Group updated'
       redirect_to groups_path
     else
       render 'edit'
@@ -40,14 +39,13 @@ class GroupsController < ApplicationController
 
   def destroy
     Group.find(params[:id]).destroy
-    flash[:success] = "Group deleted from database"
+    flash[:success] = 'Group deleted from database'
     redirect_to groups_path
   end
 
   private
 
-    def group_params
-      params.require(:group).permit(:name)
-    end
-
+  def group_params
+    params.require(:group).permit(:name)
+  end
 end

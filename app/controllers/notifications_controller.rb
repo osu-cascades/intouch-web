@@ -44,9 +44,7 @@ class NotificationsController < ApplicationController
     end
 
     @recipients.uniq!(&:username)
-    if current_user.user_type == 'client'
-      @recipients.reject! { |r| r.user_type == 'client' }
-    end
+    @recipients.reject! { |r| r.user_type == 'client' } if current_user.user_type == 'client'
 
     @notification.users << current_user
     @notification.user_recipients << current_user.username
@@ -80,7 +78,7 @@ class NotificationsController < ApplicationController
   private
 
   def notification_params
-    params.require(:notification).permit(:title, :content, :group_recipients => [])
+    params.require(:notification).permit(:title, :content, group_recipients: [])
   end
 
   def send_to_mobile(channel)
