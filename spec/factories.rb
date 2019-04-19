@@ -1,6 +1,15 @@
 require 'factory_bot'
 
 FactoryBot.define do
+  factory :event do
+    title { "MyString" }
+    description { "MyString" }
+    time { "MyString" }
+    place { "MyString" }
+    notes { "MyString" }
+    group_participants { "MyString" }
+    hosted_by { "MyString" }
+  end
   factory :user do
     first_name { 'Test' }
     last_name { 'User' }

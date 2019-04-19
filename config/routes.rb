@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'events/index'
+
+  get 'events/show'
+
+  get 'events/new'
+
+  get 'events/edit'
+
   # get '/authorize', to: 'auth#authorize'
   post '/auth', to: 'api#auth'
   post '/push', to: 'api#push'
@@ -29,4 +37,5 @@ Rails.application.routes.draw do
   resources :groups
   resources :notifications
   resources :users
+  resources :events
 end

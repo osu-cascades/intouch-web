@@ -51,6 +51,14 @@ case Rails.env
     Group.create!(name: "Group2")
     Group.create!(name: "Group3")
 
+    Event.create!(title: "Event 1",
+        description: "Event 1 Description",
+        time: DateTime.now,
+        place: "Location 1",
+        notes: "Event 1 Notes",
+        group_participants: "Event 1 Groups",
+        hosted_by: "Event 1 Staff")
+
   when "production"
     User.create!(first_name:  "Charlene",
              last_name: "Weirup",
