@@ -1,2 +1,12 @@
-<h1>Events#new</h1>
-<p>Find me in app/views/events/new.html.erb</p>
+<h1>Create New Event</h1>
+<%= form_with model: @event do |form| %>
+  <%= form.text_field :title, placeholder: "title" %>
+  <%= form.text_field :description, placeholder: "description" %>
+  <%= form.text_field :time, placeholder: "time" %>
+  <%= form.text_field :place, placeholder: "place" %>
+  <%= form.text_field :notes, placeholder: "notes" %>
+  <%= form.text_field :group_participants, placeholder: "group participants" %>
+  <%= form.text_field :hosted_by, placeholder: "hosted by" %>
+
+  <%= form.submit %>
+<% end %>
