@@ -1,42 +1,10 @@
 <% provide(:title, 'Create Event') %>
-<h1>New Event</h1>
+<% provide(:button_text, 'Create Event') %>
 
+<h1>Create Event</h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-
-    <%= form_for(@event) do |f| %>
-    <%= render 'shared/event_error_messages' %>
-
-      <%= f.label :title %>
-      <%= f.text_field :title, class: 'form-control' %>
-
-      <%= f.label :description %>
-      <%= f.text_field :description, class: 'form-control' %>
-
-      <%= f.label :time %>
-      <%= f.datetime_field :time, class: 'form-control' %>
-
-      <%= f.label :place %>
-      <%= f.text_field :place, class: 'form-control' %>
-
-      <%= f.label :notes %>
-      <%= f.text_field :notes, class: 'form-control' %>
-
-      <%= f.label :hosted_by %>
-      <%= f.text_field :hosted_by, class: 'form-control' %>
-
-      <div class ="well">
-      <%= f.label :group_participants %>
-
-      <br>
-
-      <%= f.collection_check_boxes :group_participants, Group.all, :id, :name %>
-      </div>
-
-      <%= f.submit "Create event", class: "btn btn-primary" %>
-
-
-    <% end %>
+    <%= render 'form' %>
   </div>
 </div>
 
