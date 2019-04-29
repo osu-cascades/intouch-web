@@ -1,12 +1,43 @@
-<h1>Create New Event</h1>
-<%= form_with model: @event do |form| %>
-  <%= form.text_field :title, placeholder: "title" %>
-  <%= form.text_field :description, placeholder: "description" %>
-  <%= form.text_field :time, placeholder: "time" %>
-  <%= form.text_field :place, placeholder: "place" %>
-  <%= form.text_field :notes, placeholder: "notes" %>
-  <%= form.text_field :group_participants, placeholder: "group participants" %>
-  <%= form.text_field :hosted_by, placeholder: "hosted by" %>
+<% provide(:title, 'Create Event') %>
+<h1>New Event</h1>
 
-  <%= form.submit %>
-<% end %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+    <%= form_for(@event) do |f| %>
+    <%= render 'shared/event_error_messages' %>
+
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
+
+      <%= f.label :description %>
+      <%= f.text_field :description, class: 'form-control' %>
+
+      <%= f.label :time %>
+      <%= f.datetime_field :time, class: 'form-control' %>
+
+      <%= f.label :place %>
+      <%= f.text_field :place, class: 'form-control' %>
+
+      <%= f.label :notes %>
+      <%= f.text_field :notes, class: 'form-control' %>
+
+      <%= f.label :hosted_by %>
+      <%= f.text_field :hosted_by, class: 'form-control' %>
+
+      <div class ="well">
+      <%= f.label :group_participants %>
+
+      <br>
+
+      <%= f.collection_check_boxes :group_participants, Group.all, :id, :name %>
+      </div>
+
+      <%= f.submit "Create event", class: "btn btn-primary" %>
+
+
+    <% end %>
+  </div>
+</div>
+
+

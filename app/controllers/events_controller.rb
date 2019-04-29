@@ -8,7 +8,7 @@ class EventsController < ApplicationController
   end
 
   def new
-  	@event = Event.new
+    @event = Event.new
   end
 
   def edit
@@ -24,9 +24,20 @@ class EventsController < ApplicationController
 
 
   def create
-  	event = Event.create(event_params)
+    @event = Event.new(event_params)
+    @groups = Group.where(id: params[:event][:group_participants])
+    @event.group_participants = nil
+    @groups.each do |group|
+      @event.groups << group
+      @event.group_participants << group.name
+    end
 
-  	redirect_to events_path
+    if @event.save
+      flash[:success] = 'Event created!'
+      redirect_to events_path
+    else
+      render 'new'
+    end
   end
 
  	def destroy
@@ -39,6 +50,6 @@ class EventsController < ApplicationController
   private
 
   def event_params
-  	params.require(:event).permit(:title, :description, :time, :place, :notes, :group_participants, :hosted_by)
+  	params.require(:event).permit(:title, :description, :time, :place, :notes, :hosted_by, group_participants: [])
   end
 end
