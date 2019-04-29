@@ -31,6 +31,25 @@ class ApiController < ApplicationController
     end
   end
 
+  def get_events
+    permit_params_auth
+    username = params[:username]
+    password = params[:password]
+    user = User.find_for_authentication(username: username)
+    if user && user.valid_password?(password)
+      groups = user.groups
+      events = []
+      groups.each do |group|
+        events << Event.where()
+      events = Event.where("'#{username}' = ANY (user_recipients)")
+      render json: {
+        events: events
+      }.to_json
+    else
+      render json: { error: 'invalid username and/or password' }.to_json
+    end
+  end
+
   def push
     # TODO: if token valid? create notification
     permit_params_push

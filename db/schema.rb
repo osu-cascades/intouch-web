@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190429012112) do
+ActiveRecord::Schema.define(version: 20190429053148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,13 @@ ActiveRecord::Schema.define(version: 20190429012112) do
     t.bigint "group_id", null: false
     t.index ["event_id", "group_id"], name: "index_events_groups_on_event_id_and_group_id"
     t.index ["group_id", "event_id"], name: "index_events_groups_on_group_id_and_event_id"
+  end
+
+  create_table "events_users", id: false, force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["event_id", "user_id"], name: "index_events_users_on_event_id_and_user_id"
+    t.index ["user_id", "event_id"], name: "index_events_users_on_user_id_and_event_id"
   end
 
   create_table "groups", force: :cascade do |t|
