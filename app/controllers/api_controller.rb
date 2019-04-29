@@ -37,11 +37,7 @@ class ApiController < ApplicationController
     password = params[:password]
     user = User.find_for_authentication(username: username)
     if user && user.valid_password?(password)
-      groups = user.groups
-      events = []
-      groups.each do |group|
-        events << Event.where()
-      events = Event.where("'#{username}' = ANY (user_recipients)")
+      events = Event.joins(:events_users).where(events_users: { user_id: user.id })
       render json: {
         events: events
       }.to_json

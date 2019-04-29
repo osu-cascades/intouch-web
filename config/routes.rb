@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post '/reply_to_sender', to: 'api#reply_to_sender'
   post '/reply_all', to: 'api#reply_all'
   post '/get_user_notifications', to: 'api#get_user_notifications'
+  post '/get_events', to: 'api#get_events'
 
   get 'welcome/index'
   get '/privacy_policy', to: 'api#privacy'
