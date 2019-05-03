@@ -14,7 +14,10 @@
 
       <br>
 
-      <%= f.collection_check_boxes :groups, Group.all, :id, :name %>
+      <%= f.collection_check_boxes(:groups, Group.all, :id, :name) do |b| %>
+        <%= b.label { b.check_box + b.text } %>
+      <% end %>
+
       </div>
 
 

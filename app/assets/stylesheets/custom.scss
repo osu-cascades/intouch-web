@@ -286,7 +286,8 @@ $gray-medium-light: #eaeaea;
 
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
-  position: absolute;
+  position: relative !important;
+  margin-right: 5px !important;
   opacity: 10  !important;
   pointer-events: none;
 }

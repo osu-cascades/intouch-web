@@ -36,7 +36,10 @@
 
     <br>
 
-    <%= f.collection_check_boxes :group_participants, Group.all, :id, :name %>
+    <%= f.collection_check_boxes(:group_participants, Group.all, :id, :name) do |b| %>
+      <%= b.label { b.check_box + b.text } %>
+    <% end %>
+
     </div>
   
     <%= f.submit yield(:button_text), class: "btn btn-primary"%>

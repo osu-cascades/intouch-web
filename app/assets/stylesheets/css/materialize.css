@@ -6820,7 +6820,8 @@ textarea.materialize-textarea {
 /* Remove default checkbox */
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
-  position: absolute;
+  position: relative;
+  margin-right: 5px;
   opacity: 0;
   pointer-events: none;
 }
