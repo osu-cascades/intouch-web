@@ -1,5 +1,5 @@
 <%= simple_form_for(@event) do |f| %>
-  
+
     <% if @event.errors.any? %>
       <div id="error_explanation">
         <div class="alert alert-danger">
@@ -12,7 +12,7 @@
         </ul>
       </div>
     <% end %>
-    
+
     <%= f.label :title %>
     <%= f.text_field :title, class: 'form-control' %>
 
@@ -31,6 +31,8 @@
     <%= f.label :hosted_by %>
     <%= f.text_field :hosted_by, class: 'form-control' %>
 
+    <%= f.input :color_pick, label: 'Color', input_html: { type: :color, value: "#ffffff" } %>
+
     <div class ="well">
     <%= f.label :group_participants %>
 
@@ -41,8 +43,7 @@
     <% end %>
 
     </div>
-  
+
     <%= f.submit yield(:button_text), class: "btn btn-primary"%>
-    
+
   <% end %>
-  

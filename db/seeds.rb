@@ -57,7 +57,8 @@ case Rails.env
         place: "Location 1",
         notes: "Event 1 Notes",
         group_participants: "Event 1 Groups",
-        hosted_by: "Event 1 Staff")
+        hosted_by: "Event 1 Staff",
+        color: 0xFFFFFF)
 
   when "production"
     User.create!(first_name:  "Charlene",
