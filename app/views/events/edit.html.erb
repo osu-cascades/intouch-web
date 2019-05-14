@@ -4,6 +4,53 @@
 <h1>Edit Event</h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-		<%= render 'form' %>
+	<%= simple_form_for(@event) do |f| %>
+		<% if @event.errors.any? %>
+		<div id="error_explanation">
+			<div class="alert alert-danger">
+			The form contains <%= pluralize(@event.errors.count, "error") %>.
+			</div>
+			<ul>
+			<% @event.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+			</ul>
+		</div>
+		<% end %>
+
+		<%= f.label :title %>
+		<%= f.text_field :title, class: 'form-control' %>
+
+		<%= f.label :description %>
+		<%= f.text_field :description, class: 'form-control' %>
+
+		<%= f.label :time %>
+		<%= f.datetime_field :time, class: 'form-control' %>
+
+		<%= f.label :place %>
+		<%= f.text_field :place, class: 'form-control' %>
+
+		<%= f.label :notes %>
+		<%= f.text_field :notes, class: 'form-control' %>
+
+		<%= f.label :hosted_by %>
+		<%= f.text_field :hosted_by, class: 'form-control' %>
+
+		<%= f.input :color, label: 'Color', input_html: { type: :color, value: @event.color.to_s } %>
+
+		<div class ="well">
+		<%= f.label :group_participants %>
+
+		<br>
+
+		<%= f.collection_check_boxes(:group_participants, Group.all, :id, :name, { checked: @event.groups.map(&:id) }) do |b| %>
+		<%= b.label { b.check_box + b.text } %>
+		<% end %>
+
+		</div>
+
+		<%= f.submit yield(:button_text), class: "btn btn-primary"%>
+
+		<% end %>
 	</div>
 </div>
