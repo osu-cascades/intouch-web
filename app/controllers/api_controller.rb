@@ -72,6 +72,9 @@ class ApiController < ApplicationController
         @notification.user_recipients << recipient.username
       end
 
+      @notification.from = "#{@user.first_name} #{@user.last_name}"
+      @notification.from_username = @user.username
+
       if @notification.save
         recipients.each do |recipient|
           send_to_mobile(recipient.username)
@@ -116,6 +119,8 @@ class ApiController < ApplicationController
       @notification.user_id = @user.id
       @notification.user_recipients << sender
       @notification.users << User.where(username: sender)
+      @notification.from = "#{@user.first_name} #{@user.last_name}"
+      @notification.from_username = @user.username
       if @notification.save
         send_to_mobile(sender)
         render html: 'notification sent'
@@ -156,6 +161,9 @@ class ApiController < ApplicationController
         @notification.users << recipient
         @notification.user_recipients << recipient.username
       end
+
+      @notification.from = "#{@user.first_name} #{@user.last_name}"
+      @notification.from_username = @user.username
 
       if @notification.save
         recipients.each do |recipient|
@@ -211,7 +219,7 @@ class ApiController < ApplicationController
       recipients.uniq!(&:username)
     end
 
-    # When a user sends a notification they will also receive that notificaion
+    # When a user sends a notification they will also receive that notification
     # So that their local device has a record
 
     add_user = true
@@ -238,11 +246,10 @@ class ApiController < ApplicationController
         data: {
           title: @notification.title,
           body: @notification.content,
-          from: "#{@user.first_name} #{@user.last_name}",
-          from_username: @user.username,
+          from: @notification.from,
+          from_username: @notification.from_username,
           datetime: @notification.date.to_s,
           group_recipients: @notification.group_recipients
-          # group_recipients: @notification.groups.map(&:name)
         }
       },
       fcm: {
@@ -253,8 +260,8 @@ class ApiController < ApplicationController
         data: {
           title: @notification.title,
           body: @notification.content,
-          sender: "#{@user.first_name} #{@user.last_name}",
-          from_username: @user.username,
+          sender: @notification.from,
+          from_username: @notification.from_username,
           datetime: @notification.date.to_s,
           group_recipients: @notification.group_recipients
         }

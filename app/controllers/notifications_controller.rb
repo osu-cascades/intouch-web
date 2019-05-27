@@ -53,6 +53,9 @@ class NotificationsController < ApplicationController
       @notification.user_recipients << user.username
     end
 
+    @notification.from = "#{current_user.first_name} #{current_user.last_name}"
+    @notification.from_username = current_user.username
+
     if @notification.save
       @recipients.each do |user|
         send_to_mobile(user.username)
@@ -93,8 +96,8 @@ class NotificationsController < ApplicationController
         data: {
           title: @notification.title,
           body: @notification.content,
-          from: "#{current_user.first_name} #{current_user.last_name}",
-          from_username: current_user.username,
+          from: @notification.from,
+          from_username: @notification.from_username,
           datetime: @notification.date.to_s,
           group_recipients: @notification.group_recipients
         }
@@ -107,8 +110,8 @@ class NotificationsController < ApplicationController
         data: {
           title: @notification.title,
           body: @notification.content,
-          sender: "#{current_user.first_name} #{current_user.last_name}",
-          from_username: current_user.username,
+          sender: @notification.from,
+          from_username: @notification.from_username,
           datetime: @notification.date.to_s,
           group_recipients: @notification.group_recipients
         }
