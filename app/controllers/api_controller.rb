@@ -68,8 +68,8 @@ class ApiController < ApplicationController
 
       recipients = get_recipients(group.name, username)
       recipients.each do |recipient|
-        @notification.users << recipient.username
-        @notification.user_recipients << recipient.username
+        @notification.users << recipient
+        @notification.user_recipients << recipient
       end
 
       @notification.from = "#{@user.first_name} #{@user.last_name}"
