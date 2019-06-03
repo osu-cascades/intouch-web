@@ -52,7 +52,7 @@ class ApiController < ApplicationController
     username = params[:username]
     password = params[:password]
     title = params[:title]
-    group = params[:group]
+    group = Group.find(name: params[:group])
     content = params[:body]
 
     @user = User.find_for_authentication(username: username)
