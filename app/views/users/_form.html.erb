@@ -2,32 +2,29 @@
   
   <%= render 'shared/error_messages', object: @user %>
 
-  <%= f.label :first_name, "First Name" %>
-  <%= f.text_field :first_name, class: 'form-control' %>
+  <%= f.input :first_name, required: false, class: 'form-control' %>
 
-  <%= f.label :last_name, "Last Name" %>
-  <%= f.text_field :last_name, class: 'form-control' %>
+  <%= f.input :last_name, required: false, class: 'form-control' %>
 
-  <%= f.input :user_type, collection: ['admin', 'staff', 'client'], prompt: "Choose User Role" %> 
+  <%= f.input :user_type, required: false, collection: ['admin', 'staff', 'client'], prompt: "Choose User Role" %>
 
-  <%= f.association :groups, as: :check_boxes %>
+  <div class ="well">
+    <%= f.label :groups %>
+    <br>
 
-  <%= f.label :username, "Username" %>
-  <%= f.text_field :username, class: 'form-control' %>
+    <%= f.collection_check_boxes(:group_ids, Group.all, :id, :name) do |b| %>
+      <%= b.label { b.check_box + b.text } %>
+    <% end %>
+  </div>
 
-  <%= f.label :email, "Email" %>
-  <%= f.text_field :email, class: 'form-control' %>
-    
-  <%= f.label :password, "Password" %>
-  <%= f.password_field :password, class: 'form-control' %>
+  <%= f.input :username, required: false, class: 'form-control' %>
 
-  <%= f.label :password_confirmation, "Re-type Password" %>
-  <%= f.password_field :password_confirmation, class: 'form-control' %>
+  <%= f.input :email, class: 'form-control' %>
+
+  <%= f.input :password, class: 'form-control' %>
+
+  <%= f.input :password_confirmation, class: 'form-control' %>
+
   <%= f.submit "Create User", class: "btn btn-primary"%>
 
-
 <% end %>
-
-
-
-

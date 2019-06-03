@@ -13,35 +13,27 @@
       </div>
     <% end %>
 
-    <%= f.label :title %>
-    <%= f.text_field :title, class: 'form-control' %>
+    <%= f.input :title, class: 'form-control' %>
 
-    <%= f.label :description %>
-    <%= f.text_field :description, class: 'form-control' %>
+    <%= f.input :description, class: 'form-control' %>
 
-    <%= f.label :time %>
-    <%= f.datetime_field :time, class: 'form-control' %>
+    <%= f.input :time, class: 'form-control' %>
 
-    <%= f.label :place %>
-    <%= f.text_field :place, class: 'form-control' %>
+    <%= f.input :place, class: 'form-control' %>
 
-    <%= f.label :notes %>
-    <%= f.text_field :notes, class: 'form-control' %>
+    <%= f.input :notes, as: :text, class: 'form-control' %>
 
-    <%= f.label :hosted_by %>
-    <%= f.text_field :hosted_by, class: 'form-control' %>
+    <%= f.input :hosted_by, class: 'form-control' %>
 
-    <%= f.input :color, label: 'Color', input_html: { type: :color, value: "#77961c" } %>
+    <%= f.input :color, input_html: { type: :color, value: "#77961c" } %>
 
     <div class ="well">
-    <%= f.label :group_participants %>
+      <%= f.label :group_participants %>
+      <br>
 
-    <br>
-
-    <%= f.collection_check_boxes(:group_participants, Group.all, :id, :name) do |b| %>
-      <%= b.label { b.check_box + b.text } %>
-    <% end %>
-
+      <%= f.collection_check_boxes(:group_participants, Group.all, :id, :name) do |b| %>
+        <%= b.label { b.check_box + b.text } %>
+      <% end %>
     </div>
 
     <%= f.submit yield(:button_text), class: "btn btn-primary"%>
