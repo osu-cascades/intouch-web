@@ -52,7 +52,7 @@ class ApiController < ApplicationController
     username = params[:username]
     password = params[:password]
     title = params[:title]
-    group = params[:group]
+    group = Group.where(name: params[:group])
     content = params[:body]
 
     @user = User.find_for_authentication(username: username)
@@ -67,10 +67,10 @@ class ApiController < ApplicationController
       group_object = Group.where(name: group)
       @notification.groups << group_object
 
-      recipients = get_recipients(group, username)
+      recipients = get_recipients(group.name, username)
       recipients.each do |recipient|
-        @notification.users << recipient.username
-        @notification.user_recipients << recipient.username
+        @notification.users << recipient
+        @notification.user_recipients << recipient
       end
 
       @notification.from = "#{@user.first_name} #{@user.last_name}"
