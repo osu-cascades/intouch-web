@@ -64,7 +64,8 @@ class ApiController < ApplicationController
       @notification.date = DateTime.now
       @notification.user_id = @user.id
       @notification.group_recipients << group
-      @notification.groups << group
+      group_object = Group.where(name: group)
+      @notification.groups << group_object
 
       recipients = get_recipients(group, username)
       recipients.each do |recipient|
